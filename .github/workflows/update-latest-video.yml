@@ -1,0 +1,79 @@
+# Keeps latest-video.json pointed at the newest upload on the
+# "A.I Build with AJ" YouTube channel. The homepage reads that file at runtime,
+# so the featured video refreshes without editing index.html by hand.
+name: Update latest YouTube video
+
+on:
+  schedule:
+    # Every day at 13:00 UTC (~8am Central)
+    - cron: "0 13 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: "update-latest-video"
+  cancel-in-progress: false
+
+env:
+  CHANNEL_ID: UCRre3YzmWWu1tlYEapmyD2w
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Read channel RSS and write latest-video.json
+        run: |
+          python3 - <<'PY'
+          import json, os, sys, urllib.request
+          import xml.etree.ElementTree as ET
+
+          NS = {
+              "atom": "http://www.w3.org/2005/Atom",
+              "yt": "http://www.youtube.com/xml/schemas/2015",
+          }
+          url = "https://www.youtube.com/feeds/videos.xml?channel_id=" + os.environ["CHANNEL_ID"]
+          req = urllib.request.Request(url, headers={"User-Agent": "anthonyjctsg-site-updater"})
+          with urllib.request.urlopen(req, timeout=30) as resp:
+              feed = ET.fromstring(resp.read())
+
+          entries = feed.findall("atom:entry", NS)
+          if not entries:
+              sys.exit("No entries in the channel feed; leaving latest-video.json untouched.")
+
+          # The feed is newest-first, but sort on published so we never depend on that.
+          def published(e):
+              return e.findtext("atom:published", "", NS)
+
+          latest = max(entries, key=published)
+          video_id = latest.findtext("yt:videoId", "", NS)
+          if not video_id:
+              sys.exit("Feed entry had no videoId; leaving latest-video.json untouched.")
+
+          data = {
+              "videoId": video_id,
+              "title": latest.findtext("atom:title", "", NS),
+              "published": published(latest),
+              "url": "https://www.youtube.com/watch?v=" + video_id,
+          }
+          with open("latest-video.json", "w", encoding="utf-8") as f:
+              json.dump(data, f, indent=2, ensure_ascii=False)
+              f.write("\n")
+          print("Latest video:", data["videoId"], "-", data["title"])
+          PY
+
+      - name: Commit if changed
+        run: |
+          if git diff --quiet -- latest-video.json; then
+            echo "latest-video.json already up to date."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add latest-video.json
+          git commit -m "Update featured YouTube video"
+          git push

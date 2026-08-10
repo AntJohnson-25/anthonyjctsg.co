@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business | AnthonyJCTSG.com</title>
+    <meta name="description" content="Products and services from Anthony C Johnson — AI implementation, custom software, data platform engineering, and SEO-optimized websites.">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .cta-band {
+            background-color: var(--light-blue);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 2.5rem;
+            text-align: center;
+        }
+
+        .cta-band h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .cta-band p {
+            color: var(--text-muted);
+            max-width: 560px;
+            margin: 0 auto 1.5rem;
+        }
+
+        .cta-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .how-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            counter-reset: step;
+        }
+
+        .how-list li {
+            counter-increment: step;
+            padding-top: 1rem;
+            border-top: 2px solid var(--primary-blue);
+        }
+
+        .how-list h3 {
+            font-size: 1.05rem;
+            margin-bottom: 0.35rem;
+        }
+
+        .how-list h3::before {
+            content: "Step " counter(step) " — ";
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .how-list p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="brand-logo">AnthonyJCTSG.com</a>
+            <ul class="nav-links">
+                <li><a href="business.html" aria-current="page">Business</a></li>
+                <li><a href="professional.html">Professional</a></li>
+                <li><a href="portfolio.html">Portfolio</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <div class="page-intro">
+            <a href="index.html" class="back-link">&larr; Back to home</a>
+            <h1>Business</h1>
+            <p>Products and services built end to end &mdash; from the first scoping conversation through production deployment. No handoff to a separate delivery team.</p>
+        </div>
+
+        <section>
+            <div class="section-header">
+                <h2>Products &amp; Services</h2>
+                <p>AI integration, custom-built software, and SEO-optimized web experiences engineered for performance.</p>
+            </div>
+            <div class="grid-auto">
+                <div class="card">
+                    <div class="card-icon">01</div>
+                    <h3>AI Implementation</h3>
+                    <p>End-to-end AI integration and automation &mdash; LLM-powered workflows, agentic systems, and custom tooling built on Copilot Studio, Azure AI Foundry, and n8n that plug directly into your existing systems.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">02</div>
+                    <h3>Custom Software</h3>
+                    <p>Deterministic, high-stakes software applications engineered for reliability, scalability, and precise operational control &mdash; where a wrong answer is not an acceptable outcome.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">03</div>
+                    <h3>Data Platform Engineering</h3>
+                    <p>Cloud data platforms on Azure Data Factory and Synapse: ingestion, transformation, and reporting pipelines, schema-drift handling, and T-SQL performance tuning on systems that already carry your business.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">04</div>
+                    <h3>SEO-Optimized Websites</h3>
+                    <p>Fast, conversion-focused websites built and optimized from the ground up for search visibility and measurable growth.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="section-header">
+                <h2>How engagements run</h2>
+                <p>Embedded, hands-on, and iterative &mdash; validated against your real data before full build-out.</p>
+            </div>
+            <ol class="how-list">
+                <li>
+                    <h3>Scope</h3>
+                    <p>Requirements gathered directly from business stakeholders, with technical trade-offs explained in plain business language.</p>
+                </li>
+                <li>
+                    <h3>Prototype</h3>
+                    <p>A rapid proof of concept built against your actual data and workflows to validate feasibility before committing to a full build.</p>
+                </li>
+                <li>
+                    <h3>Build</h3>
+                    <p>Iterating in real time on live feedback rather than waiting on lengthy handoff cycles.</p>
+                </li>
+                <li>
+                    <h3>Prove ROI</h3>
+                    <p>Outcomes quantified and presented to leadership &mdash; cost savings, time recovered, incidents eliminated.</p>
+                </li>
+            </ol>
+        </section>
+
+        <section>
+            <div class="cta-band">
+                <h2>Have something you want built?</h2>
+                <p>Tell me what you are trying to solve and I will tell you straight whether it is worth building, buying, or leaving alone.</p>
+                <div class="cta-actions">
+                    <a href="mailto:ant.johnsonsql22@gmail.com" class="btn">Email Anthony</a>
+                    <a href="https://www.linkedin.com/in/anthony-c-johnson-2b88a7237/" target="_blank" rel="noopener" class="btn btn-secondary">Connect on LinkedIn</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 AnthonyJCTSG. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

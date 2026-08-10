@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional | AnthonyJCTSG.com</title>
+    <meta name="description" content="Anthony C Johnson — AI-focused data leader with 7+ years turning strategic objectives into revenue-driving data and AI solutions across healthcare, insurance, and manufacturing.">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .about-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 300px;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .about-title {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .about-body p {
+            margin-bottom: 1.1rem;
+            color: var(--text-muted);
+            font-size: 1.02rem;
+        }
+
+        .about-body p.lede {
+            color: var(--text-dark);
+            font-size: 1.15rem;
+        }
+
+        .linkedin-card {
+            background-color: var(--light-blue);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 1.75rem;
+            position: sticky;
+            top: 5rem;
+        }
+
+        .linkedin-card h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        .linkedin-card p {
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .contact-list {
+            list-style: none;
+            margin-top: 1.5rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.9rem;
+        }
+
+        .contact-list li {
+            margin-bottom: 0.45rem;
+            color: var(--text-muted);
+        }
+
+        .contact-list a {
+            text-decoration: none;
+        }
+
+        .contact-list a:hover {
+            text-decoration: underline;
+        }
+
+        /* Timeline */
+        .timeline {
+            list-style: none;
+            border-left: 2px solid var(--border-color);
+            padding-left: 2rem;
+        }
+
+        .timeline > li {
+            position: relative;
+            padding-bottom: 2.5rem;
+        }
+
+        .timeline > li:last-child {
+            padding-bottom: 0;
+        }
+
+        .timeline > li::before {
+            content: "";
+            position: absolute;
+            left: calc(-2rem - 7px);
+            top: 0.55rem;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--primary-blue);
+            border: 2px solid var(--bg-white);
+        }
+
+        .role-head {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .role-head h3 {
+            font-size: 1.15rem;
+        }
+
+        .role-dates {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            white-space: nowrap;
+        }
+
+        .role-org {
+            font-weight: 600;
+            color: var(--primary-blue);
+            font-size: 0.95rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .timeline ul {
+            padding-left: 1.1rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .timeline ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Skills */
+        .skill-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .skill-group h4 {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            margin-bottom: 0.65rem;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tags span {
+            background-color: var(--light-blue);
+            border: 1px solid var(--border-color);
+            border-radius: 999px;
+            padding: 0.3rem 0.85rem;
+            font-size: 0.85rem;
+        }
+
+        .edu {
+            list-style: none;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .edu li {
+            margin-bottom: 0.4rem;
+        }
+
+        @media (max-width: 860px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .linkedin-card {
+                position: static;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="brand-logo">AnthonyJCTSG.com</a>
+            <ul class="nav-links">
+                <li><a href="business.html">Business</a></li>
+                <li><a href="professional.html" aria-current="page">Professional</a></li>
+                <li><a href="portfolio.html">Portfolio</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <div class="page-intro">
+            <a href="index.html" class="back-link">&larr; Back to home</a>
+            <h1>Professional</h1>
+            <p>Anthony C Johnson &mdash; AI-focused data leader and business-minded technologist based in Stafford, TX.</p>
+        </div>
+
+        <section>
+            <div class="about-grid">
+                <div class="about-body">
+                    <h2 class="about-title">About Me</h2>
+
+                    <p class="lede">I am an AI-focused data leader and business-minded technologist with 7+ years spent turning strategic objectives into data and AI solutions that actually move the number &mdash; revenue up or cost down. I bring the P&amp;L awareness of someone who has run their own ventures and the technical depth to architect the platform underneath.</p>
+
+                    <p>That combination is the whole point. I have built and operated businesses across professional services and e-commerce, so stakeholder management, ROI-driven decisions, and the cost of getting it wrong are not abstractions to me. I bring that instinct to the architecture work: cloud data platforms and AI-orchestrated workflows, designed end to end.</p>
+
+                    <p>Most recently I led the AI-driven modernization of an enterprise data platform on Azure Data Factory, Copilot Studio, Azure AI Foundry, and n8n &mdash; setting technical direction for the team, quantifying the monthly cost savings, and presenting those outcomes directly to leadership to secure continued investment in AI. Along the way I architected an intelligent schema-drift framework that self-adapts during ingestion, which ended a category of recurring production incidents outright.</p>
+
+                    <p>The work I do best happens embedded alongside client teams inside their own environments. I scope ambiguous requirements on the fly, prototype against real data to prove feasibility before anyone commits to a full build, and iterate on live feedback instead of waiting on handoff cycles. I own the solution from the pre-sales conversation through production deployment &mdash; there is no separate delivery team I pass it to.</p>
+
+                    <p>I translate in both directions. I gather requirements from business stakeholders and explain engineering trade-offs in plain business language, across healthcare, insurance, and manufacturing. Underneath the AI work sits a deep foundation in T-SQL performance tuning, ETL/ELT design, and Python &mdash; the unglamorous fundamentals that decide whether the impressive layer on top holds up under load.</p>
+
+                    <p>Outside of client work I mentor engineers, evangelize responsible AI adoption, and create <a href="https://www.youtube.com/@AgentAJ001" target="_blank" rel="noopener">A.I Build with AJ</a> on YouTube, where I share practical guidance on AI, agents, and modern data engineering. I also build browser games as a way to keep shipping complete, self-contained things &mdash; you can play them in the <a href="portfolio.html">portfolio</a>.</p>
+
+                    <p>I am a continuous learner who leads by staying hands-on, solving problems as part of the team rather than from the sidelines. Strong ownership, sharp business intuition, and a relentless pursuit of excellence &mdash; held to the standard on my front page: do it right the first time, you won&rsquo;t have to do it again.</p>
+                </div>
+
+                <aside class="linkedin-card">
+                    <h3>LinkedIn</h3>
+                    <p>The full professional profile, recommendations, and current role.</p>
+                    <a href="https://www.linkedin.com/in/anthony-c-johnson-2b88a7237/" target="_blank" rel="noopener" class="btn">View LinkedIn Profile</a>
+                    <ul class="contact-list">
+                        <li>Greater Houston, TX</li>
+                        <li><a href="mailto:ant.johnsonsql22@gmail.com">ant.johnsonsql22@gmail.com</a></li>
+                        <li><a href="https://www.youtube.com/@AgentAJ001" target="_blank" rel="noopener">A.I Build with AJ on YouTube</a></li>
+                    </ul>
+                </aside>
+            </div>
+        </section>
+
+        <section>
+            <div class="section-header">
+                <h2>Career Experience</h2>
+            </div>
+            <ol class="timeline">
+                <li>
+                    <div class="role-head">
+                        <h3>Cloud Data Engineer / A.I Engineer</h3>
+                        <span class="role-dates">Jan 2025 &ndash; Aug 2026</span>
+                    </div>
+                    <p class="role-org">Apex Health Solutions &middot; Healthcare</p>
+                    <ul>
+                        <li>Led AI-driven modernization of the enterprise data platform, setting technical direction and translating executive objectives into scalable Azure Data Factory solutions.</li>
+                        <li>Served as primary technical liaison for new client onboarding &mdash; designing end-to-end ingestion, transformation, and reporting solutions with business stakeholders.</li>
+                        <li>Architected an intelligent schema-drift handling framework that self-adapts during ingestion, eliminating recurring production incidents.</li>
+                        <li>Spearheaded AI-powered processes delivering measurable monthly cost savings; quantified ROI and presented to leadership to secure continued AI investment.</li>
+                        <li>Transformed legacy manual processes into AI-orchestrated workflows with Copilot Studio, Azure AI Foundry, and n8n, mentoring teammates on the tooling.</li>
+                        <li>Engineered Python notebook solutions inside Azure Data Factory pipelines to operationalize analytics previously inaccessible through legacy tooling.</li>
+                    </ul>
+                </li>
+                <li>
+                    <div class="role-head">
+                        <h3>Data Integration Engineer</h3>
+                        <span class="role-dates">Aug 2023 &ndash; Oct 2024</span>
+                    </div>
+                    <p class="role-org">QAT Global Technologies (Health E Systems) &middot; Insurance / Workers&rsquo; Comp</p>
+                    <ul>
+                        <li>Automated repetitive CRUD task tickets with advanced T-SQL, cutting manual workload and lifting operational efficiency.</li>
+                        <li>Debugged and optimized complex legacy stored procedures using Red Gate and SSMS; applied performance tuning to critical data-capture procedures.</li>
+                        <li>Led cross-functional projects through Jira and BitBucket; architected database designs and schema changes with expert-level production support.</li>
+                        <li>Automated KPI tracking across multiple Jira workloads using JQL and Power BI for real-time stakeholder insight.</li>
+                        <li>Partnered with software engineers to debug T-SQL embedded in Java applications and establish JDBC connections to customer-facing procedures. HIPAA compliant.</li>
+                    </ul>
+                </li>
+                <li>
+                    <div class="role-head">
+                        <h3>SQL Developer</h3>
+                        <span class="role-dates">Sep 2022 &ndash; Feb 2023</span>
+                    </div>
+                    <p class="role-org">Echo Health Inc &middot; Healthcare Payment Processing</p>
+                    <ul>
+                        <li>Built and maintained system reports and responded to ad-hoc data requests across 300+ databases in SSMS and Azure.</li>
+                        <li>Analyzed, maintained, and monitored ETL processes in SSDT/SSIS; troubleshot Active Batch scheduler errors.</li>
+                        <li>Tuned report performance using SQL Profiler traces and execution plans in SSMS and Red Gate.</li>
+                        <li>Scripted daily data cleansing tasks in PowerShell.</li>
+                    </ul>
+                </li>
+                <li>
+                    <div class="role-head">
+                        <h3>Reports / SQL Developer</h3>
+                        <span class="role-dates">Jul 2018 &ndash; Sep 2022</span>
+                    </div>
+                    <p class="role-org">Cast Nylons Limited &middot; Manufacturing</p>
+                    <ul>
+                        <li>Developed Power BI reports surfacing key business indicators, plus research-driven reports used to win new clients and increase company value.</li>
+                        <li>Devised database solutions ranging in size and complexity, increasing productivity and improving data sharing across business functions.</li>
+                        <li>Maintained complex T-SQL queries, views, and stored procedures in a multi-database environment with little supervision.</li>
+                        <li>Assisted other developers with the integration framework and delivered technical training and documentation on internal applications.</li>
+                    </ul>
+                </li>
+                <li>
+                    <div class="role-head">
+                        <h3>Data Analytics Consultant &amp; Instructor</h3>
+                        <span class="role-dates">Jun 2018 &ndash; Jun 2023</span>
+                    </div>
+                    <p class="role-org">LTV Academy &middot; Technology Education</p>
+                    <ul>
+                        <li>Trained professionals and K&ndash;12 students in Microsoft SQL Server &mdash; developer through DBA curriculum.</li>
+                        <li>Built complete schemas with tables, relationships, stored procedures, views, clustered and non-clustered indexes, and triggers.</li>
+                        <li>Created ETL solutions reading product, vendor, and order data from network CSV files into SQL Server with validation and job-completion notifications.</li>
+                        <li>Authored, deployed, and managed SSRS reports with automatic subscription-based delivery.</li>
+                    </ul>
+                </li>
+            </ol>
+        </section>
+
+        <section>
+            <div class="section-header">
+                <h2>Technical Skills</h2>
+            </div>
+            <div class="skill-group">
+                <h4>AI &amp; Automation</h4>
+                <div class="tags"><span>Copilot Studio</span><span>Azure AI Foundry</span><span>n8n</span><span>Claude Code</span><span>GitHub Copilot</span></div>
+            </div>
+            <div class="skill-group">
+                <h4>Data &amp; Cloud</h4>
+                <div class="tags"><span>Azure Data Factory</span><span>Azure Synapse</span><span>Azure Data Lake</span><span>SSIS</span><span>SSRS</span><span>DuckDB</span><span>MongoDB</span></div>
+            </div>
+            <div class="skill-group">
+                <h4>Development</h4>
+                <div class="tags"><span>T-SQL</span><span>Python</span><span>C#</span><span>MySQL</span><span>SQLite</span><span>.NET</span><span>PowerShell</span></div>
+            </div>
+            <div class="skill-group">
+                <h4>Tooling &amp; Process</h4>
+                <div class="tags"><span>SSMS</span><span>Power BI</span><span>Git &amp; GitHub</span><span>BitBucket</span><span>Jenkins</span><span>Jira</span><span>Azure DevOps</span><span>Confluence</span><span>Agile / Scrum</span></div>
+            </div>
+        </section>
+
+        <section>
+            <div class="section-header">
+                <h2>Education</h2>
+            </div>
+            <ul class="edu">
+                <li>Eastern Kentucky University &mdash; Business Administration, 2010&ndash;2011</li>
+                <li>Lake Erie College &mdash; Business Administration, 2009</li>
+                <li>Riverside High School &mdash; Graduated 2008</li>
+            </ul>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 AnthonyJCTSG. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
