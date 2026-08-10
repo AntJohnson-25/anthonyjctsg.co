@@ -4,3 +4,6 @@ repo_https.txt
 # Source resume — the site publishes an About Me written from it, never the file
 # itself (static.yml uploads the whole repo, so anything tracked is downloadable).
 *.docx
+
+# Local backups of game builds — never publish a superseded build
+*.bak

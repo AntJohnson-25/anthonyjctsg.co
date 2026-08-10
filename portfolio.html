@@ -3,9 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio &mdash; Games | AnthonyJCTSG.com</title>
-    <meta name="description" content="Playable browser games built by Anthony C Johnson — Wealth Runner and Billionaire Barber. No install, no download, runs in the browser.">
+    <title>Games Portfolio | Free Browser Games by Anthony C Johnson | AnthonyJCTSG</title>
+    <meta name="description" content="Play free browser games by Houston game developer Anthony C Johnson — Wealth Runner and Billionaire Barber. No install, no download, plays right in your browser on desktop or mobile.">
+    <meta name="keywords" content="free browser games, play online games no download, Wealth Runner game, Billionaire Barber game, indie game developer, Houston game developer, Anthony C Johnson, AnthonyJCTSG, CTSG, Calamity, HTML5 games, mobile browser games, tycoon game, barber shop game, money game">
+    <meta name="author" content="Anthony C Johnson">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#0052cc">
+    <link rel="canonical" href="https://anthonyjctsg.com/portfolio.html">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="AnthonyJCTSG">
+    <meta property="og:title" content="Free Browser Games by Anthony C Johnson">
+    <meta property="og:description" content="Play Wealth Runner and Billionaire Barber free in your browser. No install, no download, desktop or mobile.">
+    <meta property="og:url" content="https://anthonyjctsg.com/portfolio.html">
+    <meta property="og:image" content="https://anthonyjctsg.com/wealthrunner_thumbnail.png">
+    <meta property="og:locale" content="en_US">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Free Browser Games by Anthony C Johnson">
+    <meta name="twitter:description" content="Play Wealth Runner and Billionaire Barber free in your browser. No install, no download.">
+    <meta name="twitter:image" content="https://anthonyjctsg.com/wealthrunner_thumbnail.png">
+
     <link rel="stylesheet" href="styles.css">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "Games Portfolio",
+      "url": "https://anthonyjctsg.com/portfolio.html",
+      "description": "Free browser games by Anthony C Johnson.",
+      "hasPart": [
+        {
+          "@type": "VideoGame",
+          "name": "Wealth Runner",
+          "url": "https://anthonyjctsg.com/WealthRunner.html",
+          "image": "https://anthonyjctsg.com/wealthrunner_thumbnail.png",
+          "description": "A run for the money. Keep moving, keep stacking, and see how far your decisions carry you before the run ends.",
+          "author": { "@type": "Person", "name": "Anthony C Johnson" },
+          "gamePlatform": "Web Browser",
+          "applicationCategory": "Game",
+          "operatingSystem": "Any",
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+        },
+        {
+          "@type": "VideoGame",
+          "name": "Billionaire Barber",
+          "url": "https://anthonyjctsg.com/BillionaireBarber.html",
+          "image": "https://anthonyjctsg.com/billionairebarber_thumbnail.png",
+          "description": "Cut hair. Build wealth. Own the city. Choose your barber and work your way up from a single chair.",
+          "author": { "@type": "Person", "name": "Anthony C Johnson" },
+          "gamePlatform": "Web Browser",
+          "applicationCategory": "Game",
+          "operatingSystem": "Any",
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+        }
+      ]
+    }
+    </script>
     <style>
         .game {
             display: grid;
@@ -39,39 +96,88 @@
             border: none;
         }
 
-        /* Click-to-load cover so a multi-megabyte game is not pulled on page load */
+        /* Click-to-load cover, so the game itself is never pulled on page load */
         .game-cover {
             position: absolute;
             inset: 0;
             width: 100%;
             height: 100%;
+            padding: 0;
             border: none;
+            overflow: hidden;
             cursor: pointer;
             color: #ffffff;
+            background: #070b14;
+            font-family: inherit;
+        }
+
+        /* Blurred fill behind the artwork so nothing has to be cropped */
+        .cover-bg {
+            position: absolute;
+            inset: -8%;
+            background-image: var(--shot);
+            background-size: cover;
+            background-position: center;
+            filter: blur(30px) saturate(1.3) brightness(0.5);
+        }
+
+        .cover-shot {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: transform 0.35s ease;
+        }
+
+        .cover-scrim {
+            position: absolute;
+            inset: 0;
+            background: rgba(4, 7, 14, 0.34);
+            transition: background 0.25s ease;
+        }
+
+        .game-cover:hover .cover-scrim,
+        .game-cover:focus-visible .cover-scrim {
+            background: rgba(4, 7, 14, 0.16);
+        }
+
+        .game-cover:hover .cover-shot {
+            transform: scale(1.03);
+        }
+
+        .cover-cta {
+            position: relative;
+            z-index: 2;
+            height: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 0.75rem;
+            gap: 0.85rem;
             font-size: 1.05rem;
-            font-weight: 600;
+            font-weight: 700;
             letter-spacing: 0.5px;
-        }
-
-        .game-cover:hover .cover-play {
-            transform: scale(1.08);
+            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.75);
         }
 
         .cover-play {
             width: 76px;
             height: 76px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.14);
-            border: 2px solid rgba(255, 255, 255, 0.7);
+            background: rgba(10, 14, 24, 0.45);
+            backdrop-filter: blur(4px);
+            border: 2px solid rgba(255, 255, 255, 0.85);
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: transform 0.2s ease;
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+
+        .game-cover:hover .cover-play,
+        .game-cover:focus-visible .cover-play {
+            transform: scale(1.08);
+            background: rgba(0, 82, 204, 0.75);
         }
 
         .cover-play::after {
@@ -87,16 +193,8 @@
         .cover-note {
             font-size: 0.8rem;
             font-weight: 500;
-            opacity: 0.75;
+            opacity: 0.85;
             letter-spacing: 0;
-        }
-
-        .cover-wealth {
-            background: radial-gradient(circle at 30% 20%, #14406b 0%, #070b14 70%);
-        }
-
-        .cover-barber {
-            background: radial-gradient(circle at 30% 20%, #3a2c25 0%, #0a0807 70%);
         }
 
         .game-info h2 {
@@ -168,26 +266,33 @@
         <div class="page-intro">
             <a href="index.html" class="back-link">&larr; Back to home</a>
             <h1>Portfolio &mdash; Games</h1>
-            <p>Original browser games, each built as a single self-contained page. Nothing to install and no download &mdash; click to play right here, or open one fullscreen.</p>
+            <p>Original browser games. Nothing to install and no download &mdash; click to play right here, or open one fullscreen.</p>
         </div>
 
         <section>
 
             <article class="game">
                 <div class="game-stage">
-                    <button type="button" class="game-cover cover-wealth" data-src="WealthRunner.html" aria-label="Load and play Wealth Runner">
-                        <span class="cover-play"></span>
-                        Play Wealth Runner
-                        <span class="cover-note">Large game &mdash; loads on click</span>
+                    <button type="button" class="game-cover" data-src="WealthRunner.html"
+                            style="--shot: url('wealthrunner_thumbnail.png')"
+                            aria-label="Load and play Wealth Runner">
+                        <span class="cover-bg"></span>
+                        <img class="cover-shot" src="wealthrunner_thumbnail.png" alt="Wealth Runner title art" loading="lazy">
+                        <span class="cover-scrim"></span>
+                        <span class="cover-cta">
+                            <span class="cover-play"></span>
+                            Play Wealth Runner
+                            <span class="cover-note">Click to play</span>
+                        </span>
                     </button>
                 </div>
                 <div class="game-info">
                     <p class="game-kicker">Game 01</p>
                     <h2>Wealth Runner</h2>
                     <p>A run for the money. Keep moving, keep stacking, and see how far your decisions carry you before the run ends.</p>
-                    <p>Featured on the <a href="https://www.youtube.com/@AgentAJ001" target="_blank" rel="noopener">A.I Build with AJ</a> channel &mdash; the walkthrough covers how it was built.</p>
+                    <p>Featured on the <a href="https://www.youtube.com/@AgentAJ001" target="_blank" rel="noopener">A.I Build with AJ</a> channel.</p>
                     <div class="meta-tags">
-                        <span>Browser</span><span>Single-file HTML</span><span>Desktop &amp; mobile</span>
+                        <span>Browser</span><span>Play free</span><span>Desktop &amp; mobile</span>
                     </div>
                     <div class="game-actions">
                         <a href="WealthRunner.html" target="_blank" rel="noopener" class="btn">Open Fullscreen</a>
@@ -198,19 +303,26 @@
 
             <article class="game">
                 <div class="game-stage">
-                    <button type="button" class="game-cover cover-barber" data-src="BillionaireBarber.html" aria-label="Load and play Billionaire Barber">
-                        <span class="cover-play"></span>
-                        Play Billionaire Barber
-                        <span class="cover-note">Large game &mdash; loads on click</span>
+                    <button type="button" class="game-cover" data-src="BillionaireBarber.html"
+                            style="--shot: url('billionairebarber_thumbnail.png')"
+                            aria-label="Load and play Billionaire Barber">
+                        <span class="cover-bg"></span>
+                        <img class="cover-shot" src="billionairebarber_thumbnail.png" alt="Billionaire Barber title screen" loading="lazy">
+                        <span class="cover-scrim"></span>
+                        <span class="cover-cta">
+                            <span class="cover-play"></span>
+                            Play Billionaire Barber
+                            <span class="cover-note">Click to play</span>
+                        </span>
                     </button>
                 </div>
                 <div class="game-info">
                     <p class="game-kicker">Game 02 &middot; New</p>
                     <h2>Billionaire Barber</h2>
                     <p>Pick your barber, pick your cut, and work the chair. Tapers pay reliably, fades show off the skill, bald-and-beard is fast money with a low ceiling &mdash; build the shop from the chair up.</p>
-                    <p>Premium urban visual system: leather, brass, and low tungsten light. Built as a single self-contained page like everything else here.</p>
+                    <p>Cut hair. Build wealth. Own the city. Choose your barber and work your way up from a single chair.</p>
                     <div class="meta-tags">
-                        <span>Browser</span><span>Single-file HTML</span><span>Desktop &amp; mobile</span>
+                        <span>Browser</span><span>Play free</span><span>Desktop &amp; mobile</span>
                     </div>
                     <div class="game-actions">
                         <a href="BillionaireBarber.html" target="_blank" rel="noopener" class="btn">Open Fullscreen</a>
@@ -235,7 +347,7 @@
             cover.addEventListener('click', function () {
                 var frame = document.createElement('iframe');
                 frame.src = cover.dataset.src;
-                frame.title = cover.textContent.trim();
+                frame.title = cover.getAttribute('aria-label');
                 frame.allow = 'fullscreen; autoplay';
                 cover.replaceWith(frame);
             });
