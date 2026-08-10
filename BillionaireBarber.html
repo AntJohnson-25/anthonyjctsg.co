@@ -1244,8 +1244,16 @@ body.paused #stage { filter: saturate(.55) brightness(.72); }
   .phone-device::before { inset: 0; border-radius: 0; }
   .phone-notch { top: 0; }
   .phone-status { padding-top: 34px; }
-  .char-grid { gap: 14px; }
-  .char-card { width: 45vw; }
+  /* Two fixed columns. A vw-based card width ignores the container padding,
+     which overflowed by a few pixels and wrapped the cards into a tall stack
+     that pushed the start buttons off screen. */
+  .char-grid {
+    gap: 14px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+  }
+  .char-card { width: 100%; }
 }
 
 @media (max-height: 620px) {
@@ -1263,6 +1271,81 @@ body.paused #stage { filter: saturate(.55) brightness(.72); }
   }
 }
 
+</style>
+<style>
+/* =============================================================
+   MOBILE FIXES — loaded last so these win ties with the rules above
+   ============================================================= */
+
+/* Panels ran ~8px past the right edge on narrow screens. */
+@media (max-width: 940px) {
+  .panel {
+    left: 8px; right: 8px; width: auto;
+    max-width: calc(100vw - 16px);
+  }
+}
+
+/* Landscape phones are short. Keep the whole start screen on one screen
+   so NEW GAME / CONTINUE never sit below the fold. */
+@media (orientation: landscape) and (max-height: 560px) {
+  .start-inner { gap: 6px; padding: 8px 0; }
+  .game-title { font-size: clamp(26px, 5vh, 40px); }
+  .game-sub { font-size: 10px; }
+  .char-grid { gap: 12px; }
+  .char-card { width: clamp(96px, 17vh, 150px); padding: 6px 6px 8px; }
+  .char-name { font-size: 11px; margin-top: 6px; }
+  .char-role { font-size: 8px; }
+}
+
+/* ---- Rotate gate ----------------------------------------------------
+   The shop scene and HUD are laid out for landscape: in portrait the
+   props and the week counter clip at both edges. Rather than crop the
+   shop, ask for landscape. Purely presentational — no game state is
+   touched, so play resumes exactly where it left off on rotate. */
+#rotate-gate { display: none; }
+
+@media (orientation: portrait) and (max-width: 900px) {
+  #rotate-gate {
+    position: fixed; inset: 0; z-index: 99999;
+    display: grid; place-items: center;
+    padding: 28px;
+    background: #f4f5f7;
+    color: #16376d;
+    text-align: center;
+    font-family: "Jost", "Futura", "Century Gothic", system-ui, sans-serif;
+  }
+  .rotate-inner { display: grid; justify-items: center; gap: 16px; max-width: 300px; }
+  .rotate-phone {
+    width: 74px; height: 120px;
+    border: 3px solid #16376d; border-radius: 12px;
+    position: relative;
+    animation: rotate-tip 2.4s ease-in-out infinite;
+  }
+  .rotate-phone::after {
+    content: ""; position: absolute; left: 50%; bottom: 7px;
+    width: 26px; height: 3px; border-radius: 2px;
+    background: #16376d; transform: translateX(-50%);
+  }
+  .rotate-pole {
+    width: 16px; height: 46px; border-radius: 8px;
+    background: repeating-linear-gradient(-45deg, #c4322c 0 6px, #fff 6px 12px, #16376d 12px 18px);
+    border: 2px solid #16376d;
+  }
+  #rotate-gate h2 {
+    font-size: 19px; font-weight: 700; letter-spacing: .18em; margin: 0;
+  }
+  #rotate-gate p {
+    font-size: 13px; line-height: 1.55; color: #5a6478; margin: 0;
+  }
+  @keyframes rotate-tip {
+    0%, 55%, 100% { transform: rotate(0deg); }
+    75%, 95%      { transform: rotate(-90deg); }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rotate-phone { animation: none; }
+}
 </style>
 </head>
 <body>
@@ -5304,5 +5387,13 @@ const Game = (function () {
 document.addEventListener('DOMContentLoaded', Game.boot);
 
 </script>
+<div id="rotate-gate" role="dialog" aria-label="Rotate your device to play">
+  <div class="rotate-inner">
+    <span class="rotate-pole" aria-hidden="true"></span>
+    <span class="rotate-phone" aria-hidden="true"></span>
+    <h2>ROTATE YOUR DEVICE</h2>
+    <p>Billionaire Barber plays in landscape. Turn your device sideways to open up the shop.</p>
+  </div>
+</div>
 </body>
 </html>

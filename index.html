@@ -299,9 +299,28 @@
         @media (max-width: 700px) {
             .home-grid {
                 grid-template-columns: 1fr;
+                gap: 2rem;
+                padding-bottom: 2.5rem;
             }
             .profile-frame {
                 max-width: 260px;
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .name-block {
+                padding: 2rem 0 1.75rem;
+            }
+            .name-block h2 {
+                letter-spacing: 2px;
+            }
+            .quote p {
+                font-size: 1.05rem;
+            }
+            /* One card per row reads better than a cramped two-up here. */
+            .directory {
+                grid-template-columns: 1fr;
             }
         }
     </style>

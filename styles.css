@@ -15,10 +15,23 @@
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
+html {
+    /* Stop iOS inflating body text when a phone is turned sideways. */
+    -webkit-text-size-adjust: 100%;
+}
+
 body {
     background-color: var(--bg-white);
     color: var(--text-dark);
     line-height: 1.6;
+    /* A long unbroken token (URL, email) must wrap rather than widen the page. */
+    overflow-wrap: break-word;
+}
+
+img,
+video,
+iframe {
+    max-width: 100%;
 }
 
 a {
@@ -60,6 +73,10 @@ header {
 }
 
 .nav-links a {
+    display: block;
+    /* Vertical padding rather than margin, so the tap target is a full-height
+       strip instead of just the glyphs. */
+    padding: 0.4rem 0;
     text-decoration: none;
     color: var(--text-dark);
     font-weight: 500;
@@ -204,4 +221,71 @@ footer {
     text-align: center;
     color: var(--text-muted);
     font-size: 0.9rem;
+}
+
+/* ---- Phones -------------------------------------------------------------
+   The desktop gutters and section padding eat roughly a third of a 390px
+   screen. Every page-specific layout already collapses to a single column
+   by this width, so this only reclaims spacing. */
+@media (max-width: 600px) {
+    .container,
+    .nav-container {
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+    }
+
+    .nav-container {
+        gap: 0.5rem 1.25rem;
+    }
+
+    .nav-links {
+        gap: 1.25rem;
+    }
+
+    .brand-logo {
+        font-size: 1.2rem;
+    }
+
+    section {
+        padding: 2.25rem 0;
+    }
+
+    .section-header {
+        margin-bottom: 1.75rem;
+    }
+
+    .section-header h2 {
+        font-size: 1.5rem;
+    }
+
+    .card {
+        padding: 1.5rem;
+    }
+
+    .card-icon {
+        margin-bottom: 1rem;
+    }
+
+    .grid-auto {
+        gap: 1.25rem;
+    }
+
+    .page-intro {
+        padding-top: 2rem;
+    }
+
+    .page-intro h1 {
+        font-size: 1.8rem;
+    }
+
+    footer {
+        padding: 2.25rem 0;
+    }
+
+    /* Full-width tap targets for the stacked calls to action. */
+    .cta-actions .btn {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
 }

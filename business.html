@@ -120,6 +120,92 @@
             color: var(--text-muted);
             font-size: 0.95rem;
         }
+
+        /* Intro: copy on the left, the charts across from it on the right. */
+        .intro-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .intro-figure {
+            margin: 0;
+            display: grid;
+            gap: 1.5rem;
+            background-color: var(--light-blue);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 1.75rem;
+        }
+
+        .chart-title {
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
+        }
+
+        .pie-row {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            flex-wrap: wrap;
+        }
+
+        .pie-row svg { flex: 0 0 auto; }
+
+        .chart-legend {
+            list-style: none;
+            display: grid;
+            gap: 0.4rem;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+        }
+
+        .chart-legend li {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .legend-swatch {
+            width: 10px;
+            height: 10px;
+            border-radius: 2px;
+            flex: 0 0 auto;
+        }
+
+        .intro-figure figcaption {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+            padding-top: 0.85rem;
+        }
+
+        @media (max-width: 860px) {
+            .intro-layout {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .cta-band {
+                padding: 1.75rem 1.25rem;
+            }
+            .value-line {
+                font-size: 1.1rem;
+            }
+            .intro-figure {
+                padding: 1.25rem;
+            }
+            .how-list {
+                gap: 1.25rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -139,9 +225,57 @@
 
         <div class="page-intro">
             <a href="index.html" class="back-link">&larr; Back to home</a>
-            <h1>Business</h1>
-            <p class="value-line">Helping small to medium-sized businesses increase revenue through the implementation of technology.</p>
-            <p>Products and services built end to end &mdash; from the first scoping conversation through production deployment. No handoff to a separate delivery team.</p>
+            <div class="intro-layout">
+                <div class="intro-copy">
+                    <h1>Business</h1>
+                    <p class="value-line">Helping small to medium-sized businesses increase revenue through the implementation of technology.</p>
+                    <p>Products and services built end to end &mdash; from the first scoping conversation through production deployment. No handoff to a separate delivery team.</p>
+                </div>
+
+                <figure class="intro-figure">
+                    <div>
+                        <p class="chart-title" id="mix-title">Where the work goes</p>
+                        <div class="pie-row">
+                            <svg width="160" height="160" viewBox="0 0 160 160" role="img" aria-labelledby="mix-title mix-desc">
+                                <desc id="mix-desc">Pie chart of service mix: AI implementation 40 percent, custom software 25 percent, data platform engineering 20 percent, websites 15 percent.</desc>
+                                <g stroke="#ffffff" stroke-width="2">
+                                    <path d="M80,80 L80,10 A70,70 0 0 1 121.15,136.63 Z" fill="#0052cc"><title>AI Implementation — 40%</title></path>
+                                    <path d="M80,80 L121.15,136.63 A70,70 0 0 1 23.37,121.15 Z" fill="#00875a"><title>Custom Software — 25%</title></path>
+                                    <path d="M80,80 L23.37,121.15 A70,70 0 0 1 23.37,38.85 Z" fill="#6554c0"><title>Data Platform Engineering — 20%</title></path>
+                                    <path d="M80,80 L23.37,38.85 A70,70 0 0 1 80,10 Z" fill="#b45309"><title>SEO-Optimized Websites — 15%</title></path>
+                                </g>
+                            </svg>
+                            <ul class="chart-legend">
+                                <li><span class="legend-swatch" style="background:#0052cc" aria-hidden="true"></span>AI Implementation &mdash; 40%</li>
+                                <li><span class="legend-swatch" style="background:#00875a" aria-hidden="true"></span>Custom Software &mdash; 25%</li>
+                                <li><span class="legend-swatch" style="background:#6554c0" aria-hidden="true"></span>Data Platform &mdash; 20%</li>
+                                <li><span class="legend-swatch" style="background:#b45309" aria-hidden="true"></span>Websites &mdash; 15%</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div>
+                        <p class="chart-title" id="arc-title">Value compounds after go-live</p>
+                        <svg width="100%" height="172" viewBox="0 0 264 172" role="img" aria-labelledby="arc-title arc-desc" preserveAspectRatio="xMidYMid meet">
+                            <desc id="arc-desc">Line chart showing measured business value rising steadily over the twelve months following go-live.</desc>
+                            <g stroke="var(--border-color)" stroke-width="1">
+                                <line x1="32" y1="20" x2="248" y2="20"></line>
+                                <line x1="32" y1="60" x2="248" y2="60"></line>
+                                <line x1="32" y1="100" x2="248" y2="100"></line>
+                                <line x1="32" y1="140" x2="248" y2="140"></line>
+                            </g>
+                            <polyline points="40,140 67,133 94,120 121,110 149,88 176,70 203,43 230,20"
+                                      fill="none" stroke="#0052cc" stroke-width="2"
+                                      stroke-linecap="round" stroke-linejoin="round"></polyline>
+                            <circle cx="230" cy="20" r="5" fill="#0052cc" stroke="#ffffff" stroke-width="2"></circle>
+                            <text x="32" y="164" font-size="10" fill="var(--text-muted)">Go-live</text>
+                            <text x="248" y="164" font-size="10" fill="var(--text-muted)" text-anchor="end">Month 12</text>
+                        </svg>
+                    </div>
+
+                    <figcaption>Illustrative &mdash; shapes shown are representative of engagement structure, not a specific client result.</figcaption>
+                </figure>
+            </div>
         </div>
 
         <section>
