@@ -1297,83 +1297,37 @@ body.paused #stage { filter: saturate(.55) brightness(.72); }
   .char-role { font-size: 8px; }
 }
 
-/* ---- Rotate gate ----------------------------------------------------
-   The shop scene and HUD are laid out for landscape: in portrait the
-   props and the week counter clip at both edges. Rather than crop the
-   shop, ask for landscape. Purely presentational — no game state is
-   touched, so play resumes exactly where it left off on rotate.
+/* ---- Narrow / portrait phones ----------------------------------------
+   There used to be a rotate gate here that blocked portrait outright and
+   asked the player to turn the phone sideways. It stranded anyone with
+   Portrait Orientation Lock on — the browser keeps reporting portrait,
+   so the gate never lifted — and it was hiding a plain layout bug rather
+   than an orientation problem.
 
-   Visibility used to be a pure `@media (orientation: portrait)` rule,
-   which trapped anyone playing with Portrait Orientation Lock on: the
-   browser never reports landscape, so the gate never lifted and there
-   was no way past it. The look now lives outside the media query and
-   the show/hide is driven by the script under the markup, which
-   measures the viewport instead of trusting the orientation query.
-   The media query survives only as the no-JS fallback. */
-#rotate-gate { display: none; }
+   The bug: #game is a single-column grid, and an `auto` column is
+   floored at its items' min-content width. The HUD's min-content is
+   ~434px, so on a 390px phone the column grew to 434 and the whole game
+   — HUD, stage, dock — hung 44px off the right edge. That is the
+   clipping players saw, and it happened in landscape too on any screen
+   under ~434px of usable width. Flooring the column at zero and letting
+   the HUD shrink fixes it, and portrait is simply playable now. */
+#game { grid-template-columns: minmax(0, 1fr); }
 
-/* Fallback for scripting-off: the old CSS-only behaviour. */
-@media (orientation: portrait) and (max-width: 900px) {
-  html:not(.rg-js) #rotate-gate { display: grid; }
-}
-/* Once the script boots it owns the gate outright. */
-html.rg-js.rg-portrait:not(.rg-bypass) #rotate-gate { display: grid; }
-
-#rotate-gate {
-  position: fixed; inset: 0; z-index: 99999;
-  place-items: center;
-  padding: 28px;
-  background: #f4f5f7;
-  color: #16376d;
-  text-align: center;
-  font-family: "Jost", "Futura", "Century Gothic", system-ui, sans-serif;
-}
-.rotate-inner { display: grid; justify-items: center; gap: 16px; max-width: 300px; }
-.rotate-phone {
-  width: 74px; height: 120px;
-  border: 3px solid #16376d; border-radius: 12px;
-  position: relative;
-  animation: rotate-tip 2.4s ease-in-out infinite;
-}
-.rotate-phone::after {
-  content: ""; position: absolute; left: 50%; bottom: 7px;
-  width: 26px; height: 3px; border-radius: 2px;
-  background: #16376d; transform: translateX(-50%);
-}
-.rotate-pole {
-  width: 16px; height: 46px; border-radius: 8px;
-  background: repeating-linear-gradient(-45deg, #c4322c 0 6px, #fff 6px 12px, #16376d 12px 18px);
-  border: 2px solid #16376d;
-}
-#rotate-gate h2 {
-  font-size: 19px; font-weight: 700; letter-spacing: .18em; margin: 0;
-}
-#rotate-gate p {
-  font-size: 13px; line-height: 1.55; color: #5a6478; margin: 0;
-}
-.rotate-lock {
-  font-size: 12px; line-height: 1.5; color: #7c8598;
-  border-top: 1px solid #dfe3ea; padding-top: 14px;
-}
-/* The escape hatch. Hidden until the player has clearly been sitting
-   here a while, so landscape stays the advertised way to play and this
-   only surfaces for someone the gate would otherwise have trapped. */
-.rotate-bypass {
-  display: none;
-  font: inherit; font-size: 12px; letter-spacing: .04em;
-  background: none; border: 0; padding: 6px 4px;
-  color: #16376d; text-decoration: underline; cursor: pointer;
-}
-html.rg-stuck .rotate-bypass { display: block; animation: rotate-fade .5s ease both; }
-@keyframes rotate-fade { from { opacity: 0; } }
-
-@keyframes rotate-tip {
-  0%, 55%, 100% { transform: rotate(0deg); }
-  75%, 95%      { transform: rotate(-90deg); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .rotate-phone { animation: none; }
+@media (max-width: 940px) {
+  /* Let the HUD rows shrink below their content instead of pushing the
+     grid column wider than the screen. */
+  #hud, .hud-left, .hud-right, .hud-center { min-width: 0; }
+  .hud-left { gap: 12px; }
+  /* .stat pins itself to 50px, so as a flex child it shrank to 50px and
+     the labels printed straight over each other. Size each stat to its
+     label instead; .hud-right already scrolls horizontally. */
+  .hud-right .stat { min-width: max-content; flex: 0 0 auto; }
+  .cash-value { font-size: 22px; }
+  .nw-value { font-size: 13px; }
+  /* .hud-center is pinned to the top-right on narrow screens, which is
+     exactly where the net worth readout sits — the two overlapped. Net
+     worth is on the finance panel as well, so the week counter wins. */
+  .networth-block { display: none; }
 }
 </style>
 </head>
@@ -5415,75 +5369,6 @@ const Game = (function () {
 
 document.addEventListener('DOMContentLoaded', Game.boot);
 
-</script>
-<div id="rotate-gate" role="dialog" aria-label="Rotate your device to play">
-  <div class="rotate-inner">
-    <span class="rotate-pole" aria-hidden="true"></span>
-    <span class="rotate-phone" aria-hidden="true"></span>
-    <h2>ROTATE YOUR DEVICE</h2>
-    <p>Billionaire Barber plays in landscape. Turn your device sideways to open up the shop.</p>
-    <p class="rotate-lock">Nothing happening when you turn it? Portrait Orientation Lock is on. On iPhone, swipe down from the top-right corner and tap the padlock-in-a-circle. On Android, swipe down and turn off Auto-rotate lock.</p>
-    <button type="button" class="rotate-bypass" id="rotate-bypass">Can’t rotate? Play in portrait anyway</button>
-  </div>
-</div>
-
-<script>
-/* ---- Rotate gate controller -----------------------------------------
-   Measures the viewport rather than reading `(orientation: portrait)`.
-   The media query is what stranded rotation-locked players: with the
-   lock on it reports portrait forever, so a CSS-only gate had no exit.
-   Comparing innerWidth/innerHeight reacts to the actual window shape
-   (and to desktop resizes), and the bypass button guarantees a way
-   through even on a device that genuinely cannot rotate. */
-(function () {
-  var root = document.documentElement;
-  var STUCK_MS = 6000;          // how long before the escape hatch appears
-  var stuckTimer = null;
-
-  root.classList.add('rg-js');
-
-  try {
-    if (sessionStorage.getItem('bb-rotate-bypass') === '1') {
-      root.classList.add('rg-bypass');
-    }
-  } catch (e) {}
-
-  function isPortrait() {
-    var w = window.innerWidth || root.clientWidth;
-    var h = window.innerHeight || root.clientHeight;
-    // Only gate phone-sized screens; the narrow side is the width in portrait.
-    return h > w && w <= 900;
-  }
-
-  function sync() {
-    var showing = isPortrait() && !root.classList.contains('rg-bypass');
-    root.classList.toggle('rg-portrait', isPortrait());
-
-    if (showing && stuckTimer === null) {
-      stuckTimer = window.setTimeout(function () {
-        root.classList.add('rg-stuck');
-      }, STUCK_MS);
-    } else if (!showing && stuckTimer !== null) {
-      window.clearTimeout(stuckTimer);
-      stuckTimer = null;
-      root.classList.remove('rg-stuck');
-    }
-  }
-
-  document.getElementById('rotate-bypass').addEventListener('click', function () {
-    root.classList.add('rg-bypass');
-    // Remembered for the tab only, so the gate returns on a fresh visit.
-    try { sessionStorage.setItem('bb-rotate-bypass', '1'); } catch (e) {}
-    sync();
-  });
-
-  window.addEventListener('resize', sync);
-  window.addEventListener('orientationchange', sync);
-  // Safari fires neither reliably mid-rotation; the visual viewport does.
-  if (window.visualViewport) window.visualViewport.addEventListener('resize', sync);
-
-  sync();
-})();
 </script>
 </body>
 </html>
