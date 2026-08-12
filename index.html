@@ -234,6 +234,82 @@
             color: var(--text-muted);
         }
 
+        /* 4b — Viewer feedback player + list */
+        .feedback-block {
+            margin-top: 2.5rem;
+        }
+
+        .feedback-stage {
+            width: 100%;
+            /* Letterboxed on a dark ground so portrait clips fit without cropping. */
+            max-height: 60vh;
+            aspect-ratio: 16 / 9;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            background-color: #0d1117;
+            box-shadow: 0 12px 28px -10px rgba(0, 0, 0, 0.2);
+        }
+
+        .feedback-stage video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+            background-color: #0d1117;
+        }
+
+        .feedback-list {
+            list-style: none;
+            counter-reset: fb;
+            margin-top: 0.9rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+        }
+
+        .feedback-list li {
+            counter-increment: fb;
+        }
+
+        .feedback-list a {
+            display: flex;
+            align-items: baseline;
+            gap: 0.5rem;
+            padding: 0.5rem 0.7rem;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            text-decoration: none;
+            border: 1px solid transparent;
+            transition: background 0.2s ease, border-color 0.2s ease;
+        }
+
+        .feedback-list a::before {
+            content: counter(fb) ")";
+            color: var(--primary-blue);
+            font-weight: 700;
+        }
+
+        .feedback-list a:hover,
+        .feedback-list a:focus-visible {
+            border-color: var(--primary-blue);
+            background-color: var(--light-blue);
+        }
+
+        .feedback-list a[aria-current="true"] {
+            background-color: var(--light-blue);
+            border-color: var(--primary-blue);
+            font-weight: 600;
+        }
+
+        .feedback-list a span {
+            margin-left: auto;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
         /* 5 — Directory list */
         .directory {
             list-style: none;
@@ -384,6 +460,27 @@
                     <h4 id="video-title">Wealth Runner Now available</h4>
                     <time id="video-date" datetime="2026-08-07">August 7, 2026</time>
                 </div>
+
+                <!-- 4b — Viewer feedback -->
+                <section class="feedback-block" aria-labelledby="feedback-heading">
+                    <div class="featured-label">
+                        <h3 id="feedback-heading">Viewer Feedback</h3>
+                        <span>Clips</span>
+                    </div>
+                    <div class="feedback-stage">
+                        <video id="feedback-player"
+                               src="feedback_1_1.mp4"
+                               controls preload="metadata" playsinline
+                               aria-label="Viewer feedback clip"></video>
+                    </div>
+                    <ol class="feedback-list" id="feedback-list">
+                        <li>
+                            <a href="feedback_1_1.mp4" data-src="feedback_1_1.mp4" aria-current="true">
+                                Wealth Runner &mdash; player reaction <span>Video</span>
+                            </a>
+                        </li>
+                    </ol>
+                </section>
             </div>
 
             <!-- 5 — Directory -->
@@ -441,6 +538,28 @@
                 }
             })
             .catch(function () { /* keep the fallback video already in the markup */ });
+
+        // Viewer feedback list — each link loads its clip into the player above.
+        // Without JS the links still resolve to the raw file, so nothing is lost.
+        (function () {
+            var list = document.getElementById('feedback-list');
+            var player = document.getElementById('feedback-player');
+            if (!list || !player) { return; }
+
+            list.addEventListener('click', function (e) {
+                var link = e.target.closest('a[data-src]');
+                if (!link) { return; }
+                e.preventDefault();
+
+                list.querySelectorAll('a[data-src]').forEach(function (a) {
+                    a.removeAttribute('aria-current');
+                });
+                link.setAttribute('aria-current', 'true');
+
+                player.src = link.dataset.src;
+                player.play().catch(function () { /* autoplay blocked — controls are there */ });
+            });
+        }());
     </script>
 
 </body>
