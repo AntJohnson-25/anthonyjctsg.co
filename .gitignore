@@ -11,3 +11,7 @@ repo_https.txt
 # Unedited source clip for the Viewer Feedback list — 150MB, over GitHub's
 # 100MB file limit. The site serves the re-encoded feedback_1_1.mp4 instead.
 feedback_1.mp4
+
+# Database setup — run once in the Supabase dashboard, no reason to publish
+# the schema (static.yml uploads the whole repo).
+supabase-schema.sql

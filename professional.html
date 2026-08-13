@@ -236,6 +236,104 @@
             margin-bottom: 0.4rem;
         }
 
+        /* Recruiter contact form */
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            clip: rect(0 0 0 0);
+            white-space: nowrap;
+        }
+
+        .hire-form {
+            max-width: 720px;
+        }
+
+        .field-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+            margin-bottom: 1rem;
+        }
+
+        .field-row .field {
+            margin-bottom: 0;
+        }
+
+        .field label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .field .optional {
+            font-weight: 400;
+            color: var(--text-muted);
+        }
+
+        .field input,
+        .field textarea {
+            width: 100%;
+            padding: 0.7rem 0.9rem;
+            font-family: inherit;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            background-color: var(--bg-white);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+        }
+
+        .field textarea {
+            min-height: 150px;
+            resize: vertical;
+            line-height: 1.5;
+        }
+
+        .field input:focus-visible,
+        .field textarea:focus-visible {
+            outline: 2px solid var(--primary-blue);
+            outline-offset: 1px;
+        }
+
+        .hire-form button {
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-family: inherit;
+        }
+
+        .hire-form button:disabled {
+            opacity: 0.6;
+            cursor: default;
+        }
+
+        .form-status:empty {
+            display: none;
+        }
+
+        .form-status {
+            margin-top: 1rem;
+            font-size: 0.92rem;
+            color: var(--text-muted);
+        }
+
+        .form-status.is-ok {
+            color: var(--primary-blue);
+            font-weight: 600;
+        }
+
+        .form-status.is-error {
+            color: #b3261e;
+        }
+
         @media (max-width: 860px) {
             .about-grid {
                 grid-template-columns: 1fr;
@@ -243,6 +341,16 @@
             }
             .linkedin-card {
                 position: static;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .field-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+            .field-row .field {
+                margin-bottom: 1rem;
             }
         }
     </style>
@@ -410,6 +518,53 @@
             </ul>
         </section>
 
+        <section id="contact">
+            <div class="section-header">
+                <h2>Recruiters &mdash; Get in Touch</h2>
+                <p>Open to senior AI and cloud data engineering roles, and to consulting engagements. Send the details and I will come back to you directly.</p>
+            </div>
+
+            <form class="hire-form" id="hire-form" novalidate>
+                <div class="field-row">
+                    <div class="field">
+                        <label for="hire-name">Your name</label>
+                        <input id="hire-name" type="text" autocomplete="name" maxlength="120" required>
+                    </div>
+                    <div class="field">
+                        <label for="hire-email">Email</label>
+                        <input id="hire-email" type="email" autocomplete="email" maxlength="254" required>
+                    </div>
+                </div>
+                <div class="field-row">
+                    <div class="field">
+                        <label for="hire-company">Company <span class="optional">(optional)</span></label>
+                        <input id="hire-company" type="text" autocomplete="organization" maxlength="160">
+                    </div>
+                    <div class="field">
+                        <label for="hire-role">Role <span class="optional">(optional)</span></label>
+                        <input id="hire-role" type="text" maxlength="160" placeholder="e.g. Senior Data Engineer">
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="hire-message">Details</label>
+                    <textarea id="hire-message" maxlength="4000" required
+                              placeholder="The role, the team, the stack, and anything about compensation or location you can share."></textarea>
+                </div>
+
+                <!-- Honeypot: invisible to people, irresistible to bots. A filled
+                     value means the submission is scripted, so it is dropped. -->
+                <div class="visually-hidden" aria-hidden="true">
+                    <label for="hire-website">Leave this field empty</label>
+                    <input id="hire-website" type="text" tabindex="-1" autocomplete="off">
+                </div>
+
+                <button type="submit" class="btn">Send message</button>
+            </form>
+            <!-- Outside the form on purpose: the form is hidden on success, and
+                 the confirmation has to outlive it. -->
+            <p class="form-status" id="hire-status" role="status" aria-live="polite"></p>
+        </section>
+
     </main>
 
     <footer>
@@ -417,6 +572,69 @@
             <p>&copy; 2026 AnthonyJCTSG. All rights reserved.</p>
         </div>
     </footer>
+
+    <script src="ctsg-data.js"></script>
+    <script>
+        // Recruiter contact form. The email address in the sidebar stays put as
+        // a fallback, so a failed send is never a dead end.
+        (function () {
+            var form = document.getElementById('hire-form');
+            if (!form || !window.CTSG) { return; }
+
+            var status = document.getElementById('hire-status');
+            var submit = form.querySelector('button[type="submit"]');
+            var honeypot = document.getElementById('hire-website');
+
+            function value(id) { return document.getElementById(id).value.trim(); }
+
+            function fail(message, focusId) {
+                status.textContent = message;
+                status.className = 'form-status is-error';
+                if (focusId) { document.getElementById(focusId).focus(); }
+            }
+
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                // Bots fill every field they find. Pretend it worked and drop it.
+                if (honeypot.value) {
+                    form.hidden = true;
+                    status.textContent = 'Thanks — your message has been sent.';
+                    status.className = 'form-status is-ok';
+                    return;
+                }
+
+                var name = value('hire-name');
+                var email = value('hire-email');
+                var message = value('hire-message');
+
+                if (!name) { return fail('Please add your name.', 'hire-name'); }
+                if (email.indexOf('@') < 1 || email.indexOf('.', email.indexOf('@')) < 0) {
+                    return fail('That does not look like an email address.', 'hire-email');
+                }
+                if (!message) { return fail('Please add a few details about the role.', 'hire-message'); }
+
+                submit.disabled = true;
+                status.textContent = 'Sending…';
+                status.className = 'form-status';
+
+                CTSG.contact({
+                    name: name,
+                    email: email,
+                    company: value('hire-company'),
+                    role: value('hire-role'),
+                    message: message
+                }).then(function () {
+                    form.hidden = true;
+                    status.textContent = 'Thanks — your message has been sent. I will reply to ' + email + '.';
+                    status.className = 'form-status is-ok';
+                }).catch(function () {
+                    submit.disabled = false;
+                    fail('Something went wrong sending that. Please email ant.johnsonsql22@gmail.com directly.');
+                });
+            });
+        }());
+    </script>
 
 </body>
 </html>

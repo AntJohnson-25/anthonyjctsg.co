@@ -34,6 +34,12 @@ iframe {
     max-width: 100%;
 }
 
+/* The hidden attribute has to beat any display rule set further down, or
+   scripts that hide a finished form get ignored. */
+[hidden] {
+    display: none !important;
+}
+
 a {
     color: var(--primary-blue);
 }

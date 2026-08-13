@@ -310,6 +310,89 @@
             font-weight: 400;
         }
 
+        /* 6 — Mailing list signup */
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            clip: rect(0 0 0 0);
+            white-space: nowrap;
+        }
+
+        .signup {
+            margin-top: 2.5rem;
+            padding: 1.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            background-color: var(--light-blue);
+        }
+
+        .signup h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.35rem;
+        }
+
+        .signup > p {
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            margin-bottom: 1.1rem;
+        }
+
+        .signup-fields {
+            display: flex;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+        }
+
+        .signup-fields input {
+            flex: 1 1 190px;
+            min-width: 0;
+            padding: 0.7rem 0.9rem;
+            font-size: 0.95rem;
+            font-family: inherit;
+            color: var(--text-dark);
+            background-color: var(--bg-white);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+        }
+
+        .signup-fields input:focus-visible {
+            outline: 2px solid var(--primary-blue);
+            outline-offset: 1px;
+        }
+
+        .signup-fields .btn {
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-family: inherit;
+        }
+
+        .signup-fields .btn:disabled {
+            opacity: 0.6;
+            cursor: default;
+        }
+
+        .signup-status:empty {
+            display: none;
+        }
+
+        .signup-status {
+            margin-top: 0.8rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .signup-status.is-ok {
+            color: var(--primary-blue);
+            font-weight: 600;
+        }
+
+        .signup-status.is-error {
+            color: #b3261e;
+        }
+
         /* 5 — Directory list */
         .directory {
             list-style: none;
@@ -512,6 +595,22 @@
                 </ol>
             </nav>
 
+            <!-- 6 — Mailing list -->
+            <section class="signup" aria-labelledby="signup-heading">
+                <h3 id="signup-heading">Get new games in your inbox</h3>
+                <p>New releases and build updates, now and then. Your email is only used to send those &mdash; ask any time and it comes off the list.</p>
+                <form id="signup-form" novalidate>
+                    <div class="signup-fields">
+                        <label class="visually-hidden" for="signup-name">Name (optional)</label>
+                        <input id="signup-name" type="text" autocomplete="name" maxlength="120" placeholder="Name (optional)">
+                        <label class="visually-hidden" for="signup-email">Email address</label>
+                        <input id="signup-email" type="email" autocomplete="email" maxlength="254" placeholder="you@example.com" required>
+                        <button type="submit" class="btn">Notify me</button>
+                    </div>
+                    <p class="signup-status" id="signup-status" role="status" aria-live="polite"></p>
+                </form>
+            </section>
+
         </div>
     </main>
 
@@ -521,6 +620,7 @@
         </div>
     </footer>
 
+    <script src="ctsg-data.js"></script>
     <script>
         // latest-video.json is refreshed daily by a scheduled GitHub Action that
         // reads the channel RSS feed. The markup above is the baked-in fallback.
@@ -563,6 +663,50 @@
 
                 player.src = link.dataset.src;
                 player.play().catch(function () { /* autoplay blocked — controls are there */ });
+            });
+        }());
+
+        // Mailing list. Without JS the form simply does nothing rather than
+        // navigating somewhere broken, hence the novalidate + preventDefault.
+        (function () {
+            var form = document.getElementById('signup-form');
+            if (!form || !window.CTSG) { return; }
+
+            var emailField = document.getElementById('signup-email');
+            var nameField = document.getElementById('signup-name');
+            var status = document.getElementById('signup-status');
+            var submit = form.querySelector('button');
+
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                var email = emailField.value.trim();
+                // Deliberately loose — the only address worth rejecting here is
+                // one that is obviously not an address at all.
+                if (email.indexOf('@') < 1 || email.indexOf('.', email.indexOf('@')) < 0) {
+                    status.textContent = 'That does not look like an email address.';
+                    status.className = 'signup-status is-error';
+                    emailField.focus();
+                    return;
+                }
+
+                submit.disabled = true;
+                status.textContent = 'Adding you…';
+                status.className = 'signup-status';
+
+                CTSG.signUp(email, nameField.value.trim(), 'home')
+                    .then(function (result) {
+                        form.querySelector('.signup-fields').hidden = true;
+                        status.textContent = result.duplicate
+                            ? 'You are already on the list — nothing else to do.'
+                            : 'You are on the list. Thanks!';
+                        status.className = 'signup-status is-ok';
+                    })
+                    .catch(function () {
+                        submit.disabled = false;
+                        status.textContent = 'Something went wrong. Please try again in a moment.';
+                        status.className = 'signup-status is-error';
+                    });
             });
         }());
     </script>

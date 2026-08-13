@@ -251,6 +251,47 @@
             color: var(--text-muted);
         }
 
+        /* Heart / thumbs-up row */
+        .reactions {
+            display: flex;
+            gap: 0.6rem;
+            margin-top: 1.25rem;
+        }
+
+        .react {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.4rem 0.9rem;
+            border-radius: 999px;
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-white);
+            color: var(--text-muted);
+            font-family: inherit;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+        }
+
+        .react:hover:not([aria-pressed="true"]),
+        .react:focus-visible {
+            border-color: var(--primary-blue);
+            background-color: var(--light-blue);
+        }
+
+        /* Reactions are one-way — once counted, the button reads as done. */
+        .react[aria-pressed="true"] {
+            border-color: var(--primary-blue);
+            background-color: var(--light-blue);
+            color: var(--primary-blue);
+            cursor: default;
+        }
+
+        .react-count {
+            font-variant-numeric: tabular-nums;
+        }
+
         /* Link-only entry: no preview stage, just the copy and a fullscreen link */
         .game--link {
             grid-template-columns: 1fr;
@@ -307,7 +348,7 @@
 
         <section>
 
-            <article class="game">
+            <article class="game" data-game="wealth-runner">
                 <div class="game-stage">
                     <button type="button" class="game-cover" data-src="WealthRunner.html"
                             style="--shot: url('wealthrunner_thumbnail.png')"
@@ -334,10 +375,18 @@
                         <a href="WealthRunner.html" target="_blank" rel="noopener" class="btn">Open Fullscreen</a>
                         <a href="https://www.youtube.com/watch?v=jGQuyQsd5zQ" target="_blank" rel="noopener" class="btn btn-secondary">Watch the Video</a>
                     </div>
+                    <div class="reactions">
+                        <button type="button" class="react" data-react="heart" aria-pressed="false" aria-label="Heart Wealth Runner">
+                            <span aria-hidden="true">&hearts;</span><span class="react-count">&mdash;</span>
+                        </button>
+                        <button type="button" class="react" data-react="thumbs_up" aria-pressed="false" aria-label="Thumbs up Wealth Runner">
+                            <span aria-hidden="true">&#128077;</span><span class="react-count">&mdash;</span>
+                        </button>
+                    </div>
                 </div>
             </article>
 
-            <article class="game">
+            <article class="game" data-game="billionaire-barber">
                 <div class="game-stage">
                     <button type="button" class="game-cover" data-src="BillionaireBarber.html"
                             style="--shot: url('billionairebarber_thumbnail.png')"
@@ -363,10 +412,18 @@
                     <div class="game-actions">
                         <a href="BillionaireBarber.html" target="_blank" rel="noopener" class="btn">Open Fullscreen</a>
                     </div>
+                    <div class="reactions">
+                        <button type="button" class="react" data-react="heart" aria-pressed="false" aria-label="Heart Billionaire Barber">
+                            <span aria-hidden="true">&hearts;</span><span class="react-count">&mdash;</span>
+                        </button>
+                        <button type="button" class="react" data-react="thumbs_up" aria-pressed="false" aria-label="Thumbs up Billionaire Barber">
+                            <span aria-hidden="true">&#128077;</span><span class="react-count">&mdash;</span>
+                        </button>
+                    </div>
                 </div>
             </article>
 
-            <article class="game game--link">
+            <article class="game game--link" data-game="food-truck-billionaire">
                 <div class="game-info">
                     <p class="game-kicker">Game 03</p>
                     <h2>Food Truck Billionaire <span class="beta-badge">Beta</span></h2>
@@ -377,6 +434,14 @@
                     </div>
                     <div class="game-actions">
                         <a href="food-truck-billionaire.html" target="_blank" rel="noopener" class="btn">Open Fullscreen</a>
+                    </div>
+                    <div class="reactions">
+                        <button type="button" class="react" data-react="heart" aria-pressed="false" aria-label="Heart Food Truck Billionaire">
+                            <span aria-hidden="true">&hearts;</span><span class="react-count">&mdash;</span>
+                        </button>
+                        <button type="button" class="react" data-react="thumbs_up" aria-pressed="false" aria-label="Thumbs up Food Truck Billionaire">
+                            <span aria-hidden="true">&#128077;</span><span class="react-count">&mdash;</span>
+                        </button>
                     </div>
                 </div>
             </article>
@@ -391,6 +456,7 @@
         </div>
     </footer>
 
+    <script src="ctsg-data.js"></script>
     <script>
         // Swap the cover for a real iframe only when the visitor asks to play,
         // so the multi-megabyte game files are never fetched on page load.
@@ -403,6 +469,82 @@
                 cover.replaceWith(frame);
             });
         });
+
+        // Play tracking + reactions. Every part of this fails quietly: if
+        // Supabase is unreachable the games still load and the buttons still
+        // respond, they just stop counting.
+        (function () {
+            if (!window.CTSG) { return; }
+
+            var MINE_KEY = 'ctsg_reactions';
+            var server = {};   // totals from the database
+            var delta = {};    // this page view's own clicks, not yet in `server`
+            var loaded = false;
+
+            function mine() {
+                try { return JSON.parse(localStorage.getItem(MINE_KEY)) || {}; }
+                catch (e) { return {}; }
+            }
+
+            function remember(key) {
+                var m = mine();
+                m[key] = true;
+                try { localStorage.setItem(MINE_KEY, JSON.stringify(m)); } catch (e) { /* private mode */ }
+            }
+
+            function keyOf(btn) {
+                return btn.closest('.game').dataset.game + ':' + btn.dataset.react;
+            }
+
+            function render(btn) {
+                var k = keyOf(btn);
+                var total = (server[k] || 0) + (delta[k] || 0);
+                // An em dash until there is a real number to show.
+                btn.querySelector('.react-count').textContent =
+                    (loaded || delta[k]) ? total : '—';
+            }
+
+            document.querySelectorAll('.game[data-game]').forEach(function (article) {
+                var slug = article.dataset.game;
+
+                // The two ways into a game: the inline cover and the fullscreen link.
+                var cover = article.querySelector('.game-cover');
+                if (cover) {
+                    cover.addEventListener('click', function () { CTSG.track(slug, 'select'); });
+                }
+                article.querySelectorAll('.game-actions a[href$=".html"]').forEach(function (link) {
+                    link.addEventListener('click', function () { CTSG.track(slug, 'select'); });
+                });
+
+                article.querySelectorAll('.react').forEach(function (btn) {
+                    var key = keyOf(btn);
+                    if (mine()[key]) { btn.setAttribute('aria-pressed', 'true'); }
+
+                    btn.addEventListener('click', function () {
+                        if (btn.getAttribute('aria-pressed') === 'true') { return; }
+                        btn.setAttribute('aria-pressed', 'true');
+                        delta[key] = 1;
+                        remember(key);
+                        render(btn);
+                        CTSG.track(slug, btn.dataset.react);
+                    });
+                });
+            });
+
+            CTSG.reactionCounts().then(function (rows) {
+                rows.forEach(function (row) {
+                    server[row.game_slug + ':' + row.event_type] = row.total;
+                });
+                loaded = true;
+                // A click that landed before this response is already in `delta`,
+                // and may or may not be in `server` — drop it if it is.
+                document.querySelectorAll('.react').forEach(function (btn) {
+                    var k = keyOf(btn);
+                    if (delta[k] && mine()[k] && server[k]) { delta[k] = 0; }
+                    render(btn);
+                });
+            });
+        }());
     </script>
 
 </body>
