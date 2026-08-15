@@ -655,9 +655,17 @@ body.paused #stage { filter: saturate(.55) brightness(.72); }
   100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(.2); }
 }
 
-/* Customer feedback card */
+/* Pinned to an actor: sits above the head and travels with them. Percentages
+   resolve against the actor box, so left:50% is the middle of the sprite. */
+.floater--pinned {
+  left: 50%; bottom: 100%; top: auto;
+}
+
+/* Customer feedback card. Default styling here is the actor-anchored case —
+   it hangs above the customer's head and rides along as they leave. */
 .feedback {
-  position: absolute; transform: translate(-50%, -40%) scale(.9);
+  position: absolute; left: 50%; bottom: 100%;
+  transform: translate(-50%, -6px) scale(.9);
   width: 210px; padding: 11px 14px; border-radius: 14px;
   background: linear-gradient(180deg, rgba(34,25,19,.97), rgba(18,13,10,.97));
   border: 1px solid var(--hairline-2);
@@ -665,9 +673,17 @@ body.paused #stage { filter: saturate(.55) brightness(.72); }
   display: grid; gap: 5px;
   opacity: 0; transition: opacity .4s var(--ease-out), transform .5s var(--ease-back);
 }
-.feedback.show { opacity: 1; transform: translate(-50%, -75%) scale(1); }
+.feedback.show { opacity: 1; transform: translate(-50%, -14px) scale(1); }
 .feedback.good { border-color: rgba(92,192,138,.5); }
 .feedback.bad  { border-color: rgba(224,97,79,.5); }
+/* Fallback for the no-actor case: centred on a stage point, as before. */
+.feedback--stage { bottom: auto; transform: translate(-50%, -40%) scale(.9); }
+.feedback--stage.show { transform: translate(-50%, -75%) scale(1); }
+/* Tail pointing down at the head it belongs to, same as the request bubble. */
+.feedback::after {
+  content: ''; position: absolute; left: 50%; top: 100%; transform: translateX(-50%);
+  border: 6px solid transparent; border-top-color: rgba(18,13,10,.97);
+}
 .fb-name { font-size: 9px; letter-spacing: .22em; text-transform: uppercase; color: var(--text-mute); }
 .fb-text { font-size: 13px; line-height: 1.35; }
 .fb-meter { display: block; height: 3px; border-radius: 3px; background: rgba(255,255,255,.1); overflow: hidden; }
@@ -4580,19 +4596,31 @@ const UI = (function () {
   /* -----------------------------------------------------------
      FLOATING NUMBERS (§9 / §22)
      ----------------------------------------------------------- */
+  /* `anchor` is either {x, y} in stage units, or {el} to hang the number off
+     an actor so it travels with them (and clears the chair — see showFeedback
+     for why anything in #floaters loses to an actor's z-index). */
   function floater(text, kind, anchor) {
     const f = document.createElement('div');
     f.className = 'floater ' + (kind || '');
     f.innerHTML = text;
-    if (anchor) {
-      const p = World.project(anchor.x, anchor.y);
-      f.style.left = p.left + '%';
-      f.style.top = p.top + '%';
+    if (anchor && anchor.el) {
+      // dx/dy nudge it clear of the feedback card, which is anchored to the
+      // same point above the head — without them the number lands on the text.
+      f.classList.add('floater--pinned');
+      if (anchor.dy) f.style.marginBottom = anchor.dy + 'px';
+      if (anchor.dx) f.style.marginLeft = anchor.dx + 'px';
+      anchor.el.appendChild(f);
     } else {
-      f.style.left = rand(44, 56) + '%';
-      f.style.top = '46%';
+      if (anchor) {
+        const p = World.project(anchor.x, anchor.y);
+        f.style.left = p.left + '%';
+        f.style.top = p.top + '%';
+      } else {
+        f.style.left = rand(44, 56) + '%';
+        f.style.top = '46%';
+      }
+      el['floaters'].appendChild(f);
     }
-    el['floaters'].appendChild(f);
     setTimeout(function () { f.remove(); }, 1900);
   }
 
@@ -4740,22 +4768,40 @@ const UI = (function () {
   /* -----------------------------------------------------------
      CUSTOMER FEEDBACK
      ----------------------------------------------------------- */
+  /* Hangs off the customer rather than off the stage, so it rides above their
+     head all the way to the door instead of staying pinned to the chair they
+     just got out of.
+
+     That also fixes it being buried. `.layer` sets no z-index, so it is not a
+     stacking context and every actor's inline z-index (placeAt: 100 + y*4)
+     competes directly with the #floaters children, which sit at auto. The
+     chair and the seated sprite therefore painted straight over this card. As
+     a child of the actor it shares the actor's own z-index, which is exactly
+     why the request bubble was always visible and this was not. */
   function showFeedback(customer, result) {
-    const p = World.project(customer.x, customer.y - 8);
     const f = document.createElement('div');
     f.className = 'feedback ' + result.tone;
     f.innerHTML =
       '<span class="fb-name">' + customer.name + '</span>' +
       '<span class="fb-text">' + result.feedback + '</span>' +
       '<span class="fb-meter"><i style="width:' + Math.round(result.satisfaction) + '%"></i></span>';
-    f.style.left = p.left + '%';
-    f.style.top = p.top + '%';
-    el['floaters'].appendChild(f);
+
+    if (customer.el) {
+      customer.el.appendChild(f);
+    } else {                                   // no actor (already gone) — old behaviour
+      const p = World.project(customer.x, customer.y - 8);
+      f.classList.add('feedback--stage');
+      f.style.left = p.left + '%';
+      f.style.top = p.top + '%';
+      el['floaters'].appendChild(f);
+    }
+
     requestAnimationFrame(function () { f.classList.add('show'); });
+    // Long enough to still be over their head part-way to the door.
     setTimeout(function () {
       f.classList.remove('show');
       setTimeout(function () { f.remove(); }, 400);
-    }, 2600);
+    }, 3400);
   }
 
   /* -----------------------------------------------------------
@@ -5230,13 +5276,15 @@ const Game = (function () {
       const result = Economy.serviceCustomer(customer, styleKey);
 
       UI.showFeedback(customer, result);
+      // Anchored to the customer, so the takings rise off the head that earned
+      // them as they walk out rather than hanging over an empty chair.
       UI.floater(money(result.ticket, { sign: true }) + '<small>Haircut</small>',
-                 'good', { x: customer.x, y: customer.y - 4 });
+                 'good', { el: customer.el, dy: 64 });
 
       if (result.tip) {
         setTimeout(function () {
           UI.floater(money(result.tip, { sign: true }) + '<small>Tip</small>',
-                     'good', { x: customer.x + 6, y: customer.y - 8 });
+                     'good', { el: customer.el, dy: 64, dx: 46 });
         }, 260);
       }
 
