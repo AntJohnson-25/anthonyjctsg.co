@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anthony C Johnson | Houston AI &amp; Data Engineer, Game Developer | AnthonyJCTSG</title>
-    <meta name="description" content="Anthony C Johnson (CTSG) — Houston-based AI and data engineer, technology consultant, and game developer. AI implementation, Azure data platforms, custom software, and free browser games.">
-    <meta name="keywords" content="Anthony C Johnson, AnthonyJCTSG, CTSG, Calamity, Houston AI consultant, Houston data engineer, AI engineer Houston, artificial intelligence, AI implementation, data engineering, Azure Data Factory, Azure AI Foundry, Copilot Studio, n8n, automation, technology consultant, custom software, game developer, browser games, indie game developer, Wealth Runner, Billionaire Barber, Food Truck Billionaire, buy'n'scale, T-SQL, Power BI, small business technology">
+    <title>Anthony C Johnson | Houston AI &amp; Cloud Data Engineer | AnthonyJCTSG</title>
+    <meta name="description" content="Anthony C Johnson (CTSG) — Houston-based AI and cloud data engineer and technology consultant with 7+ years turning strategic objectives into revenue-driving data and AI solutions across healthcare, insurance, and manufacturing.">
+    <meta name="keywords" content="Anthony C Johnson, AnthonyJCTSG, CTSG, Houston AI consultant, Houston data engineer, AI engineer Houston, artificial intelligence, AI implementation, data engineering, cloud data engineer, Azure Data Factory, Azure Synapse, Azure AI Foundry, Copilot Studio, n8n, agentic workflows, automation, technology consultant, custom software, T-SQL, Python, Power BI, small business technology">
     <meta name="author" content="Anthony C Johnson">
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#0052cc">
@@ -14,16 +14,16 @@
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="AnthonyJCTSG">
-    <meta property="og:title" content="Anthony C Johnson | Houston AI &amp; Data Engineer, Game Developer">
-    <meta property="og:description" content="Houston-based AI and data engineer, technology consultant, and game developer. AI implementation, Azure data platforms, custom software, and free browser games.">
+    <meta property="og:title" content="Anthony C Johnson | Houston AI &amp; Cloud Data Engineer">
+    <meta property="og:description" content="Houston-based AI and cloud data engineer and technology consultant. AI implementation, Azure data platforms, automation, and analytics.">
     <meta property="og:url" content="https://anthonyjctsg.com/">
     <meta property="og:image" content="https://anthonyjctsg.com/wealthrunner_thumbnail.png">
     <meta property="og:locale" content="en_US">
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Anthony C Johnson | Houston AI &amp; Data Engineer, Game Developer">
-    <meta name="twitter:description" content="Houston-based AI and data engineer, technology consultant, and game developer.">
+    <meta name="twitter:title" content="Anthony C Johnson | Houston AI &amp; Cloud Data Engineer">
+    <meta name="twitter:description" content="Houston-based AI and cloud data engineer and technology consultant.">
     <meta name="twitter:image" content="https://anthonyjctsg.com/wealthrunner_thumbnail.png">
 
     <link rel="stylesheet" href="styles.css">
@@ -37,7 +37,7 @@
       "url": "https://anthonyjctsg.com/",
       "email": "mailto:ant.johnsonsql22@gmail.com",
       "jobTitle": "AI Engineer & Cloud Data Engineer",
-      "description": "Houston-based AI-focused data leader, technology consultant, and game developer with 7+ years turning strategic objectives into revenue-driving data and AI solutions.",
+      "description": "Houston-based AI-focused data leader and technology consultant with 7+ years turning strategic objectives into revenue-driving data and AI solutions across healthcare, insurance, and manufacturing.",
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Houston",
@@ -48,17 +48,18 @@
         "Artificial Intelligence",
         "Data Engineering",
         "Azure Data Factory",
+        "Azure Synapse",
         "Azure AI Foundry",
         "Copilot Studio",
         "Agentic Workflows",
         "T-SQL",
         "Python",
-        "Power BI",
-        "Game Development"
+        "Power BI"
       ],
       "sameAs": [
         "https://www.linkedin.com/in/anthony-c-johnson-2b88a7237/",
-        "https://www.youtube.com/@AgentAJ001"
+        "https://www.youtube.com/@AgentAJ001",
+        "https://www.anthonyjctsg.online"
       ]
     }
     </script>
@@ -84,6 +85,15 @@
             letter-spacing: 3px;
             text-transform: uppercase;
             margin-top: 0.65rem;
+        }
+
+        /* The one-line pitch under the name. Kept narrow so it reads as a
+           statement rather than a paragraph of body copy. */
+        .name-block p {
+            max-width: 640px;
+            margin: 1.1rem auto 0;
+            color: var(--text-muted);
+            font-size: 1.05rem;
         }
 
         .home-grid {
@@ -136,6 +146,49 @@
             color: var(--primary-blue);
         }
 
+        /* styles.css gives every <section> a 3.5rem band and a rule across the
+           top, which is right for the stacked sub-pages but not for two blocks
+           sitting inside a column of this grid — it opened a gap the height of
+           the video between them. Spacing here comes from the grid and from
+           .featured-block instead. */
+        .home-feature > section {
+            padding: 0;
+            border-top: none;
+        }
+
+        /* 3 — What I do: four short capability lines, not a wall of tags */
+        .focus h3,
+        .featured-label h3 {
+            font-size: 1.05rem;
+        }
+
+        .focus-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(215px, 1fr));
+            gap: 0.9rem;
+            margin-top: 0.9rem;
+        }
+
+        .focus-item {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 0.95rem 1.05rem;
+            background-color: var(--light-blue);
+        }
+
+        .focus-item strong {
+            display: block;
+            font-size: 0.98rem;
+        }
+
+        .focus-item small {
+            display: block;
+            margin-top: 0.2rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            line-height: 1.45;
+        }
+
         /* 4 — Featured video */
         .featured-label {
             display: flex;
@@ -146,8 +199,8 @@
             margin-bottom: 0.85rem;
         }
 
-        .featured-label h3 {
-            font-size: 1.05rem;
+        .featured-block {
+            margin-top: 2.5rem;
         }
 
         .featured-label span {
@@ -234,82 +287,6 @@
             color: var(--text-muted);
         }
 
-        /* 4b — Viewer feedback player + list */
-        .feedback-block {
-            margin-top: 2.5rem;
-        }
-
-        .feedback-stage {
-            width: 100%;
-            /* Letterboxed on a dark ground so portrait clips fit without cropping. */
-            max-height: 60vh;
-            aspect-ratio: 16 / 9;
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid var(--border-color);
-            background-color: #0d1117;
-            box-shadow: 0 12px 28px -10px rgba(0, 0, 0, 0.2);
-        }
-
-        .feedback-stage video {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            display: block;
-            background-color: #0d1117;
-        }
-
-        .feedback-list {
-            list-style: none;
-            counter-reset: fb;
-            margin-top: 0.9rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.35rem;
-        }
-
-        .feedback-list li {
-            counter-increment: fb;
-        }
-
-        .feedback-list a {
-            display: flex;
-            align-items: baseline;
-            gap: 0.5rem;
-            padding: 0.5rem 0.7rem;
-            border-radius: 6px;
-            font-size: 0.95rem;
-            color: var(--text-dark);
-            text-decoration: none;
-            border: 1px solid transparent;
-            transition: background 0.2s ease, border-color 0.2s ease;
-        }
-
-        .feedback-list a::before {
-            content: counter(fb) ")";
-            color: var(--primary-blue);
-            font-weight: 700;
-        }
-
-        .feedback-list a:hover,
-        .feedback-list a:focus-visible {
-            border-color: var(--primary-blue);
-            background-color: var(--light-blue);
-        }
-
-        .feedback-list a[aria-current="true"] {
-            background-color: var(--light-blue);
-            border-color: var(--primary-blue);
-            font-weight: 600;
-        }
-
-        .feedback-list a span {
-            margin-left: auto;
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            font-weight: 400;
-        }
-
         /* 6 — Mailing list signup */
         .visually-hidden {
             position: absolute;
@@ -320,8 +297,12 @@
             white-space: nowrap;
         }
 
+        /* Runs the full width under the three columns rather than dropping into
+           the first one and leaving the rest of the row empty. */
         .signup {
-            margin-top: 2.5rem;
+            grid-column: 1 / -1;
+            max-width: 760px;
+            margin-top: 1rem;
             padding: 1.75rem;
             border: 1px solid var(--border-color);
             border-radius: 10px;
@@ -441,6 +422,13 @@
             line-height: 1.4;
         }
 
+        /* Marks the one link that leaves the site, so it is not a surprise. */
+        .ext::after {
+            content: " \2197";
+            font-weight: 700;
+            color: var(--primary-blue);
+        }
+
         @media (max-width: 980px) {
             .home-grid {
                 grid-template-columns: 260px minmax(0, 1fr);
@@ -474,6 +462,9 @@
             .name-block h2 {
                 letter-spacing: 2px;
             }
+            .name-block p {
+                font-size: 0.98rem;
+            }
             .quote p {
                 font-size: 1.05rem;
             }
@@ -492,17 +483,20 @@
             <ul class="nav-links">
                 <li><a href="business.html">Business</a></li>
                 <li><a href="professional.html">Professional</a></li>
-                <li><a href="portfolio.html">Portfolio</a></li>
+                <li><a href="https://www.anthonyjctsg.online" target="_blank" rel="noopener">Projects</a></li>
             </ul>
         </div>
     </header>
 
     <main class="container">
 
-        <!-- 3 — Website name + sub-header -->
+        <!-- 3 — Name + what he does -->
         <div class="name-block">
-            <h1>AnthonyJCTSG.com</h1>
-            <h2>Anthony C Johnson</h2>
+            <h1>Anthony C Johnson</h1>
+            <h2>AI &amp; Cloud Data Engineer &middot; Houston, TX</h2>
+            <p>Houston-based AI-focused data leader and business-minded technologist, with 7+ years
+               turning strategic objectives into revenue-driving data and AI solutions across
+               healthcare, insurance, and manufacturing.</p>
         </div>
 
         <div class="home-grid">
@@ -520,55 +514,59 @@
                 </blockquote>
             </div>
 
-            <!-- 4 — Latest YouTube upload -->
             <div class="home-feature">
-                <div class="featured-label">
-                    <h3>Latest from <a href="https://www.youtube.com/@AgentAJ001" target="_blank" rel="noopener">A.I Build with AJ</a></h3>
-                    <span>YouTube</span>
-                </div>
-                <div class="video-card">
-                    <a id="video-link"
-                       href="https://www.youtube.com/watch?v=jGQuyQsd5zQ"
-                       target="_blank" rel="noopener"
-                       class="thumbnail-link" title="Watch the latest video on YouTube">
-                        <img id="video-thumb"
-                             src="https://img.youtube.com/vi/jGQuyQsd5zQ/maxresdefault.jpg"
-                             alt="Latest YouTube video thumbnail"
-                             class="thumbnail-img"
-                             onerror="this.onerror=null;this.src=this.src.replace('maxresdefault','hqdefault');">
-                        <div class="play-button"><div class="play-arrow"></div></div>
-                    </a>
-                </div>
-                <div class="video-meta">
-                    <h4 id="video-title">Wealth Runner Now available</h4>
-                    <time id="video-date" datetime="2026-08-07">August 7, 2026</time>
-                </div>
 
-                <!-- 4b — Viewer feedback -->
-                <section class="feedback-block" aria-labelledby="feedback-heading">
+                <!-- 3b — What I work on -->
+                <section class="focus" aria-labelledby="focus-heading">
                     <div class="featured-label">
-                        <h3 id="feedback-heading">Viewer Feedback</h3>
-                        <span>Clips</span>
+                        <h3 id="focus-heading">What I work on</h3>
+                        <span>Capabilities</span>
                     </div>
-                    <div class="feedback-stage">
-                        <video id="feedback-player"
-                               src="feedback_1_1.mp4"
-                               controls preload="metadata" playsinline
-                               aria-label="Viewer feedback clip"></video>
+                    <div class="focus-grid">
+                        <div class="focus-item">
+                            <strong>AI &amp; Automation</strong>
+                            <small>Copilot Studio, Azure AI Foundry, agentic workflows, n8n</small>
+                        </div>
+                        <div class="focus-item">
+                            <strong>Cloud Data Platforms</strong>
+                            <small>Azure Data Factory, Synapse, Data Lake, SSIS</small>
+                        </div>
+                        <div class="focus-item">
+                            <strong>Engineering</strong>
+                            <small>T-SQL, Python, C#, .NET, PowerShell</small>
+                        </div>
+                        <div class="focus-item">
+                            <strong>Analytics &amp; Delivery</strong>
+                            <small>Power BI, Azure DevOps, Git, Agile / Scrum</small>
+                        </div>
                     </div>
-                    <ol class="feedback-list" id="feedback-list">
-                        <li>
-                            <a href="feedback_1_1.mp4" data-src="feedback_1_1.mp4" aria-current="true">
-                                Wealth Runner &mdash; player reaction <span>Video</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="feedback2.mp4" data-src="feedback2.mp4">
-                                Wealth Runner &mdash; player reaction 2 <span>Video</span>
-                            </a>
-                        </li>
-                    </ol>
                 </section>
+
+                <!-- 4 — Latest YouTube upload -->
+                <section class="featured-block" aria-labelledby="video-heading">
+                    <div class="featured-label">
+                        <h3 id="video-heading">Latest from <a href="https://www.youtube.com/@AgentAJ001" target="_blank" rel="noopener">A.I Build with AJ</a></h3>
+                        <span>YouTube</span>
+                    </div>
+                    <div class="video-card">
+                        <a id="video-link"
+                           href="https://www.youtube.com/watch?v=jGQuyQsd5zQ"
+                           target="_blank" rel="noopener"
+                           class="thumbnail-link" title="Watch the latest video on YouTube">
+                            <img id="video-thumb"
+                                 src="https://img.youtube.com/vi/jGQuyQsd5zQ/maxresdefault.jpg"
+                                 alt="Latest YouTube video thumbnail"
+                                 class="thumbnail-img"
+                                 onerror="this.onerror=null;this.src=this.src.replace('maxresdefault','hqdefault');">
+                            <div class="play-button"><div class="play-arrow"></div></div>
+                        </a>
+                    </div>
+                    <div class="video-meta">
+                        <h4 id="video-title">Wealth Runner Now available</h4>
+                        <time id="video-date" datetime="2026-08-07">August 7, 2026</time>
+                    </div>
+                </section>
+
             </div>
 
             <!-- 5 — Directory -->
@@ -587,9 +585,9 @@
                         </a>
                     </li>
                     <li>
-                        <a href="portfolio.html">
-                            <strong>Portfolio</strong>
-                            <small>Games</small>
+                        <a href="https://www.anthonyjctsg.online" target="_blank" rel="noopener">
+                            <strong class="ext">Projects</strong>
+                            <small>Things I build outside of work &mdash; browser projects at anthonyjctsg.online</small>
                         </a>
                     </li>
                 </ol>
@@ -597,15 +595,15 @@
 
             <!-- 6 — Mailing list -->
             <section class="signup" aria-labelledby="signup-heading">
-                <h3 id="signup-heading">Get new games in your inbox</h3>
-                <p>New releases and build updates, now and then. Your email is only used to send those &mdash; ask any time and it comes off the list.</p>
+                <h3 id="signup-heading">Occasional updates</h3>
+                <p>Notes on what I&rsquo;m building &mdash; AI, data, and side projects &mdash; now and then. Your email is only used to send those &mdash; ask any time and it comes off the list.</p>
                 <form id="signup-form" novalidate>
                     <div class="signup-fields">
                         <label class="visually-hidden" for="signup-name">Name (optional)</label>
                         <input id="signup-name" type="text" autocomplete="name" maxlength="120" placeholder="Name (optional)">
                         <label class="visually-hidden" for="signup-email">Email address</label>
                         <input id="signup-email" type="email" autocomplete="email" maxlength="254" placeholder="you@example.com" required>
-                        <button type="submit" class="btn">Notify me</button>
+                        <button type="submit" class="btn">Sign me up</button>
                     </div>
                     <p class="signup-status" id="signup-status" role="status" aria-live="polite"></p>
                 </form>
@@ -643,28 +641,6 @@
                 }
             })
             .catch(function () { /* keep the fallback video already in the markup */ });
-
-        // Viewer feedback list — each link loads its clip into the player above.
-        // Without JS the links still resolve to the raw file, so nothing is lost.
-        (function () {
-            var list = document.getElementById('feedback-list');
-            var player = document.getElementById('feedback-player');
-            if (!list || !player) { return; }
-
-            list.addEventListener('click', function (e) {
-                var link = e.target.closest('a[data-src]');
-                if (!link) { return; }
-                e.preventDefault();
-
-                list.querySelectorAll('a[data-src]').forEach(function (a) {
-                    a.removeAttribute('aria-current');
-                });
-                link.setAttribute('aria-current', 'true');
-
-                player.src = link.dataset.src;
-                player.play().catch(function () { /* autoplay blocked — controls are there */ });
-            });
-        }());
 
         // Mailing list. Without JS the form simply does nothing rather than
         // navigating somewhere broken, hence the novalidate + preventDefault.
