@@ -88,9 +88,18 @@
         }
 
         /* ---- Home page layout ---- */
+        .home-grid {
+            display: grid;
+            grid-template-columns: 280px minmax(0, 1fr);
+            gap: 3rem;
+            align-items: start;
+            padding: 2.5rem 0 4rem;
+        }
+
+        /* 3 — Name + what he does, upper right */
         .name-block {
-            text-align: center;
-            padding: 5rem 0 3.5rem;
+            text-align: right;
+            padding-bottom: 1.5rem;
         }
 
         .name-block h1 {
@@ -113,18 +122,10 @@
         /* The one-line pitch under the name. Kept narrow so it reads as a
            statement rather than a paragraph of body copy. */
         .name-block p {
-            max-width: 640px;
-            margin: 1.75rem auto 0;
+            max-width: 520px;
+            margin: 1.75rem 0 0 auto;
             color: var(--text-muted);
             font-size: 1.05rem;
-        }
-
-        .home-grid {
-            display: grid;
-            grid-template-columns: 280px minmax(0, 1fr);
-            gap: 3rem;
-            align-items: start;
-            padding-bottom: 4rem;
         }
 
         /* 1 — Profile picture */
@@ -180,16 +181,20 @@
             border-top: none;
         }
 
-        /* 3 — What I do: four short capability lines, not a wall of tags */
+        /* 3 — Skills: vertically stacked, single header on top */
         .focus h3,
         .featured-label h3 {
             font-size: 1.05rem;
         }
 
+        .focus .featured-label {
+            justify-content: flex-start;
+        }
+
         .focus-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(215px, 1fr));
-            gap: 0.9rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
             margin-top: 0.9rem;
         }
 
@@ -238,7 +243,7 @@
         }
 
         .featured-block {
-            margin-top: 2.5rem;
+            margin-top: 1.5rem;
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
@@ -339,17 +344,19 @@
             white-space: nowrap;
         }
 
-        /* Runs the full width under the columns rather than dropping into
-           the first one and leaving the rest of the row empty. */
+        /* Sits under the quote in the identity column, spaced well away from
+           it so the two blocks don't read as one piece. */
         .signup {
-            grid-column: 1 / -1;
-            max-width: 760px;
-            margin-top: 1rem;
-            padding: 1.75rem;
+            margin-top: 2.5rem;
+            padding: 1.25rem;
             border: 1px solid var(--border-color);
             border-radius: 10px;
             background-color: var(--light-blue);
             animation: slideInRow 0.6s ease-out 0.5s backwards;
+        }
+
+        .signup-fields {
+            flex-direction: column;
         }
 
         .signup h3 {
@@ -496,11 +503,18 @@
             .featured-block {
                 max-width: 100%;
             }
+            .name-block {
+                text-align: center;
+            }
+            .name-block p {
+                margin-left: auto;
+                margin-right: auto;
+            }
         }
 
         @media (max-width: 600px) {
             .name-block {
-                padding: 3rem 0 2rem;
+                padding-bottom: 1.25rem;
             }
             .name-block h2 {
                 letter-spacing: 2px;
@@ -531,15 +545,6 @@
 
     <main class="container">
 
-        <!-- 3 — Name + what he does -->
-        <div class="name-block">
-            <h1>Anthony C Johnson</h1>
-            <h2>AI &amp; Cloud Data Engineer &middot; Houston, TX</h2>
-            <p>Houston-based AI-focused data leader and business-minded technologist, with 7+ years
-               turning strategic objectives into revenue-driving data and AI solutions across
-               healthcare, insurance, and manufacturing.</p>
-        </div>
-
         <div class="home-grid">
 
             <div class="home-identity">
@@ -553,15 +558,39 @@
                     <p>&ldquo;Do it right the first time, you won&rsquo;t have to do it again.&rdquo;</p>
                     <cite>&mdash; Annie.J</cite>
                 </blockquote>
+
+                <!-- 6 — Mailing list -->
+                <section class="signup" aria-labelledby="signup-heading">
+                    <h3 id="signup-heading">Occasional updates</h3>
+                    <p>Notes on what I&rsquo;m building &mdash; AI, data, and side projects &mdash; now and then. Your email is only used to send those &mdash; ask any time and it comes off the list.</p>
+                    <form id="signup-form" novalidate>
+                        <div class="signup-fields">
+                            <label class="visually-hidden" for="signup-name">Name (optional)</label>
+                            <input id="signup-name" type="text" autocomplete="name" maxlength="120" placeholder="Name (optional)">
+                            <label class="visually-hidden" for="signup-email">Email address</label>
+                            <input id="signup-email" type="email" autocomplete="email" maxlength="254" placeholder="you@example.com" required>
+                            <button type="submit" class="btn">Sign me up</button>
+                        </div>
+                        <p class="signup-status" id="signup-status" role="status" aria-live="polite"></p>
+                    </form>
+                </section>
             </div>
 
             <div class="home-feature">
 
-                <!-- 3b — What I work on -->
+                <!-- 3 — Name + what he does -->
+                <div class="name-block">
+                    <h1>Anthony C Johnson</h1>
+                    <h2>AI &amp; Cloud Data Engineer &middot; Houston, TX</h2>
+                    <p>Houston-based AI-focused data leader and business-minded technologist, with 7+ years
+                       turning strategic objectives into revenue-driving data and AI solutions across
+                       healthcare, insurance, and manufacturing.</p>
+                </div>
+
+                <!-- 3b — Skills -->
                 <section class="focus" aria-labelledby="focus-heading">
                     <div class="featured-label">
-                        <h3 id="focus-heading">What I work on</h3>
-                        <span>Capabilities</span>
+                        <h3 id="focus-heading">Skills</h3>
                     </div>
                     <div class="focus-grid">
                         <div class="focus-item">
@@ -633,22 +662,6 @@
                     </li>
                 </ol>
             </nav>
-
-            <!-- 6 — Mailing list -->
-            <section class="signup" aria-labelledby="signup-heading">
-                <h3 id="signup-heading">Occasional updates</h3>
-                <p>Notes on what I&rsquo;m building &mdash; AI, data, and side projects &mdash; now and then. Your email is only used to send those &mdash; ask any time and it comes off the list.</p>
-                <form id="signup-form" novalidate>
-                    <div class="signup-fields">
-                        <label class="visually-hidden" for="signup-name">Name (optional)</label>
-                        <input id="signup-name" type="text" autocomplete="name" maxlength="120" placeholder="Name (optional)">
-                        <label class="visually-hidden" for="signup-email">Email address</label>
-                        <input id="signup-email" type="email" autocomplete="email" maxlength="254" placeholder="you@example.com" required>
-                        <button type="submit" class="btn">Sign me up</button>
-                    </div>
-                    <p class="signup-status" id="signup-status" role="status" aria-live="polite"></p>
-                </form>
-            </section>
 
         </div>
     </main>

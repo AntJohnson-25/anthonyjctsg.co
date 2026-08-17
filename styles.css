@@ -84,8 +84,11 @@ header {
        strip instead of just the glyphs. */
     padding: 0.4rem 0;
     text-decoration: none;
-    color: var(--text-dark);
-    font-weight: 500;
+    /* The header bar stays white regardless of theme, so this is pinned to
+       black rather than the theme text color, which turns near-white (and
+       invisible) in dark mode. */
+    color: #000000;
+    font-weight: 700;
     font-size: 0.95rem;
     transition: color 0.2s ease;
 }
