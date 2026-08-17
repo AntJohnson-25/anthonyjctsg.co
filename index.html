@@ -64,10 +64,22 @@
     }
     </script>
     <style>
+        /* Animation for row-by-row appearance */
+        @keyframes slideInRow {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
         /* ---- Home page layout ---- */
         .name-block {
             text-align: center;
-            padding: 3rem 0 2.5rem;
+            padding: 5rem 0 3.5rem;
         }
 
         .name-block h1 {
@@ -84,21 +96,21 @@
             color: var(--text-muted);
             letter-spacing: 3px;
             text-transform: uppercase;
-            margin-top: 0.65rem;
+            margin-top: 1.2rem;
         }
 
         /* The one-line pitch under the name. Kept narrow so it reads as a
            statement rather than a paragraph of body copy. */
         .name-block p {
             max-width: 640px;
-            margin: 1.1rem auto 0;
+            margin: 1.75rem auto 0;
             color: var(--text-muted);
             font-size: 1.05rem;
         }
 
         .home-grid {
             display: grid;
-            grid-template-columns: 300px minmax(0, 1fr) 260px;
+            grid-template-columns: 280px minmax(0, 1fr);
             gap: 3rem;
             align-items: start;
             padding-bottom: 4rem;
@@ -128,6 +140,7 @@
             margin-top: 1.75rem;
             border-left: 3px solid var(--primary-blue);
             padding-left: 1rem;
+            animation: slideInRow 0.6s ease-out;
         }
 
         .quote p {
@@ -174,6 +187,20 @@
             border-radius: 8px;
             padding: 0.95rem 1.05rem;
             background-color: var(--light-blue);
+            animation: slideInRow 0.6s ease-out;
+        }
+
+        .focus-item:nth-child(1) {
+            animation-delay: 0s;
+        }
+        .focus-item:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+        .focus-item:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+        .focus-item:nth-child(4) {
+            animation-delay: 0.3s;
         }
 
         .focus-item strong {
@@ -193,7 +220,7 @@
         .featured-label {
             display: flex;
             align-items: baseline;
-            justify-content: space-between;
+            justify-content: center;
             gap: 1rem;
             flex-wrap: wrap;
             margin-bottom: 0.85rem;
@@ -201,6 +228,10 @@
 
         .featured-block {
             margin-top: 2.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: slideInRow 0.6s ease-out 0.4s backwards;
         }
 
         .featured-label span {
@@ -272,7 +303,7 @@
             margin-top: 0.9rem;
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            justify-content: center;
             gap: 1rem;
             flex-wrap: wrap;
         }
@@ -297,7 +328,7 @@
             white-space: nowrap;
         }
 
-        /* Runs the full width under the three columns rather than dropping into
+        /* Runs the full width under the columns rather than dropping into
            the first one and leaving the rest of the row empty. */
         .signup {
             grid-column: 1 / -1;
@@ -307,6 +338,7 @@
             border: 1px solid var(--border-color);
             border-radius: 10px;
             background-color: var(--light-blue);
+            animation: slideInRow 0.6s ease-out 0.5s backwards;
         }
 
         .signup h3 {
@@ -374,7 +406,11 @@
             color: #b3261e;
         }
 
-        /* 5 — Directory list */
+        /* 5 — Directory list - hidden */
+        .home-directory {
+            display: none;
+        }
+
         .directory {
             list-style: none;
             counter-reset: dir;
@@ -434,13 +470,6 @@
                 grid-template-columns: 260px minmax(0, 1fr);
                 gap: 2.5rem;
             }
-            .home-directory {
-                grid-column: 1 / -1;
-            }
-            .directory {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            }
         }
 
         @media (max-width: 700px) {
@@ -453,24 +482,25 @@
                 max-width: 260px;
                 margin: 0 auto;
             }
+            .featured-block {
+                max-width: 100%;
+            }
         }
 
         @media (max-width: 600px) {
             .name-block {
-                padding: 2rem 0 1.75rem;
+                padding: 3rem 0 2rem;
             }
             .name-block h2 {
                 letter-spacing: 2px;
+                margin-top: 1rem;
             }
             .name-block p {
                 font-size: 0.98rem;
+                margin-top: 1.25rem;
             }
             .quote p {
                 font-size: 1.05rem;
-            }
-            /* One card per row reads better than a cramped two-up here. */
-            .directory {
-                grid-template-columns: 1fr;
             }
         }
     </style>
