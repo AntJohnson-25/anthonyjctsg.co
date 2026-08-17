@@ -1,11 +1,11 @@
 :root {
-    --primary-blue: #0052cc;
-    --accent-blue: #0747a6;
-    --light-blue: #f4f7fb;
-    --text-dark: #172b4d;
-    --text-muted: #5e6c84;
-    --bg-white: #ffffff;
-    --border-color: #e2e8f0;
+    --primary-blue: #4a9eff;
+    --accent-blue: #6bb6ff;
+    --light-blue: #1a2332;
+    --text-dark: #e0e6ff;
+    --text-muted: #7d8aa8;
+    --bg-white: #0d1117;
+    --border-color: #2d3748;
 }
 
 * {
