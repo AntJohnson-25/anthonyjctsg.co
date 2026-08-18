@@ -355,42 +355,39 @@
         }
 
         /* Sits under the quote in the identity column, spaced well away from
-           it so the two blocks don't read as one piece. */
+           it so the two blocks don't read as one piece. Kept compact — a
+           slim stacked form, not a tall card. */
         .signup {
             margin-top: 2.5rem;
-            padding: 1.25rem;
+            padding: 1rem 1.1rem;
             border: 1px solid var(--border-color);
             border-radius: 10px;
             background-color: var(--light-blue);
             animation: slideInRow 0.6s ease-out 0.5s backwards;
         }
 
-        .signup-fields {
-            flex-direction: column;
-        }
-
         .signup h3 {
-            font-size: 1.2rem;
-            margin-bottom: 0.35rem;
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
         }
 
         .signup > p {
             color: var(--text-muted);
-            font-size: 0.92rem;
-            margin-bottom: 1.1rem;
+            font-size: 0.82rem;
+            line-height: 1.4;
+            margin-bottom: 0.85rem;
         }
 
         .signup-fields {
             display: flex;
-            gap: 0.6rem;
-            flex-wrap: wrap;
+            flex-direction: column;
+            gap: 0.5rem;
         }
 
         .signup-fields input {
-            flex: 1 1 190px;
-            min-width: 0;
-            padding: 0.7rem 0.9rem;
-            font-size: 0.95rem;
+            width: 100%;
+            padding: 0.5rem 0.7rem;
+            font-size: 0.85rem;
             font-family: inherit;
             color: var(--text-dark);
             background-color: var(--bg-white);
@@ -404,9 +401,11 @@
         }
 
         .signup-fields .btn {
+            width: 100%;
+            padding: 0.5rem 0.9rem;
             border: none;
             cursor: pointer;
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             font-family: inherit;
         }
 
