@@ -506,12 +506,31 @@
                 gap: 2rem;
                 padding-bottom: 2.5rem;
             }
+            /* Let the identity/feature wrappers dissolve so their children
+               can be reordered individually — otherwise the signup form is
+               stuck wherever it sits inside .home-identity, in the middle
+               of the page instead of at the end. */
+            .home-identity,
+            .home-feature {
+                display: contents;
+            }
             .profile-frame {
+                order: 1;
                 max-width: 260px;
                 margin: 0 auto;
             }
+            .quote {
+                order: 2;
+            }
+            .name-block {
+                order: 3;
+            }
             .home-content-row {
+                order: 4;
                 grid-template-columns: 1fr;
+            }
+            .signup {
+                order: 5;
             }
             .skills-col {
                 order: 0;
