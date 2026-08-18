@@ -65,11 +65,20 @@ header {
 }
 
 .brand-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
     font-size: 1.4rem;
     font-weight: 700;
     color: var(--primary-blue);
     text-decoration: none;
     letter-spacing: -0.5px;
+}
+
+.brand-logo-mark {
+    height: 34px;
+    width: auto;
+    display: block;
 }
 
 .nav-links {
