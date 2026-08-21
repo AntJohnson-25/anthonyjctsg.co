@@ -111,7 +111,7 @@
         }
 
         .how-list h3::before {
-            content: "Step " counter(step) " â€” ";
+            content: "Step " counter(step) ": ";
             color: var(--text-muted);
             font-weight: 500;
         }
@@ -121,74 +121,199 @@
             font-size: 0.95rem;
         }
 
-        /* Intro: copy on the left, the charts across from it on the right. */
+        /* Intro: copy on the left, sitting higher with the figure shrunk down
+           beside it so the two sit close together rather than the figure
+           dictating the whole hero's height. */
+        .page-intro {
+            padding-top: 1.5rem;
+        }
+
         .intro-layout {
             display: grid;
-            grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
-            gap: 3rem;
-            align-items: center;
+            grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.85fr);
+            gap: 2.5rem;
+            align-items: start;
+        }
+
+        .intro-copy {
+            padding-top: 0.25rem;
         }
 
         .intro-figure {
             margin: 0;
-            display: grid;
-            gap: 1.5rem;
+            max-width: 340px;
+            justify-self: end;
             background-color: var(--light-blue);
             border: 1px solid var(--border-color);
             border-radius: 10px;
-            padding: 1.75rem;
+            padding: 1.1rem 1rem 0.9rem;
         }
 
-        .chart-title {
-            font-size: 0.8rem;
-            font-weight: 600;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            margin-bottom: 0.75rem;
-        }
-
-        .pie-row {
+        /* ---- Laptop illustration ------------------------------------
+           A small "near me" search on a laptop screen, flanked by a bar
+           chart and a pie chart drawn straight in CSS — no chart library,
+           just divs and a conic-gradient. Purely decorative: the figure
+           carries the accessible label, everything inside is hidden. */
+        .laptop-scene {
             display: flex;
-            align-items: center;
-            gap: 1.25rem;
+            align-items: flex-end;
+            justify-content: center;
             flex-wrap: wrap;
+            gap: 0.85rem;
+            min-height: 132px;
+            padding: 0.25rem 0 0.5rem;
         }
 
-        .pie-row svg { flex: 0 0 auto; }
-
-        .chart-legend {
-            list-style: none;
-            display: grid;
-            gap: 0.4rem;
-            font-size: 0.82rem;
-            color: var(--text-muted);
-        }
-
-        .chart-legend li {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .legend-swatch {
-            width: 10px;
-            height: 10px;
-            border-radius: 2px;
+        .laptop {
+            width: 140px;
             flex: 0 0 auto;
         }
 
-        .intro-figure figcaption {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            border-top: 1px solid var(--border-color);
-            padding-top: 0.85rem;
+        .laptop-screen {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            aspect-ratio: 8 / 5.6;
+            background-color: var(--bg-white);
+            border: 2px solid var(--border-color);
+            border-radius: 7px 7px 1px 1px;
+            padding: 7px 8px;
+        }
+
+        .browser-dots {
+            display: flex;
+            gap: 3px;
+        }
+
+        .browser-dots span {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background-color: var(--border-color);
+        }
+
+        .search-pill {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background-color: var(--light-blue);
+            border: 1px solid var(--border-color);
+            border-radius: 999px;
+            padding: 3px 7px;
+        }
+
+        .search-icon {
+            flex: 0 0 auto;
+            color: var(--primary-blue);
+        }
+
+        .search-text {
+            font-size: 0.6rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            white-space: nowrap;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 1px;
+            height: 0.75em;
+            margin-left: 2px;
+            vertical-align: -0.1em;
+            background-color: var(--primary-blue);
+            animation: caret-blink 1s step-end infinite;
+        }
+
+        .result-line {
+            display: block;
+            height: 4px;
+            width: 78%;
+            border-radius: 2px;
+            background-color: var(--border-color);
+        }
+
+        .result-line.short {
+            width: 52%;
+        }
+
+        .laptop-base {
+            width: 128%;
+            margin-left: -14%;
+            height: 8px;
+            margin-top: 2px;
+            background-color: var(--border-color);
+            clip-path: polygon(6% 0, 94% 0, 100% 100%, 0 100%);
+        }
+
+        .floater {
+            display: flex;
+            flex: 0 0 auto;
+        }
+
+        .floater-bars {
+            align-items: flex-end;
+            gap: 5px;
+            height: 92px;
+            padding-bottom: 4px;
+        }
+
+        .floater-bars .bar {
+            width: 10px;
+            height: var(--h);
+            border-radius: 3px 3px 0 0;
+            background: linear-gradient(var(--accent-blue), var(--primary-blue));
+            transform: scaleY(0);
+            transform-origin: bottom;
+            animation: bar-grow 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+            animation-delay: var(--d);
+        }
+
+        .floater-pie {
+            align-items: center;
+            padding-bottom: 8px;
+        }
+
+        .floater-pie .pie {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: conic-gradient(#0052cc 0 40%, #00875a 0 65%, #6554c0 0 85%, #b45309 0 100%);
+            box-shadow: 0 0 0 4px var(--bg-white), 0 0 0 5px var(--border-color);
+            transform: scale(0);
+            opacity: 0;
+            animation: pie-in 0.6s ease-out 0.35s forwards;
+        }
+
+        @keyframes bar-grow {
+            to { transform: scaleY(1); }
+        }
+
+        @keyframes pie-in {
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes caret-blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .floater-bars .bar,
+            .floater-pie .pie,
+            .cursor {
+                animation: none !important;
+            }
+            .floater-bars .bar { transform: scaleY(1); }
+            .floater-pie .pie { transform: scale(1); opacity: 1; }
         }
 
         @media (max-width: 860px) {
             .intro-layout {
                 grid-template-columns: 1fr;
-                gap: 2rem;
+                gap: 1.75rem;
+            }
+            .intro-figure {
+                justify-self: center;
             }
         }
 
@@ -200,11 +325,40 @@
                 font-size: 1.1rem;
             }
             .intro-figure {
-                padding: 1.25rem;
+                padding: 1rem 0.85rem 0.8rem;
             }
             .how-list {
                 gap: 1.25rem;
             }
+        }
+
+        /* Stands in for a portfolio section until there are real case
+           studies — points at a live example site (seniorsecured.org, built
+           for a friend) without naming the client on the page. */
+        .card-example {
+            margin-top: 1rem;
+            padding-top: 0.85rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .card-example-label {
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.3rem;
+        }
+
+        .card-example-link {
+            display: inline-block;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .card-example-link:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -212,11 +366,13 @@
 
     <header>
         <div class="nav-container">
-            <a href="index.html" class="brand-logo">AnthonyJCTSG.com</a>
+            <a href="index.html" class="brand-logo" aria-label="AnthonyJCTSG.com">
+                <img src="ctsg-logo-transparent.png" alt="AnthonyJCTSG.com" class="brand-logo-mark">
+            </a>
             <ul class="nav-links">
                 <li><a href="business.html" aria-current="page">Business</a></li>
                 <li><a href="professional.html">Professional</a></li>
-                <li><a href="https://www.anthonyjctsg.online" target="_blank" rel="noopener">Projects</a></li>
+                <li><a href="https://www.anthonyjctsg.online" target="_blank" rel="noopener">Games</a></li>
             </ul>
         </div>
     </header>
@@ -232,48 +388,35 @@
                     <p>Products and services built end to end &mdash; from the first scoping conversation through production deployment. No handoff to a separate delivery team.</p>
                 </div>
 
-                <figure class="intro-figure">
-                    <div>
-                        <p class="chart-title" id="mix-title">Where the work goes</p>
-                        <div class="pie-row">
-                            <svg width="160" height="160" viewBox="0 0 160 160" role="img" aria-labelledby="mix-title mix-desc">
-                                <desc id="mix-desc">Pie chart of service mix: AI implementation 40 percent, custom software 25 percent, data platform engineering 20 percent, websites 15 percent.</desc>
-                                <g stroke="#ffffff" stroke-width="2">
-                                    <path d="M80,80 L80,10 A70,70 0 0 1 121.15,136.63 Z" fill="#0052cc"><title>AI Implementation â€” 40%</title></path>
-                                    <path d="M80,80 L121.15,136.63 A70,70 0 0 1 23.37,121.15 Z" fill="#00875a"><title>Custom Software â€” 25%</title></path>
-                                    <path d="M80,80 L23.37,121.15 A70,70 0 0 1 23.37,38.85 Z" fill="#6554c0"><title>Data Platform Engineering â€” 20%</title></path>
-                                    <path d="M80,80 L23.37,38.85 A70,70 0 0 1 80,10 Z" fill="#b45309"><title>SEO-Optimized Websites â€” 15%</title></path>
-                                </g>
-                            </svg>
-                            <ul class="chart-legend">
-                                <li><span class="legend-swatch" style="background:#0052cc" aria-hidden="true"></span>AI Implementation &mdash; 40%</li>
-                                <li><span class="legend-swatch" style="background:#00875a" aria-hidden="true"></span>Custom Software &mdash; 25%</li>
-                                <li><span class="legend-swatch" style="background:#6554c0" aria-hidden="true"></span>Data Platform &mdash; 20%</li>
-                                <li><span class="legend-swatch" style="background:#b45309" aria-hidden="true"></span>Websites &mdash; 15%</li>
-                            </ul>
+                <figure class="intro-figure" aria-label="Illustration of a laptop performing a local &quot;near me&quot; search, flanked by a bar chart showing growth after go-live and a pie chart showing the service mix.">
+                    <div class="laptop-scene" aria-hidden="true">
+                        <div class="floater floater-bars">
+                            <span class="bar" style="--h:38%; --d:0s"></span>
+                            <span class="bar" style="--h:58%; --d:0.1s"></span>
+                            <span class="bar" style="--h:78%; --d:0.2s"></span>
+                            <span class="bar" style="--h:98%; --d:0.3s"></span>
+                        </div>
+
+                        <div class="laptop">
+                            <div class="laptop-screen">
+                                <div class="browser-dots"><span></span><span></span><span></span></div>
+                                <div class="search-pill">
+                                    <svg class="search-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                        <circle cx="11" cy="11" r="7"></circle>
+                                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                    </svg>
+                                    <span class="search-text">Near Me<span class="cursor"></span></span>
+                                </div>
+                                <span class="result-line"></span>
+                                <span class="result-line short"></span>
+                            </div>
+                            <div class="laptop-base"></div>
+                        </div>
+
+                        <div class="floater floater-pie">
+                            <span class="pie"></span>
                         </div>
                     </div>
-
-                    <div>
-                        <p class="chart-title" id="arc-title">Value compounds after go-live</p>
-                        <svg width="100%" height="172" viewBox="0 0 264 172" role="img" aria-labelledby="arc-title arc-desc" preserveAspectRatio="xMidYMid meet">
-                            <desc id="arc-desc">Line chart showing measured business value rising steadily over the twelve months following go-live.</desc>
-                            <g stroke="var(--border-color)" stroke-width="1">
-                                <line x1="32" y1="20" x2="248" y2="20"></line>
-                                <line x1="32" y1="60" x2="248" y2="60"></line>
-                                <line x1="32" y1="100" x2="248" y2="100"></line>
-                                <line x1="32" y1="140" x2="248" y2="140"></line>
-                            </g>
-                            <polyline points="40,140 67,133 94,120 121,110 149,88 176,70 203,43 230,20"
-                                      fill="none" stroke="#0052cc" stroke-width="2"
-                                      stroke-linecap="round" stroke-linejoin="round"></polyline>
-                            <circle cx="230" cy="20" r="5" fill="#0052cc" stroke="#ffffff" stroke-width="2"></circle>
-                            <text x="32" y="164" font-size="10" fill="var(--text-muted)">Go-live</text>
-                            <text x="248" y="164" font-size="10" fill="var(--text-muted)" text-anchor="end">Month 12</text>
-                        </svg>
-                    </div>
-
-                    <figcaption>Illustrative &mdash; shapes shown are representative of engagement structure, not a specific client result.</figcaption>
                 </figure>
             </div>
         </div>
@@ -285,24 +428,28 @@
             </div>
             <div class="grid-auto">
                 <div class="card">
-                    <div class="card-icon">01</div>
+                    <div class="card-icon">1</div>
                     <h3>AI Implementation</h3>
                     <p>End-to-end AI integration and automation &mdash; LLM-powered workflows, agentic systems, and custom tooling built on Copilot Studio, Azure AI Foundry, and n8n that plug directly into your existing systems.</p>
                 </div>
                 <div class="card">
-                    <div class="card-icon">02</div>
+                    <div class="card-icon">2</div>
                     <h3>Custom Software</h3>
                     <p>Deterministic, high-stakes software applications engineered for reliability, scalability, and precise operational control &mdash; where a wrong answer is not an acceptable outcome.</p>
                 </div>
                 <div class="card">
-                    <div class="card-icon">03</div>
+                    <div class="card-icon">3</div>
                     <h3>Data Platform Engineering</h3>
                     <p>Cloud data platforms on Azure Data Factory and Synapse: ingestion, transformation, and reporting pipelines, schema-drift handling, and T-SQL performance tuning on systems that already carry your business.</p>
                 </div>
                 <div class="card">
-                    <div class="card-icon">04</div>
+                    <div class="card-icon">4</div>
                     <h3>SEO-Optimized Websites</h3>
                     <p>Fast, conversion-focused websites built and optimized from the ground up for search visibility and measurable growth.</p>
+                    <div class="card-example">
+                        <p class="card-example-label">Website portfolio</p>
+                        <a href="https://www.seniorsecured.org" target="_blank" rel="noopener" class="card-example-link">See a site I built <span aria-hidden="true">&rarr;</span></a>
+                    </div>
                 </div>
             </div>
         </section>
