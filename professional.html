@@ -28,7 +28,7 @@
     <meta name="twitter:description" content="Houston-based Senior Data Engineer, Database Developer, and AI Engineer on the Microsoft/Azure stack. Open to senior data engineering, database development, and AI engineering roles.">
     <meta name="twitter:image" content="https://anthonyjctsg.com/wealthrunner_thumbnail.png">
 
-    <link rel="stylesheet" href="styles.css?v=2">
+    <link rel="stylesheet" href="styles.css?v=5">
 
     <script type="application/ld+json">
     {
@@ -368,6 +368,19 @@
             <ul class="nav-links">
                 <li><a href="business.html">Business</a></li>
                 <li><a href="professional.html" aria-current="page">Professional</a></li>
+                <li class="nav-contact-item">
+                    <button type="button" class="nav-contact-toggle" aria-expanded="false" aria-haspopup="true" aria-controls="nav-contact-panel">Contact</button>
+                    <div class="nav-contact-panel" id="nav-contact-panel" hidden>
+                        <form novalidate>
+                            <label class="visually-hidden" for="nav-contact-name">Name</label>
+                            <input id="nav-contact-name" type="text" autocomplete="name" maxlength="120" placeholder="Name (optional)">
+                            <label class="visually-hidden" for="nav-contact-email">Email</label>
+                            <input id="nav-contact-email" type="email" autocomplete="email" maxlength="254" placeholder="you@example.com" required>
+                            <button type="submit" class="btn">Send</button>
+                        </form>
+                        <p class="nav-contact-status" role="status" aria-live="polite"></p>
+                    </div>
+                </li>
                 <li><a href="https://www.anthonyjctsg.online" target="_blank" rel="noopener">Games</a></li>
             </ul>
         </div>
@@ -579,6 +592,7 @@
     </footer>
 
     <script src="ctsg-data.js"></script>
+    <script src="nav-contact.js"></script>
     <script>
         // Recruiter contact form. The email address in the sidebar stays put as
         // a fallback, so a failed send is never a dead end.

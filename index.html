@@ -27,7 +27,7 @@
     <meta name="twitter:description" content="Houston-based AI engineer, data engineer, and business intelligence consultant.">
     <meta name="twitter:image" content="https://anthonyjctsg.com/wealthrunner_thumbnail.png">
 
-    <link rel="stylesheet" href="styles.css?v=4">
+    <link rel="stylesheet" href="styles.css?v=5">
 
     <script type="application/ld+json">
     {
@@ -359,95 +359,6 @@
             color: var(--text-muted);
         }
 
-        /* 6 — Mailing list signup */
-        .visually-hidden {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            overflow: hidden;
-            clip: rect(0 0 0 0);
-            white-space: nowrap;
-        }
-
-        /* Sits under the quote in the identity column, spaced well away from
-           it so the two blocks don't read as one piece. Kept compact — a
-           slim stacked form, not a tall card. */
-        .signup {
-            margin-top: 2.5rem;
-            padding: 1rem 1.1rem;
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            background-color: var(--light-blue);
-            animation: slideInRow 0.6s ease-out 0.5s backwards;
-        }
-
-        .signup h3 {
-            font-size: 1rem;
-            margin-bottom: 0.3rem;
-        }
-
-        .signup > p {
-            color: var(--text-muted);
-            font-size: 0.82rem;
-            line-height: 1.4;
-            margin-bottom: 0.85rem;
-        }
-
-        .signup-fields {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .signup-fields input {
-            width: 100%;
-            padding: 0.5rem 0.7rem;
-            font-size: 0.85rem;
-            font-family: inherit;
-            color: var(--text-dark);
-            background-color: var(--bg-white);
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-        }
-
-        .signup-fields input:focus-visible {
-            outline: 2px solid var(--primary-blue);
-            outline-offset: 1px;
-        }
-
-        .signup-fields .btn {
-            width: 100%;
-            padding: 0.5rem 0.9rem;
-            border: none;
-            cursor: pointer;
-            font-size: 0.85rem;
-            font-family: inherit;
-        }
-
-        .signup-fields .btn:disabled {
-            opacity: 0.6;
-            cursor: default;
-        }
-
-        .signup-status:empty {
-            display: none;
-        }
-
-        .signup-status {
-            margin-top: 0.8rem;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-        }
-
-        .signup-status.is-ok {
-            color: var(--primary-blue);
-            font-weight: 600;
-        }
-
-        .signup-status.is-error {
-            color: #b3261e;
-        }
-
         /* 5 — Directory list - hidden */
         .home-directory {
             display: none;
@@ -521,9 +432,7 @@
                 padding-bottom: 2.5rem;
             }
             /* Let the identity/feature wrappers dissolve so their children
-               can be reordered individually — otherwise the signup form is
-               stuck wherever it sits inside .home-identity, in the middle
-               of the page instead of at the end. */
+               can be reordered individually. */
             .home-identity,
             .home-feature {
                 display: contents;
@@ -542,9 +451,6 @@
             .home-content-row {
                 order: 4;
                 grid-template-columns: 1fr;
-            }
-            .signup {
-                order: 5;
             }
             .skills-col {
                 order: 0;
@@ -593,6 +499,19 @@
             <ul class="nav-links">
                 <li><a href="business.html">Business</a></li>
                 <li><a href="professional.html">Professional</a></li>
+                <li class="nav-contact-item">
+                    <button type="button" class="nav-contact-toggle" aria-expanded="false" aria-haspopup="true" aria-controls="nav-contact-panel">Contact</button>
+                    <div class="nav-contact-panel" id="nav-contact-panel" hidden>
+                        <form novalidate>
+                            <label class="visually-hidden" for="nav-contact-name">Name</label>
+                            <input id="nav-contact-name" type="text" autocomplete="name" maxlength="120" placeholder="Name (optional)">
+                            <label class="visually-hidden" for="nav-contact-email">Email</label>
+                            <input id="nav-contact-email" type="email" autocomplete="email" maxlength="254" placeholder="you@example.com" required>
+                            <button type="submit" class="btn">Send</button>
+                        </form>
+                        <p class="nav-contact-status" role="status" aria-live="polite"></p>
+                    </div>
+                </li>
                 <li><a href="https://www.anthonyjctsg.online" target="_blank" rel="noopener">Games</a></li>
             </ul>
         </div>
@@ -613,22 +532,6 @@
                     <p>&ldquo;Do it right the first time, you won&rsquo;t have to do it again.&rdquo;</p>
                     <cite>&mdash; Annie.J</cite>
                 </blockquote>
-
-                <!-- 6 — Mailing list -->
-                <section class="signup" aria-labelledby="signup-heading">
-                    <h3 id="signup-heading">Occasional updates</h3>
-                    <p>Notes on what I&rsquo;m building &mdash; AI, data, and side projects &mdash; now and then. Your email is only used to send those &mdash; ask any time and it comes off the list.</p>
-                    <form id="signup-form" novalidate>
-                        <div class="signup-fields">
-                            <label class="visually-hidden" for="signup-name">Name (optional)</label>
-                            <input id="signup-name" type="text" autocomplete="name" maxlength="120" placeholder="Name (optional)">
-                            <label class="visually-hidden" for="signup-email">Email address</label>
-                            <input id="signup-email" type="email" autocomplete="email" maxlength="254" placeholder="you@example.com" required>
-                            <button type="submit" class="btn">Sign me up</button>
-                        </div>
-                        <p class="signup-status" id="signup-status" role="status" aria-live="polite"></p>
-                    </form>
-                </section>
             </div>
 
             <div class="home-feature">
@@ -728,6 +631,7 @@
     </footer>
 
     <script src="ctsg-data.js"></script>
+    <script src="nav-contact.js"></script>
     <script>
         // latest-video.json is refreshed daily by a scheduled GitHub Action that
         // reads the channel RSS feed. The markup above is the baked-in fallback.
@@ -750,50 +654,6 @@
                 }
             })
             .catch(function () { /* keep the fallback video already in the markup */ });
-
-        // Mailing list. Without JS the form simply does nothing rather than
-        // navigating somewhere broken, hence the novalidate + preventDefault.
-        (function () {
-            var form = document.getElementById('signup-form');
-            if (!form || !window.CTSG) { return; }
-
-            var emailField = document.getElementById('signup-email');
-            var nameField = document.getElementById('signup-name');
-            var status = document.getElementById('signup-status');
-            var submit = form.querySelector('button');
-
-            form.addEventListener('submit', function (e) {
-                e.preventDefault();
-
-                var email = emailField.value.trim();
-                // Deliberately loose — the only address worth rejecting here is
-                // one that is obviously not an address at all.
-                if (email.indexOf('@') < 1 || email.indexOf('.', email.indexOf('@')) < 0) {
-                    status.textContent = 'That does not look like an email address.';
-                    status.className = 'signup-status is-error';
-                    emailField.focus();
-                    return;
-                }
-
-                submit.disabled = true;
-                status.textContent = 'Adding you…';
-                status.className = 'signup-status';
-
-                CTSG.signUp(email, nameField.value.trim(), 'home')
-                    .then(function (result) {
-                        form.querySelector('.signup-fields').hidden = true;
-                        status.textContent = result.duplicate
-                            ? 'You are already on the list — nothing else to do.'
-                            : 'You are on the list. Thanks!';
-                        status.className = 'signup-status is-ok';
-                    })
-                    .catch(function () {
-                        submit.disabled = false;
-                        status.textContent = 'Something went wrong. Please try again in a moment.';
-                        status.className = 'signup-status is-error';
-                    });
-            });
-        }());
     </script>
 
 </body>

@@ -107,6 +107,107 @@ header {
     color: var(--primary-blue);
 }
 
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}
+
+/* Contact popover in the nav — a lightweight name+email capture that lives
+   on every page, rather than a page-level form visitors have to navigate to. */
+.nav-contact-item {
+    position: relative;
+}
+
+.nav-contact-toggle {
+    font: inherit;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.4rem 0;
+    color: #000000;
+    font-weight: 700;
+    font-size: 0.95rem;
+    transition: color 0.2s ease;
+}
+
+.nav-contact-toggle:hover,
+.nav-contact-toggle[aria-expanded="true"] {
+    color: var(--primary-blue);
+}
+
+.nav-contact-panel {
+    position: absolute;
+    top: calc(100% + 0.75rem);
+    right: 0;
+    width: min(270px, calc(100vw - 2.5rem));
+    background-color: var(--bg-white);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 1rem;
+    box-shadow: 0 12px 28px -10px rgba(0, 0, 0, 0.35);
+    z-index: 200;
+}
+
+.nav-contact-panel form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.nav-contact-panel input {
+    width: 100%;
+    padding: 0.55rem 0.7rem;
+    font-size: 0.85rem;
+    font-family: inherit;
+    color: var(--text-dark);
+    background-color: var(--light-blue);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+}
+
+.nav-contact-panel input:focus-visible {
+    outline: 2px solid var(--primary-blue);
+    outline-offset: 1px;
+}
+
+.nav-contact-panel .btn {
+    width: 100%;
+    padding: 0.55rem 0.9rem;
+    border: none;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-family: inherit;
+    text-align: center;
+}
+
+.nav-contact-panel .btn:disabled {
+    opacity: 0.6;
+    cursor: default;
+}
+
+.nav-contact-status:empty {
+    display: none;
+}
+
+.nav-contact-status {
+    margin-top: 0.6rem;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+}
+
+.nav-contact-status.is-ok {
+    color: var(--primary-blue);
+    font-weight: 600;
+}
+
+.nav-contact-status.is-error {
+    color: #b3261e;
+}
+
 .container {
     max-width: 1100px;
     margin: 0 auto;
