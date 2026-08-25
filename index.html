@@ -224,6 +224,16 @@
             padding: 0.5rem;
             background-color: var(--light-blue);
             animation: slideInRow 0.6s ease-out;
+            text-decoration: none;
+            color: inherit;
+            transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        a.focus-item:hover,
+        a.focus-item:focus-visible {
+            border-color: var(--primary-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 18px -10px rgba(0, 82, 204, 0.5);
         }
 
         .focus-item:nth-child(1) {
@@ -237,6 +247,9 @@
         }
         .focus-item:nth-child(4) {
             animation-delay: 0.3s;
+        }
+        .focus-item:nth-child(5) {
+            animation-delay: 0.4s;
         }
 
         .focus-item strong {
@@ -659,18 +672,21 @@
                             <h3 id="focus-heading">Skills</h3>
                         </div>
                         <div class="focus-grid">
-                            <div class="focus-item">
+                            <a class="focus-item" href="professional.html">
                                 <strong>AI &amp; Automation</strong>
-                            </div>
-                            <div class="focus-item">
+                            </a>
+                            <a class="focus-item" href="professional.html">
                                 <strong>Cloud Data Platforms</strong>
-                            </div>
-                            <div class="focus-item">
+                            </a>
+                            <a class="focus-item" href="professional.html">
                                 <strong>Engineering</strong>
-                            </div>
-                            <div class="focus-item">
+                            </a>
+                            <a class="focus-item" href="business.html">
                                 <strong>Analytics &amp; Delivery</strong>
-                            </div>
+                            </a>
+                            <a class="focus-item" href="business.html">
+                                <strong>SEO Services</strong>
+                            </a>
                         </div>
                     </section>
 
