@@ -400,11 +400,4 @@ footer {
     footer {
         padding: 2.25rem 0;
     }
-
-    /* Full-width tap targets for the stacked calls to action. */
-    .cta-actions .btn {
-        display: block;
-        width: 100%;
-        text-align: center;
-    }
 }

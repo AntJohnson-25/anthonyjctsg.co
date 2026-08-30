@@ -128,32 +128,6 @@
             max-width: 760px;
         }
 
-        .cta-band {
-            background-color: var(--light-blue);
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            padding: 2.5rem;
-            text-align: center;
-        }
-
-        .cta-band h2 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .cta-band p {
-            color: var(--text-muted);
-            max-width: 560px;
-            margin: 0 auto 1.5rem;
-        }
-
-        .cta-actions {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
         .how-list {
             list-style: none;
             display: grid;
@@ -381,9 +355,6 @@
         }
 
         @media (max-width: 600px) {
-            .cta-band {
-                padding: 1.75rem 1.25rem;
-            }
             .value-line {
                 font-size: 1.1rem;
             }
@@ -422,6 +393,136 @@
 
         .card-example-link:hover {
             text-decoration: underline;
+        }
+
+        /* 6th services card, flips on click instead of linking out — front is
+           the pitch, back is the "email Anthony" capture form plus a LinkedIn
+           link, so the CTA lives inside the grid instead of a separate band. */
+        .card-flip {
+            perspective: 1400px;
+            min-height: 320px;
+        }
+
+        .card-flip-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            min-height: 320px;
+            transition: transform 0.6s cubic-bezier(0.4, 0.1, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+
+        .card-flip.is-flipped .card-flip-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-face {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-white);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 2rem;
+            backface-visibility: hidden;
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+        }
+
+        .card-flip-trigger {
+            margin-top: auto;
+            align-self: flex-start;
+            background: none;
+            border: none;
+            padding: 0;
+            font: inherit;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--primary-blue);
+            cursor: pointer;
+        }
+
+        .card-flip-trigger:hover,
+        .card-flip-trigger:focus-visible {
+            text-decoration: underline;
+        }
+
+        .card-flip-back {
+            align-self: flex-start;
+            background: none;
+            border: none;
+            padding: 0;
+            margin-bottom: 0.75rem;
+            font: inherit;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+
+        .card-flip-back:hover,
+        .card-flip-back:focus-visible {
+            color: var(--primary-blue);
+        }
+
+        .card-back h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .card-contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .card-contact-form input {
+            width: 100%;
+            padding: 0.55rem 0.7rem;
+            font-size: 0.85rem;
+            font-family: inherit;
+            color: var(--text-dark);
+            background-color: var(--light-blue);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+        }
+
+        .card-contact-form input:focus-visible {
+            outline: 2px solid var(--primary-blue);
+            outline-offset: 1px;
+        }
+
+        .card-contact-form .btn {
+            border: none;
+            cursor: pointer;
+            font: inherit;
+            font-size: 0.85rem;
+        }
+
+        .card-contact-form .btn:disabled {
+            opacity: 0.6;
+            cursor: default;
+        }
+
+        .card-linkedin-link {
+            margin-top: auto;
+            padding-top: 0.75rem;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .card-linkedin-link:hover {
+            text-decoration: underline;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .card-flip-inner {
+                transition: none;
+            }
         }
 
         .faq-list {
@@ -584,6 +685,32 @@
                         <a href="https://www.seniorsecured.org" target="_blank" rel="noopener" class="card-example-link">See a site I built <span aria-hidden="true">&rarr;</span></a>
                     </div>
                 </div>
+
+                <div class="card-flip" id="build-card">
+                    <div class="card-flip-inner">
+                        <div class="card-face card-front">
+                            <div class="card-icon">6</div>
+                            <h3>Have Something Built?</h3>
+                            <p>Available 24/7/365, project-based or on a monthly retainer. Tell me what you are trying to solve and I will tell you straight whether it is worth building, buying, or leaving alone.</p>
+                            <button type="button" class="card-flip-trigger" aria-expanded="false" aria-controls="build-card-back">Get in touch <span aria-hidden="true">&rarr;</span></button>
+                        </div>
+                        <div class="card-face card-back" id="build-card-back">
+                            <button type="button" class="card-flip-back" aria-label="Back to overview">
+                                <span aria-hidden="true">&larr;</span> Back
+                            </button>
+                            <h3>Let&rsquo;s talk</h3>
+                            <form class="card-contact-form" novalidate>
+                                <label class="visually-hidden" for="card-contact-name">Name</label>
+                                <input id="card-contact-name" type="text" autocomplete="name" maxlength="120" placeholder="Name (optional)">
+                                <label class="visually-hidden" for="card-contact-email">Email</label>
+                                <input id="card-contact-email" type="email" autocomplete="email" maxlength="254" placeholder="you@example.com" required>
+                                <button type="submit" class="btn">Email Anthony</button>
+                            </form>
+                            <p class="nav-contact-status" role="status" aria-live="polite"></p>
+                            <a href="https://www.linkedin.com/in/anthony-c-johnson-2b88a7237/" target="_blank" rel="noopener" class="card-linkedin-link">Connect on LinkedIn <span aria-hidden="true">&rarr;</span></a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -645,17 +772,6 @@
             </div>
         </section>
 
-        <section>
-            <div class="cta-band">
-                <h2>Have something you want built?</h2>
-                <p>Houston and Greater Houston&rsquo;s business intelligence and AI implementation consultant &mdash; available 24/7/365, project-based or on a monthly retainer. Tell me what you are trying to solve and I will tell you straight whether it is worth building, buying, or leaving alone.</p>
-                <div class="cta-actions">
-                    <a href="mailto:ant.johnsonsql22@gmail.com" class="btn">Email Anthony</a>
-                    <a href="https://www.linkedin.com/in/anthony-c-johnson-2b88a7237/" target="_blank" rel="noopener" class="btn btn-secondary">Connect on LinkedIn</a>
-                </div>
-            </div>
-        </section>
-
     </main>
 
     <footer>
@@ -666,6 +782,70 @@
 
     <script src="ctsg-data.js"></script>
     <script src="nav-contact.js"></script>
+    <script>
+        // "Have Something Built?" services card: click to flip, mirrors the
+        // header's nav-contact capture but into the signups table straight
+        // from CTSG.signUp, no separate open/close panel logic needed.
+        (function () {
+            'use strict';
+
+            var card = document.getElementById('build-card');
+            if (!card) { return; }
+
+            var trigger = card.querySelector('.card-flip-trigger');
+            var back = card.querySelector('.card-flip-back');
+            var form = card.querySelector('.card-contact-form');
+            var status = card.querySelector('.nav-contact-status');
+            var emailField = document.getElementById('card-contact-email');
+            var nameField = document.getElementById('card-contact-name');
+            var submit = form.querySelector('button[type="submit"]');
+
+            function flip(isFlipped) {
+                card.classList.toggle('is-flipped', isFlipped);
+                trigger.setAttribute('aria-expanded', String(isFlipped));
+                if (isFlipped) {
+                    emailField.focus();
+                } else {
+                    trigger.focus();
+                }
+            }
+
+            trigger.addEventListener('click', function () { flip(true); });
+            back.addEventListener('click', function () { flip(false); });
+
+            if (!window.CTSG) { return; }
+
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                var email = emailField.value.trim();
+                if (email.indexOf('@') < 1 || email.indexOf('.', email.indexOf('@')) < 0) {
+                    status.textContent = 'That does not look like an email address.';
+                    status.className = 'nav-contact-status is-error';
+                    emailField.focus();
+                    return;
+                }
+
+                submit.disabled = true;
+                status.textContent = 'Sending…';
+                status.className = 'nav-contact-status';
+
+                CTSG.signUp(email, nameField.value.trim(), 'business-build-card')
+                    .then(function (result) {
+                        form.hidden = true;
+                        status.textContent = result.duplicate
+                            ? 'Already have your info — I will be in touch.'
+                            : 'Thanks — I will be in touch.';
+                        status.className = 'nav-contact-status is-ok';
+                    })
+                    .catch(function () {
+                        submit.disabled = false;
+                        status.textContent = 'Something went wrong. Please try again in a moment.';
+                        status.className = 'nav-contact-status is-error';
+                    });
+            });
+        }());
+    </script>
 
 </body>
 </html>
