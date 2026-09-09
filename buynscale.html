@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
 <title>buy'n'scale</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='8' fill='%23131a24'/><text x='32' y='42' font-family='Georgia,serif' font-size='26' fill='%23fbfaf7' text-anchor='middle'>C</text></svg>">
 <style>
 :root{
   --bg:#07090f; --bg2:#0d1220; --panel:#111824; --line:#1e2c3e;
@@ -182,17 +183,17 @@ button{font-family:var(--b);cursor:pointer;border:none}
   <!-- ============ TITLE ============ -->
   <div class="scene on" id="sc-title">
     <div style="max-width:600px;padding:24px;text-align:center">
-      <div class="eye">Acquire · Improve · Compound</div>
+      <div class="eye">Acquire Â· Improve Â· Compound</div>
       <h1 class="t-h1">buy<em>'n'</em>scale</h1>
       <p class="t-sub">Start with $150,000 and a used sedan. Buy real businesses, fix what's
         broken in them, and let the multiple do the rest. Sitting on cash is a decision too —
         and it earns 4.4%.</p>
       <div class="t-ladder">
-        <div class="t-rung"><b>Starter</b>$150K → $10M</div>
-        <div class="t-rung"><b>On the way</b>$10M → $100M</div>
-        <div class="t-rung"><b>Made it</b>$100M → $1B</div>
+        <div class="t-rung"><b>Starter</b>$150K â†’ $10M</div>
+        <div class="t-rung"><b>On the way</b>$10M â†’ $100M</div>
+        <div class="t-rung"><b>Made it</b>$100M â†’ $1B</div>
       </div>
-      <button class="btn" id="btn-begin">Begin →</button>
+      <button class="btn" id="btn-begin">Begin â†’</button>
     </div>
   </div>
 
@@ -200,7 +201,7 @@ button{font-family:var(--b);cursor:pointer;border:none}
   <div class="scene" id="sc-select">
     <div class="eye">Choose your operator</div>
     <div class="sel-grid" id="sel-grid"></div>
-    <button class="btn" id="btn-confirm" disabled>Start hunting →</button>
+    <button class="btn" id="btn-confirm" disabled>Start hunting â†’</button>
   </div>
 
   <!-- ============ DEAL SEARCH ============ -->
@@ -228,7 +229,7 @@ button{font-family:var(--b);cursor:pointer;border:none}
       <div class="note-tag"><div class="eye" id="note-kind">Broker email</div></div>
       <div class="note-acts">
         <button class="btn ghost" id="btn-pass">Pass</button>
-        <button class="btn" id="btn-accept">Go see it →</button>
+        <button class="btn" id="btn-accept">Go see it â†’</button>
       </div>
     </div>
   </div>
@@ -247,14 +248,14 @@ button{font-family:var(--b);cursor:pointer;border:none}
         <div class="fork-half" id="fork-r">DIVERT<small id="fork-r-sub">a tip just came in</small></div>
       </div>
     </div>
-    <div class="drive-tip">← → STEER · ↑ ACCELERATE · ↓ BRAKE · AVOID TRAFFIC</div>
+    <div class="drive-tip">â† â†’ STEER Â· â†‘ ACCELERATE Â· â†“ BRAKE Â· AVOID TRAFFIC</div>
   </div>
 
   <!-- ============ WALK-UP ============ -->
   <div class="scene" id="sc-walk">
     <canvas id="walk-canvas"></canvas>
     <div class="walk-prompt" id="walk-prompt"><span class="walk-key">[E] TALK TO THE OWNER</span></div>
-    <div class="drive-tip">← → WALK</div>
+    <div class="drive-tip">â† â†’ WALK</div>
   </div>
 
   <!-- ============ MODALS ============ -->
@@ -5764,7 +5765,7 @@ function exitMultiple(ebitda) {
 
 const ARCHETYPES = {
   starter: [
-    ['Morning Roast Café','Coffee Shop','F&B','Owner retiring after 11 years. Turnkey, loyal regulars.','Catering contracts and a second location are completely untapped.'],
+    ['Morning Roast CafÃ©','Coffee Shop','F&B','Owner retiring after 11 years. Turnkey, loyal regulars.','Catering contracts and a second location are completely untapped.'],
     ['CleanRight Services','Commercial Cleaning','Services','Founder relocating out of state. Motivated.','B2B recurring contracts would triple revenue on the same headcount.'],
     ['Prestige Cuts','Barbershop','Personal Care','Three chairs, one owner cutting all day.','Booth rental converts owner labour into passive margin.'],
     ['Delgado Landscaping','Landscaping','Home Services','Seasonal, cash-run, no systems.','Annual maintenance contracts smooth the season and lift margin.'],
@@ -5805,22 +5806,22 @@ const SELLER_LINES = [
 ];
 
 const STRATEGIES = [
-  { id:'workforce', label:'Workforce Development', icon:'👥',
+  { id:'workforce', label:'Workforce Development', icon:'ðŸ‘¥',
     desc:'Hire a real manager, restructure comp, cut turnover.',
     cost:0.35, months:9, odds:0.72, mgn:0.030, growth:0.04, risk:'Medium',
     win:'Turnover fell by half. A real manager freed the owner from the floor.',
     lose:'The new manager didn\'t last. Recruiting fees sunk, morale worse than before.' },
-  { id:'marketing', label:'Marketing Expansion', icon:'📣',
+  { id:'marketing', label:'Marketing Expansion', icon:'ðŸ“£',
     desc:'Double acquisition spend, digital channels, referral engine.',
     cost:0.30, months:6, odds:0.58, mgn:0.012, growth:0.11, risk:'Medium-High',
     win:'Customer acquisition cost held while volume climbed.',
     lose:'Spend went out, customers didn\'t come back. CAC ran past payback.' },
-  { id:'operations', label:'Operations Overhaul', icon:'⚙�?',
+  { id:'operations', label:'Operations Overhaul', icon:'âš™ï¿½?',
     desc:'Systems, automation, waste out of the process.',
     cost:0.45, months:14, odds:0.80, mgn:0.045, growth:0.01, risk:'Low',
     win:'Process waste eliminated. The margin gain is permanent.',
     lose:'The implementation dragged and the team never adopted it.' },
-  { id:'pricing', label:'Pricing Optimization', icon:'💰',
+  { id:'pricing', label:'Pricing Optimization', icon:'ðŸ’°',
     desc:'Re-tier the offer, introduce premium, raise average ticket.',
     cost:0.10, months:4, odds:0.66, mgn:0.038, growth:-0.01, risk:'Low-Medium',
     win:'Price held. Almost nobody left, and every dollar fell to the bottom line.',
@@ -5948,25 +5949,25 @@ function financings(ev) {
   const out = [];
   if (ev <= 5e6) {
     out.push({ id:'sba', label:'SBA 7(a) Acquisition Loan',
-      sub:'10% equity · 90% guaranteed loan @ 10.5% over 10 years · personal guarantee',
+      sub:'10% equity Â· 90% guaranteed loan @ 10.5% over 10 years Â· personal guarantee',
       equity: ev * 0.10,
       debt:[{ bal: ev * 0.90, rate:0.105, years:10 }],
       warn:'The loan is personally guaranteed. If the business fails, the debt follows you.' });
   }
   out.push({ id:'seller', label:'Bank + Seller Note',
-    sub:'20% equity · 50% bank @ 8.5%/7yr · 30% seller note @ 6%/5yr',
+    sub:'20% equity Â· 50% bank @ 8.5%/7yr Â· 30% seller note @ 6%/5yr',
     equity: ev * 0.20,
     debt:[{ bal: ev * 0.50, rate:0.085, years:7 }, { bal: ev * 0.30, rate:0.06, years:5 }],
     warn:'Seller stays on the note — they have every reason to want you to succeed.' });
   if (ev >= 4e6) {
     out.push({ id:'lbo', label:'Sponsor Leveraged Buyout',
-      sub:'40% equity · 60% unitranche @ 10% over 7 years',
+      sub:'40% equity Â· 60% unitranche @ 10% over 7 years',
       equity: ev * 0.40,
       debt:[{ bal: ev * 0.60, rate:0.10, years:7 }],
       warn:'Heavier amortisation. One soft year and the coverage covenant bites.' });
   }
   out.push({ id:'cash', label:'All Cash',
-    sub:'100% equity · no debt, no lender, no covenants',
+    sub:'100% equity Â· no debt, no lender, no covenants',
     equity: ev, debt:[],
     warn:'Safest structure and the worst use of capital — every dollar here is a dollar not compounding elsewhere.' });
   return out.map(f => {
@@ -6244,7 +6245,7 @@ function showNotification() {
       `<span>EBITDA<b>${fmt(eb)}</b></span>` +
       `<span>Ask<b>${fmt(d.ev)}</b></span>`;
   }
-  $('btn-accept').textContent = d.kind === 'risk' ? 'Go meet them →' : 'Go see it →';
+  $('btn-accept').textContent = d.kind === 'risk' ? 'Go meet them â†’' : 'Go see it â†’';
 }
 
 $('btn-pass').onclick = () => {
@@ -6364,7 +6365,7 @@ function startDrive() {
   $('fork-r').classList.remove('hit');
   const hasTip = S.referrals.length > 0;
   $('fork-r-sub').textContent = (hasTip ? 'a referral tip just came in' : 'chase a cold lead')
-    + ' — hold → to the kerb';
+    + ' — hold â†’ to the kerb';
   DRIVE3D.build(tier().key, track, DRIVE_CFG);
   requestAnimationFrame(driveLoop);
 }
@@ -6698,12 +6699,12 @@ function renderBiz() {
     <div class="m-head">
       <div>
         <div class="m-title">${d.name}</div>
-        <div class="m-meta">${d.type} · ${d.sector}${d.referral ? ' · Referred' : ''}</div>
+        <div class="m-meta">${d.type} Â· ${d.sector}${d.referral ? ' Â· Referred' : ''}</div>
       </div>
       <div style="text-align:right">
         <div class="m-meta">Asking</div>
         <div class="mono" style="font-size:24px;color:var(--gold)" id="d-ask">${fmt(d.ev)}</div>
-        <div class="m-meta" id="d-mult">${d.mult.toFixed(2)}× EBITDA</div>
+        <div class="m-meta" id="d-mult">${d.mult.toFixed(2)}Ã— EBITDA</div>
       </div>
     </div>
     <div class="seller">
@@ -6714,7 +6715,7 @@ function renderBiz() {
       <div class="fin-cell"><span>EBITDA</span><b>${fmt(eb)}</b></div>
       <div class="fin-cell"><span>Margin</span><b>${pct(d.mgn)}</b></div>
       <div class="fin-cell"><span>Growth</span><b>${pct(d.growth)}</b></div>
-      <div class="fin-cell"><span>Exit multiple at this size</span><b>${exitMultiple(eb).toFixed(1)}×</b></div>
+      <div class="fin-cell"><span>Exit multiple at this size</span><b>${exitMultiple(eb).toFixed(1)}Ã—</b></div>
     </div>
     <p style="color:var(--dim);font-size:13px;line-height:1.7;margin-bottom:6px">
       <strong style="color:var(--ink)">Why they're selling.</strong> ${d.why}</p>
@@ -6746,8 +6747,8 @@ function drawFin() {
       <div class="sub">${f.sub}</div>
       <div class="big">${fmt(f.equity)} <span style="font-size:11px;color:var(--dim)">equity in</span></div>
       <div class="sub" style="margin:6px 0 0">
-        Debt service ${fmt(f.annualDebtSvc)}/yr${cover ? ' · coverage ' + cover.toFixed(2) + '×' : ''}</div>
-      ${cover !== null && cover < 1.25 ? '<div class="warn">Coverage under 1.25× — this is tight. A soft year and you cannot pay the note.</div>' : ''}
+        Debt service ${fmt(f.annualDebtSvc)}/yr${cover ? ' Â· coverage ' + cover.toFixed(2) + 'Ã—' : ''}</div>
+      ${cover !== null && cover < 1.25 ? '<div class="warn">Coverage under 1.25Ã— — this is tight. A soft year and you cannot pay the note.</div>' : ''}
       <div class="warn" style="color:var(--dim)">${f.warn}</div>
       ${f.feasible ? '' : '<div class="warn">You don\'t have the equity for this.</div>'}`;
     if (f.feasible) el.onclick = () => { chosenFin = f; drawFin(); $('btn-buy').disabled = false; };
@@ -6768,7 +6769,7 @@ function negotiate() {
     d.mult *= (1 - disc);
     d.ev = d.rev * d.mgn * d.mult;
     $('d-ask').textContent = fmt(d.ev);
-    $('d-mult').textContent = d.mult.toFixed(2) + '× EBITDA';
+    $('d-mult').textContent = d.mult.toFixed(2) + 'Ã— EBITDA';
     chosenFin = null; $('btn-buy').disabled = true;
     drawFin();
     toast(`Seller came down ${pct(disc)}. Every turn of multiple you save is permanent equity.`);
@@ -6805,7 +6806,7 @@ function renderRisk() {
   $('modal-deal').innerHTML = `
     <div class="m-head">
       <div><div class="m-title">${d.name}</div>
-        <div class="m-meta">${src.from} · ${d.type}</div></div>
+        <div class="m-meta">${src.from} Â· ${d.type}</div></div>
       <div style="text-align:right"><div class="m-meta">They want</div>
         <div class="mono" style="font-size:24px;color:var(--gold)">${fmt(d.amount)}</div></div>
     </div>
@@ -6871,7 +6872,7 @@ function openOperate(co) {
   $('modal-op').innerHTML = `
     <div class="m-head">
       <div><div class="m-title">Now fix it</div>
-        <div class="m-meta">${co.name} · ${fmt(eb)} EBITDA · ${pct(co.mgn)} margin</div></div>
+        <div class="m-meta">${co.name} Â· ${fmt(eb)} EBITDA Â· ${pct(co.mgn)} margin</div></div>
     </div>
     <p style="color:var(--dim);font-size:13px;line-height:1.7;margin-bottom:16px">
       Buying it was the easy part. Pick one thing to do with the business — it costs capital,
@@ -6890,7 +6891,7 @@ function openOperate(co) {
     el.innerHTML = `<h4>${st.icon} ${st.label}</h4>
       <div class="sub">${st.desc}</div>
       <div class="big">${fmt(cost)} <span style="font-size:11px;color:var(--dim)">to fund</span></div>
-      <div class="sub" style="margin:6px 0 0">${st.months} months · ${Math.round(st.odds * 100)}% hit rate · risk ${st.risk}</div>
+      <div class="sub" style="margin:6px 0 0">${st.months} months Â· ${Math.round(st.odds * 100)}% hit rate Â· risk ${st.risk}</div>
       <div class="sub" style="margin:2px 0 0">On success: ${(st.mgn * 100).toFixed(1)}pt margin${st.growth ? `, ${st.growth > 0 ? '+' : ''}${pct(st.growth)} growth` : ''}</div>
       ${cost > S.cash ? '<div class="warn">Not enough cash to fund this.</div>' : ''}`;
     if (cost <= S.cash) el.onclick = () => {
@@ -6938,7 +6939,7 @@ function showReport(log, before) {
       <td class="mono" style="padding:9px 8px">${fmt(eb)}
         <span style="color:${lift >= 0 ? 'var(--green)' : 'var(--red)'};font-size:10px">
         ${lift >= 0 ? '+' : ''}${pct(lift)}</span></td>
-      <td class="mono" style="padding:9px 8px">${exitMultiple(eb).toFixed(1)}×</td>
+      <td class="mono" style="padding:9px 8px">${exitMultiple(eb).toFixed(1)}Ã—</td>
       <td class="mono" style="padding:9px 8px;color:var(--red)">${fmt(debtOf(co))}</td>
       <td class="mono" style="padding:9px 8px;color:var(--gold)">${fmt(equityValue(co))}</td>
       <td style="padding:9px 8px">${co.strat
@@ -6967,7 +6968,7 @@ function showReport(log, before) {
     ${log.events.length ? `<div style="margin-bottom:16px">${log.events.map(e => `
       <div style="border-left:2px solid ${e.good ? 'var(--green)' : 'var(--red)'};padding:9px 14px;
         background:rgba(17,24,36,.6);border-radius:3px;margin-bottom:6px;font-size:13px;line-height:1.6">
-        <strong>${e.co} · ${e.label}</strong><br>
+        <strong>${e.co} Â· ${e.label}</strong><br>
         <span style="color:var(--dim)">${e.text}</span></div>`).join('')}</div>` : ''}
     ${log.referrals ? `<p style="color:var(--gold);font-size:13px;margin-bottom:14px">
       ${log.referrals} referral${log.referrals > 1 ? 's' : ''} came in from owners you've dealt with.
@@ -6983,7 +6984,7 @@ function showReport(log, before) {
       : '<p style="color:var(--dim);margin-bottom:18px">You own nothing. Cash earns 4.4%; businesses earn a great deal more.</p>'}
     <div class="acts">
       <button class="btn ghost" id="btn-wait">Wait another quarter</button>
-      <button class="btn" id="btn-next">Find the next deal →</button>
+      <button class="btn" id="btn-next">Find the next deal â†’</button>
     </div>`;
 
   $('modal-report').querySelectorAll('[data-sell]').forEach(b => {
@@ -7048,7 +7049,7 @@ function levelUp() {
         </div>
         <div class="mono" style="color:var(--dim);font-size:12px;margin-bottom:20px">
           NEXT GATE — ${fmt(t.gate)}</div>
-        <button class="btn" id="btn-lvl">Keep going →</button>
+        <button class="btn" id="btn-lvl">Keep going â†’</button>
       </div>`;
     $('btn-lvl').onclick = () => {
       $('wrap-end').classList.remove('on');
@@ -7143,3 +7144,4 @@ init();
 </script>
 </body>
 </html>
+

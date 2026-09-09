@@ -8,9 +8,10 @@
     <meta name="keywords" content="Anthony C Johnson, AnthonyJCTSG, CTSG, AI and Data Consultant, AI &amp; Data Consultant Houston, Houston AI consultant, Houston data engineer, Houston database developer, Houston business intelligence consultant, AI engineer Houston, artificial intelligence, AI implementation, data engineering, cloud data engineer, database development, Azure Data Factory, Azure Synapse, Azure AI Foundry, Copilot Studio, n8n, agentic workflows, automation, technology consultant, custom software, SEO optimized websites, T-SQL, Python, Power BI, small business technology">
     <meta name="author" content="Anthony C Johnson">
     <meta name="robots" content="index, follow">
-    <meta name="theme-color" content="#0052cc">
+    <meta name="theme-color" content="#9a4b23">
     <meta name="ai-native" content="true">
     <link rel="canonical" href="https://anthonyjctsg.com/">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='8' fill='%23131a24'/><text x='32' y='42' font-family='Georgia,serif' font-size='26' fill='%23fbfaf7' text-anchor='middle'>C</text></svg>">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
@@ -28,6 +29,14 @@
     <meta name="twitter:image" content="https://anthonyjctsg.com/wealthrunner_thumbnail.png">
 
     <link rel="stylesheet" href="styles.css?v=5">
+
+    <!-- Landing page is themed to match the consulting site (ctsg-htx.com) —
+         warm paper/ink editorial palette and serif headings, layered on top
+         of styles.css. portfolio.html (Games) is intentionally left on the
+         original dark theme. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
     <script type="application/ld+json">
     {
@@ -67,14 +76,40 @@
     }
     </script>
     <style>
+        /* CTSG editorial palette (matches ctsg-htx.com) in place of the
+           original dark theme's variable names, so every rule elsewhere in
+           this file and in styles.css repaints without being rewritten. */
         :root {
-            --primary-blue: #4a9eff;
-            --accent-blue: #6bb6ff;
-            --light-blue: #1a2332;
-            --text-dark: #e0e6ff;
-            --text-muted: #7d8aa8;
-            --bg-white: #0d1117;
-            --border-color: #2d3748;
+            --primary-blue: #9a4b23;
+            --accent-blue: #7a3b1a;
+            --light-blue: #f3f1ea;
+            --text-dark: #12161c;
+            --text-muted: #56606c;
+            --bg-white: #fbfaf7;
+            --border-color: #e2e0da;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Fraunces', Georgia, "Times New Roman", serif;
+            font-weight: 500;
+        }
+
+        header {
+            background-color: rgba(251, 250, 247, 0.95);
+        }
+
+        .btn {
+            color: var(--bg-white);
+        }
+
+        footer {
+            background-color: #131a24;
+            color: #93a0b5;
+            border-top: none;
         }
 
         /* Animation for row-by-row appearance */
@@ -107,7 +142,7 @@
 
         /* 3 — Name + what he does, upper right */
         .name-block {
-            text-align: right;
+            text-align: center;
             padding-bottom: 1.5rem;
         }
 
@@ -136,7 +171,7 @@
             overflow: hidden;
             background-color: var(--light-blue);
             border: 1px solid var(--border-color);
-            box-shadow: 0 12px 28px -8px rgba(0, 82, 204, 0.18);
+            box-shadow: 0 12px 28px -8px rgba(154, 75, 35, 0.18);
         }
 
         .profile-frame video,
@@ -233,7 +268,7 @@
         a.focus-item:focus-visible {
             border-color: var(--primary-blue);
             transform: translateY(-2px);
-            box-shadow: 0 8px 18px -10px rgba(0, 82, 204, 0.5);
+            box-shadow: 0 8px 18px -10px rgba(154, 75, 35, 0.5);
         }
 
         .focus-item:nth-child(1) {
@@ -316,7 +351,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: rgba(0, 82, 204, 0.92);
+            background: rgba(154, 75, 35, 0.92);
             width: 68px;
             height: 48px;
             border-radius: 12px;
@@ -389,7 +424,7 @@
         .directory a:hover {
             border-color: var(--primary-blue);
             transform: translateX(3px);
-            box-shadow: 0 8px 18px -10px rgba(0, 82, 204, 0.5);
+            box-shadow: 0 8px 18px -10px rgba(154, 75, 35, 0.5);
         }
 
         .directory a strong {
