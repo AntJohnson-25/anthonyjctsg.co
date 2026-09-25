@@ -82,14 +82,15 @@
         html, body { height: 100%; }
 
         body {
-            display: grid;
-            grid-template-rows: auto minmax(0, 1fr);
+            display: flex;
+            flex-direction: column;
             height: 100vh;
             height: 100dvh;
             overflow: hidden;
         }
 
         .stage {
+            flex: 1;
             display: flex;
             flex-direction: column;
             min-height: 0;
@@ -295,6 +296,8 @@
             object-fit: cover;
             object-position: 50% 100%;
             display: block;
+            /* The clip is letterboxed top and bottom; zoom just past the bars. */
+            transform: scale(1.06);
         }
 
         .quote {
