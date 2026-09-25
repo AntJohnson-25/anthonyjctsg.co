@@ -1,5 +1,5 @@
 # Keeps latest-video.json pointed at the newest upload on the
-# "A.I Build with AJ" YouTube channel. The homepage reads that file at runtime,
+# AnthonyJCTSG YouTube channel. The homepage reads that file at runtime,
 # so the featured video refreshes without editing index.html by hand.
 name: Update latest YouTube video
 
