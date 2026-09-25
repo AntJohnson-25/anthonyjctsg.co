@@ -183,8 +183,17 @@
             padding: 40px 48px;
         }
 
-        /* Vertically centred when it fits, top-aligned and scrollable when not. */
-        .card-body > .inner { margin: auto 0; width: 100%; }
+        /* Vertically centred when it fits, top-aligned and scrollable when not.
+           --s is the signed version of --d (-1 left, +1 right): the content
+           trails its card while it slides, for a light parallax. */
+        .card-body { overflow-x: hidden; }
+        .card-body > .inner {
+            margin: auto 0;
+            width: 100%;
+            transform: translateX(calc(var(--s, 0) * 56px));
+        }
+
+        .nowrap { white-space: nowrap; }
 
         /* ---------- bottom tab bar ---------- */
         .tabbar {
@@ -554,15 +563,21 @@
             .card { border-radius: 18px; }
             .card-body { padding: 24px 20px; }
             .portrait-card { width: min(62vw, 240px); }
+            .hero .label { font-size: 11px; letter-spacing: .1em; }
             .links { grid-template-columns: 1fr; }
             .tabbar { gap: 6px; padding: 8px 10px 12px; }
             .tabs button { padding: 8px 11px; font-size: 13px; }
             .arrow { display: none; }
         }
 
+        /* Short laptop screens: keep the hero inside its card without scrolling. */
+        @media (max-height: 700px) and (min-width: 721px) {
+            .card-body { padding-top: 26px; padding-bottom: 26px; }
+        }
+
         @media (prefers-reduced-motion: reduce) {
             .track { scroll-behavior: auto; }
-            .card { transform: none; }
+            .card, .card-body > .inner { transform: none; }
         }
     </style>
 </head>
@@ -616,7 +631,7 @@
                             </blockquote>
                         </div>
                         <div>
-                            <div class="label rise d1">Data engineer &middot; Founder of CTSG &middot; Sugar Land, TX</div>
+                            <div class="label rise d1">Data engineer &middot; Founder of CTSG &middot; <span class="nowrap">Sugar Land, TX</span></div>
                             <h1 class="rise d1">Anthony C Johnson</h1>
                             <p class="statement rise d2">I help Houston home service companies find the revenue <b>already sitting in their customer data</b>, then go after it.</p>
                             <div class="hero-actions rise d3">
@@ -786,9 +801,11 @@
                 var mid = track.clientWidth / 2;
                 var best = 0, bestD = Infinity;
                 cards.forEach(function (c, i) {
-                    var dist = Math.abs(centreOf(c) - mid);
+                    var off = centreOf(c) - mid;
+                    var dist = Math.abs(off);
                     var d = Math.min(dist / (c.offsetWidth * 0.9), 1);
                     c.style.setProperty('--d', d.toFixed(3));
+                    c.style.setProperty('--s', (off < 0 ? -d : d).toFixed(3));
                     if (dist < bestD) { bestD = dist; best = i; }
                 });
                 if (best === active) { return; }
@@ -833,7 +850,83 @@
                 if (tag === 'input' || tag === 'textarea' || e.altKey || e.ctrlKey || e.metaKey) { return; }
                 if (e.key === 'ArrowRight') { e.preventDefault(); go(active + 1); }
                 if (e.key === 'ArrowLeft') { e.preventDefault(); go(active - 1); }
+                if (e.key === 'PageDown') { e.preventDefault(); go(active + 1); }
+                if (e.key === 'PageUp') { e.preventDefault(); go(active - 1); }
             });
+
+            /* Vertical paging. Up and down move between cards too: a mouse wheel
+             * or a vertical swipe goes to the next or previous card. A card taller
+             * than the screen scrolls first, and it only pages once a NEW gesture
+             * starts at its top or bottom edge, so momentum from scrolling a card
+             * never flips the page by itself. */
+            function edge(dir) {
+                var body = cards[active].querySelector('.card-body');
+                if (dir > 0) { return body.scrollTop + body.clientHeight >= body.scrollHeight - 2; }
+                return body.scrollTop <= 1;
+            }
+
+            /* Paging down lands at the top of the next card, paging up at the
+             * bottom of the previous one, so it reads like one long page. */
+            function page(dir) {
+                var i = active + dir;
+                if (i < 0 || i >= cards.length) { return; }
+                var body = cards[i].querySelector('.card-body');
+                body.scrollTop = dir > 0 ? 0 : body.scrollHeight;
+                pageLockUntil = Date.now() + 600;
+                go(i);
+            }
+            // No second page turn while the first is still sliding in: a slow
+            // wheel spin or a trackpad's momentum tail would otherwise skip cards.
+            var pageLockUntil = 0;
+
+            /* One gesture = wheel events with no pause longer than 200ms. At its
+             * start it either scrolls the card in front (content left that way)
+             * or pages. Either way the track itself never takes a vertical wheel:
+             * left alone, Chromium turns it into a horizontal scroll of the track
+             * and snap skips several cards. */
+            var wheelMode = null, wheelSum = 0, wheelTimer = 0;
+            track.addEventListener('wheel', function (e) {
+                if (e.ctrlKey || Math.abs(e.deltaY) <= Math.abs(e.deltaX)) { return; }
+                var dir = e.deltaY > 0 ? 1 : -1;
+                var body = e.target.closest ? e.target.closest('.card-body') : null;
+                var own = !!body && body.parentNode === cards[active];
+                if (Date.now() < pageLockUntil) {
+                    e.preventDefault();
+                    wheelMode = 'done';
+                } else if (wheelMode === null) {
+                    wheelMode = (own && !edge(dir)) ? 'scroll' : 'page';
+                    wheelSum = 0;
+                }
+                clearTimeout(wheelTimer);
+                wheelTimer = setTimeout(function () { wheelMode = null; }, 200);
+
+                if (wheelMode === 'scroll') {
+                    if (own && !edge(dir)) { return; }   // native scroll of the card
+                    e.preventDefault();                  // hit the edge: stop there
+                    return;
+                }
+                e.preventDefault();
+                if (wheelMode !== 'page') { return; }
+                wheelSum += Math.abs(e.deltaY);
+                if (wheelSum >= 40) { wheelMode = 'done'; page(dir); }
+            }, { passive: false });
+
+            var touch = null;
+            track.addEventListener('touchstart', function (e) {
+                if (e.touches.length !== 1) { touch = null; return; }
+                var t = e.touches[0];
+                touch = { x: t.clientX, y: t.clientY, top: edge(-1), bottom: edge(1) };
+            }, { passive: true });
+            track.addEventListener('touchend', function (e) {
+                if (!touch) { return; }
+                var t = e.changedTouches[0];
+                var dx = t.clientX - touch.x, dy = t.clientY - touch.y;
+                var start = touch;
+                touch = null;
+                if (Math.abs(dy) < 60 || Math.abs(dy) < Math.abs(dx) * 1.5) { return; }
+                if (dy < 0 && start.bottom) { page(1); }    // swipe up: next
+                if (dy > 0 && start.top) { page(-1); }      // swipe down: previous
+            }, { passive: true });
 
             /* Old links to /#now, /#video still land on the right card. */
             var start = 0;
