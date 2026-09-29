@@ -339,7 +339,63 @@
             vertical-align: middle;
             border-radius: 50%;
             box-shadow: 0 0 0 1.5px var(--accent-2);
+            transition: transform .15s ease;
         }
+
+        .quote-face-btn {
+            padding: 0;
+            border: 0;
+            background: none;
+            cursor: zoom-in;
+            vertical-align: middle;
+            border-radius: 50%;
+        }
+
+        .quote-face-btn:hover .quote-face,
+        .quote-face-btn:focus-visible .quote-face { transform: scale(1.15); }
+        .quote-face-btn:focus-visible { outline: 2px solid var(--accent-2); outline-offset: 3px; }
+
+        .face-pop {
+            padding: 22px 22px 16px;
+            border: 1px solid rgb(255 255 255 / .12);
+            border-radius: 20px;
+            background: #141c2b;
+            color: #fff;
+            text-align: center;
+            box-shadow: 0 24px 60px rgb(0 0 0 / .55);
+        }
+
+        .face-pop[open] { animation: face-pop-in .2s ease-out; }
+        .face-pop::backdrop { background: rgb(5 8 14 / .7); backdrop-filter: blur(3px); }
+
+        .face-pop img {
+            display: block;
+            width: min(320px, 70vw);
+            height: auto;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            box-shadow: 0 0 0 3px var(--accent-2);
+        }
+
+        .face-pop p { margin: 14px 0 0; font-weight: 600; color: var(--accent-2); }
+
+        .face-pop-close {
+            position: absolute;
+            top: 8px;
+            right: 10px;
+            width: 32px;
+            height: 32px;
+            border: 0;
+            border-radius: 50%;
+            background: rgb(255 255 255 / .08);
+            color: #fff;
+            font-size: 20px;
+            line-height: 1;
+            cursor: pointer;
+        }
+
+        @keyframes face-pop-in { from { opacity: 0; transform: scale(.92); } }
+        @media (prefers-reduced-motion: reduce) { .face-pop[open] { animation: none; } }
 
         /* ---------- card 2: CTSG ---------- */
         .now-grid {
@@ -635,7 +691,12 @@
                             </div>
                             <blockquote class="quote">
                                 <p>&ldquo;Do it right the first time, you won&rsquo;t have to do it again.&rdquo;</p>
-                                <cite>&mdash; Annie.J <img class="quote-face" src="annie-j.png" alt="" width="26" height="26"></cite>
+                                <cite>&mdash; Annie.J <button type="button" class="quote-face-btn" id="annie-open" aria-haspopup="dialog" aria-label="Show Annie.J's picture"><img class="quote-face" src="annie-j.png" alt="" width="26" height="26"></button></cite>
+                                <dialog class="face-pop" id="annie-pop" aria-label="Annie.J">
+                                    <button type="button" class="face-pop-close" aria-label="Close">&times;</button>
+                                    <img data-src="annie-j-large.png" alt="Annie.J" width="320" height="320">
+                                    <p>Annie.J</p>
+                                </dialog>
                             </blockquote>
                         </div>
                         <div>
@@ -856,6 +917,7 @@
             document.addEventListener('keydown', function (e) {
                 var tag = (e.target.tagName || '').toLowerCase();
                 if (tag === 'input' || tag === 'textarea' || e.altKey || e.ctrlKey || e.metaKey) { return; }
+                if (document.querySelector('dialog[open]')) { return; }
                 if (e.key === 'ArrowRight') { e.preventDefault(); go(active + 1); }
                 if (e.key === 'ArrowLeft') { e.preventDefault(); go(active - 1); }
                 if (e.key === 'PageDown') { e.preventDefault(); go(active + 1); }
@@ -964,6 +1026,29 @@
                 }
             })
             .catch(function () { /* keep the fallback video already in the markup */ });
+    </script>
+    <script>
+        // Annie.J's face beside the hero quote opens a larger picture. The dialog moves to
+        // <body> so the carousel's wheel and swipe paging never see events from inside it,
+        // and the big image loads only when someone opens it.
+        (function () {
+            var open = document.getElementById('annie-open');
+            var pop = document.getElementById('annie-pop');
+            if (!open || !pop || typeof pop.showModal !== 'function') { return; }
+            document.body.appendChild(pop);
+            var img = pop.querySelector('img');
+            open.addEventListener('click', function () {
+                if (!img.src) { img.src = img.getAttribute('data-src'); }
+                pop.showModal();
+            });
+            pop.querySelector('.face-pop-close').addEventListener('click', function () { pop.close(); });
+            // A click on the backdrop lands on the dialog itself, outside its content box.
+            pop.addEventListener('click', function (e) {
+                var r = pop.getBoundingClientRect();
+                if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) { pop.close(); }
+            });
+            pop.addEventListener('close', function () { open.focus(); });
+        })();
     </script>
 
 </body>
