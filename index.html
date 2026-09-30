@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anthony C Johnson | Data Engineer &amp; Founder of CTSG</title>
-    <meta name="description" content="Anthony C Johnson is a Sugar Land data engineer and the founder of CTSG, which turns Houston home service companies' customer data into booked jobs. Also: AnthonyJCTSG on YouTube, and browser games.">
+    <title>Anthony C Johnson | Data Specialist &amp; Founder of CTSG</title>
+    <meta name="description" content="Anthony C Johnson is a Sugar Land, Texas data specialist and the founder of CTSG. SQL, analytics, and reporting that turn customer data into clear answers. Also AnthonyJCTSG on YouTube and free browser games.">
     <meta name="author" content="Anthony C Johnson">
-    <meta name="robots" content="index, follow">
+    <meta name="robots" content="index, follow, max-image-preview:large">
     <meta name="theme-color" content="#0d1520">
+    <meta name="geo.region" content="US-TX">
+    <meta name="geo.placename" content="Sugar Land">
     <link rel="canonical" href="https://anthonyjctsg.com/">
 
     <!-- Same icon files as ctsg-htx.com: one mark across both sites. -->
@@ -19,17 +21,21 @@
     <!-- Open Graph -->
     <meta property="og:type" content="profile">
     <meta property="og:site_name" content="AnthonyJCTSG">
-    <meta property="og:title" content="Anthony C Johnson | Data Engineer &amp; Founder of CTSG">
-    <meta property="og:description" content="Data engineer in Sugar Land, Texas. I help Houston home service companies find the revenue already sitting in their customer data.">
+    <meta property="og:title" content="Anthony C Johnson | Data Specialist &amp; Founder of CTSG">
+    <meta property="og:description" content="Data specialist in Sugar Land, Texas. SQL, analytics, and reporting, and the founder of CTSG, which helps Houston home service companies find the revenue already in their customer data.">
     <meta property="og:url" content="https://anthonyjctsg.com/">
     <meta property="og:image" content="https://anthonyjctsg.com/anthony.jpg">
+    <meta property="og:image:alt" content="Anthony C Johnson">
+    <meta property="profile:first_name" content="Anthony">
+    <meta property="profile:last_name" content="Johnson">
     <meta property="og:locale" content="en_US">
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Anthony C Johnson | Data Engineer &amp; Founder of CTSG">
-    <meta name="twitter:description" content="Data engineer in Sugar Land, Texas, and founder of CTSG.">
+    <meta name="twitter:title" content="Anthony C Johnson | Data Specialist &amp; Founder of CTSG">
+    <meta name="twitter:description" content="Data specialist in Sugar Land, Texas: SQL, analytics, and reporting. Founder of CTSG.">
     <meta name="twitter:image" content="https://anthonyjctsg.com/anthony.jpg">
+    <meta name="twitter:image:alt" content="Anthony C Johnson">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -48,7 +54,7 @@
       "alternateName": ["AnthonyJCTSG"],
       "url": "https://anthonyjctsg.com/",
       "image": "https://anthonyjctsg.com/anthony.jpg",
-      "jobTitle": "Data engineer and founder",
+      "jobTitle": "Data specialist and founder",
       "worksFor": {
         "@type": "Organization",
         "@id": "https://ctsg-htx.com/#business",
@@ -58,12 +64,13 @@
       },
       "homeLocation": { "@type": "Place", "name": "Sugar Land, Texas" },
       "knowsAbout": [
-        "Data engineering",
+        "Data analysis",
+        "SQL",
+        "Power BI",
+        "Python",
         "Customer data",
         "Marketing analytics",
         "Holdout testing",
-        "SQL",
-        "Python",
         "AI agents"
       ],
       "sameAs": [
@@ -101,16 +108,12 @@
 
         /* ---------- the carousel ----------
            Native horizontal scroll with snap, so touch swipe, trackpad swipe and
-           no-JS all work. Padding on each side lets the first and last cards
-           centre, leaving the neighbours peeking in at the edges. */
+           no-JS all work. Each page is the full width of the screen with no
+           frame around it; the content inside is capped and centred. */
         .track {
-            --cw: min(1100px, calc(100vw - 120px));
-            --gap: 28px;
             flex: 1;
             min-height: 0;
             display: flex;
-            gap: var(--gap);
-            padding: 22px calc((100% - var(--cw)) / 2) 10px;
             overflow-x: auto;
             overflow-y: hidden;
             scroll-snap-type: x mandatory;
@@ -121,56 +124,18 @@
 
         .track::-webkit-scrollbar { display: none; }
 
-        /* --d is 0 for the centred card and approaches 1 for a neighbour; the
-           script sets it on scroll. Scale and dim follow it, which is what gives
-           the tab-switcher feel. */
+        /* --d is 0 for the page in view and approaches 1 as it slides away; the
+           script sets it on scroll, and the outgoing page fades with it. */
         .card {
             --d: 0;
-            flex: 0 0 var(--cw);
+            flex: 0 0 100%;
             scroll-snap-align: center;
             scroll-snap-stop: always;
             display: flex;
             flex-direction: column;
             min-height: 0;
-            border-radius: 0;
-            border: 1px solid var(--line);
-            background: var(--bg-2);
-            box-shadow: 0 30px 70px -30px rgba(0, 0, 0, .85);
             overflow: hidden;
-            transform: scale(calc(1 - var(--d) * .09));
             opacity: calc(1 - var(--d) * .5);
-            transition: border-color .3s;
-        }
-
-        .card.is-active { border-color: var(--line-2); }
-        .card:not(.is-active) { cursor: pointer; }
-
-        /* A tab title bar: favicon, page name, position. */
-        .card-bar {
-            flex: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 11px 18px;
-            border-bottom: 1px solid var(--line);
-            background: rgba(255, 255, 255, .02);
-            font-size: 13.5px;
-            font-weight: 600;
-            color: var(--ink-2);
-        }
-
-        .card-bar img {
-            width: 18px;
-            height: 18px;
-            border-radius: 4px;
-            background: #fff;
-        }
-
-        .card-bar .pos {
-            margin-left: auto;
-            font-weight: 500;
-            color: var(--ink-3);
-            font-variant-numeric: tabular-nums;
         }
 
         .card-body {
@@ -188,8 +153,9 @@
            trails its card while it slides, for a light parallax. */
         .card-body { overflow-x: hidden; }
         .card-body > .inner {
-            margin: auto 0;
+            margin: auto;
             width: 100%;
+            max-width: 1100px;
             transform: translateX(calc(var(--s, 0) * 56px));
         }
 
@@ -624,7 +590,6 @@
         }
 
         @media (max-width: 720px) {
-            .track { --cw: calc(100vw - 48px); --gap: 12px; padding-top: 14px; }
             .card-body { padding: 24px 20px; }
             .portrait-card { width: min(62vw, 240px); }
             .hero .label { font-size: 11px; letter-spacing: .1em; }
@@ -641,7 +606,7 @@
 
         @media (prefers-reduced-motion: reduce) {
             .track { scroll-behavior: auto; }
-            .card, .card-body > .inner { transform: none; }
+            .card-body > .inner { transform: none; }
         }
     </style>
 </head>
@@ -682,7 +647,6 @@
 
             <!-- 1: hero -->
             <article class="card hero" id="home" role="group" aria-roledescription="slide" aria-label="1 of 4: Home">
-                <div class="card-bar"><img src="favicon-32.png" alt="">Home<span class="pos">1 / 4</span></div>
                 <div class="card-body">
                     <div class="inner hero-grid">
                         <div class="portrait-card rise">
@@ -700,7 +664,7 @@
                             </blockquote>
                         </div>
                         <div>
-                            <div class="label rise d1">Data engineer &middot; Founder of CTSG &middot; <span class="nowrap">Sugar Land, TX</span></div>
+                            <div class="label rise d1">Data specialist &middot; Founder of CTSG &middot; <span class="nowrap">Sugar Land, TX</span></div>
                             <h1 class="rise d1">Anthony C Johnson</h1>
                             <p class="statement rise d2">I help Houston home service companies find the revenue <b>already sitting in their customer data</b>, then go after it.</p>
                             <div class="hero-actions rise d3">
@@ -715,7 +679,6 @@
             <!-- 2: what the work is today. Services, process and pricing are on
                  ctsg-htx.com only; this is the short version and a way there. -->
             <article class="card" id="now" role="group" aria-roledescription="slide" aria-label="2 of 4: CTSG">
-                <div class="card-bar"><img src="favicon-32.png" alt="">What I&rsquo;m building<span class="pos">2 / 4</span></div>
                 <div class="card-body">
                     <div class="inner now-grid">
                         <div>
@@ -753,7 +716,6 @@
                  a scheduled GitHub Action; the markup here is the fallback. Keep
                  the video-* ids: the script at the bottom fills them in. -->
             <article class="card" id="video" role="group" aria-roledescription="slide" aria-label="3 of 4: YouTube">
-                <div class="card-bar"><img src="favicon-32.png" alt="">AnthonyJCTSG on YouTube<span class="pos">3 / 4</span></div>
                 <div class="card-body">
                     <div class="inner video-grid">
                         <div class="video-card">
@@ -772,7 +734,7 @@
                         <div class="video-copy">
                             <div class="label">On YouTube</div>
                             <h2>AnthonyJCTSG</h2>
-                            <p class="intro">Practical builds with AI, agents, and data engineering. What worked, what didn&rsquo;t, and the code.</p>
+                            <p class="intro">Practical builds with AI, agents, and data analytics. What worked, what didn&rsquo;t, and the code.</p>
                             <div class="video-meta">
                                 <span>Latest upload</span>
                                 <h3 id="video-title">Wealth Runner Now available</h3>
@@ -786,7 +748,6 @@
 
             <!-- 4: elsewhere, with the footer folded in. -->
             <article class="card" id="more" role="group" aria-roledescription="slide" aria-label="4 of 4: More">
-                <div class="card-bar"><img src="favicon-32.png" alt="">More<span class="pos">4 / 4</span></div>
                 <div class="card-body">
                     <div class="inner">
                         <div class="more-head">
@@ -796,8 +757,8 @@
                         <div class="links">
                             <a class="link-card" href="professional.html">
                                 <span class="kicker">Professional</span>
-                                <h3>The experience behind CTSG</h3>
-                                <p>Career history in data engineering, SQL, and reporting, plus the full skill set.</p>
+                                <h3>Experience and skills</h3>
+                                <p>Career history in SQL, data analytics, and reporting, plus the full skill set.</p>
                                 <span class="go">Read more &rarr;</span>
                             </a>
                             <a class="link-card" href="https://www.linkedin.com/in/anthony-c-johnson-2b88a7237/" target="_blank" rel="noopener">
@@ -902,9 +863,9 @@
             prev.addEventListener('click', function () { go(active - 1); });
             next.addEventListener('click', function () { go(active + 1); });
 
-            /* A peeking neighbour is a button to bring it forward; its links only
-             * work once it is the card in front. Capture phase, so the link never
-             * sees the click. */
+            /* A page still sliding in is a button to bring it forward; its links
+             * only work once it is the one in view. Capture phase, so the link
+             * never sees the click. */
             cards.forEach(function (c, i) {
                 c.addEventListener('click', function (e) {
                     if (i === active) { return; }
