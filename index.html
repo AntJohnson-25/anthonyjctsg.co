@@ -40,7 +40,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Inter+Tight:wght@500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="site.css?v=1">
+    <!-- Fall theme, Oct 1 to Nov 30 (site.css + fall.js). ?season=fall or
+         ?season=off previews it on any day. -->
+    <script>(function () { var q = /[?&]season=(fall|off)/.exec(location.search), m = new Date().getMonth(); if (q ? q[1] === 'fall' : m === 9 || m === 10) { document.documentElement.classList.add('fall'); } }());</script>
+    <link rel="stylesheet" href="site.css?v=2">
 
     <!-- This site describes the person; the business entity, its services and
          its pricing live only on ctsg-htx.com, so the two domains point at each
@@ -796,6 +799,7 @@
 
     <script src="ctsg-data.js"></script>
     <script src="nav-contact.js"></script>
+    <script src="fall.js"></script>
     <script>
         document.getElementById('y').textContent = new Date().getFullYear();
 

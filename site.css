@@ -317,6 +317,50 @@ footer a:hover { color: #fff; }
     .nav a.btn-sm { padding: 8px 12px; }
 }
 
+/* ---------- fall theme ----------
+   On from Oct 1 to Nov 30: the inline script in each page's <head> adds
+   html.fall by date (?season=fall or ?season=off to preview any day). Out of
+   season none of this matches. The drifting leaves come from fall.js. Pumpkin
+   accents keep white button text above 4.5:1. */
+html.fall {
+    --accent: #b8501a;
+    --accent-2: #ec8a2f;
+    --accent-soft: #ffe1b3;
+}
+
+/* A warm glow at the top right and an ember one low on the left. */
+html.fall .stage {
+    background:
+        radial-gradient(900px 480px at 80% -10%, rgba(236, 138, 47, .2), transparent 70%),
+        radial-gradient(700px 420px at -5% 110%, rgba(143, 58, 28, .2), transparent 70%),
+        var(--bg);
+}
+
+html.fall .play-button { background: rgba(184, 80, 26, .94); }
+
+/* A lit jack-o'-lantern beside the logo and name (just the logo on phones). */
+html.fall .brand::after {
+    content: "";
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+    transform: rotate(-8deg);
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cellipse cx='7.6' cy='14.6' rx='5.6' ry='7.4' fill='%23b4532a'/%3E%3Cellipse cx='16.4' cy='14.6' rx='5.6' ry='7.4' fill='%23b4532a'/%3E%3Cellipse cx='12' cy='14.6' rx='5' ry='7.9' fill='%23e07a2a'/%3E%3Cpath d='M12 7.2c-.1-2 .4-3.6 1.8-4.8' stroke='%234d6b2a' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3Cpath d='M13.4 5.6c.9-2.3 3.4-3.2 5.8-2.4-.8 2.3-3.3 3.3-5.8 2.4z' fill='%236f8f35'/%3E%3Cpath d='M6.6 13.2 8.6 10l1.8 3.2zM13.6 13.2 15.4 10l2 3.2zM11 15.6l1-1.6 1 1.6zM5.8 16.4l1.8.8 1-.8 1.2 1.2 1.2-.8 1 1.2 1-1.2 1.2.8 1.2-1.2 1 .8 1.8-.8c-.8 3.2-3.4 4.6-6.2 4.6s-5.4-1.4-6.2-4.6z' fill='%23ffd75a' stroke='%237a2e0e' stroke-width='.5' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+/* A small leaf in front of the hero and page labels. */
+html.fall .label::before {
+    content: "";
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    margin-right: 8px;
+    vertical-align: -2px;
+    background: currentColor;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 1l1.6 4.4 2.5-1.2-.5 4.9 3.8-2.6.1 3.1 3.5.6-2.6 3.1 1.3 1.9-4.8.2.4 2.4-4.2-1.9-.5 3.6h-1.2l-.5-3.6-4.2 1.9.4-2.4-4.8-.2 1.3-1.9L1 10.2l3.5-.6.1-3.1 3.8 2.6-.5-4.9 2.5 1.2z'/%3E%3Cpath d='M11.4 18h1.2v5h-1.2z'/%3E%3C/svg%3E") center / contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 1l1.6 4.4 2.5-1.2-.5 4.9 3.8-2.6.1 3.1 3.5.6-2.6 3.1 1.3 1.9-4.8.2.4 2.4-4.2-1.9-.5 3.6h-1.2l-.5-3.6-4.2 1.9.4-2.4-4.8-.2 1.3-1.9L1 10.2l3.5-.6.1-3.1 3.8 2.6-.5-4.9 2.5 1.2z'/%3E%3Cpath d='M11.4 18h1.2v5h-1.2z'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
 @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     .rise { animation: none; }
