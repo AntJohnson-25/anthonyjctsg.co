@@ -48,19 +48,25 @@
     <!-- This site describes the person; the business entity, its services and
          its pricing live only on ctsg-htx.com, so the two domains point at each
          other instead of competing for the same searches. -->
+    <!-- The same @ids are used on ctsg-htx.com, anthonyjctsg.online and
+         custombiztools.online, so all four sites resolve to one person and one
+         company. The FAQPage mirrors the About card; keep the two in step. -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
+      "@graph": [
+      {
       "@type": "Person",
       "@id": "https://anthonyjctsg.com/#person",
       "name": "Anthony C Johnson",
-      "alternateName": ["AnthonyJCTSG"],
+      "alternateName": ["Anthony Johnson", "AnthonyJCTSG"],
       "url": "https://anthonyjctsg.com/",
       "image": "https://anthonyjctsg.com/anthony.jpg",
       "jobTitle": "Data specialist and founder",
+      "description": "Anthony C Johnson is a data specialist in Sugar Land, Texas, with 7+ years in SQL, data analytics and reporting. He founded CTSG (Calamity Technology Solutions Group), which does customer data and follow-up campaigns for Houston home-service companies, and builds free browser games and small business tools.",
       "worksFor": {
         "@type": "Organization",
-        "@id": "https://ctsg-htx.com/#business",
+        "@id": "https://ctsg-htx.com/#organization",
         "name": "Calamity Technology Solutions Group, LLC",
         "alternateName": "CTSG",
         "url": "https://ctsg-htx.com/"
@@ -79,8 +85,56 @@
       "sameAs": [
         "https://www.linkedin.com/in/anthony-c-johnson-2b88a7237/",
         "https://www.youtube.com/@AnthonyJCTSG",
-        "https://www.anthonyjctsg.online",
-        "https://ctsg-htx.com/"
+        "https://anthonyjctsg.online/",
+        "https://ctsg-htx.com/",
+        "https://custombiztools.online/"
+      ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://anthonyjctsg.com/#website",
+        "name": "Anthony C Johnson",
+        "alternateName": "AnthonyJCTSG",
+        "url": "https://anthonyjctsg.com/",
+        "inLanguage": "en-US",
+        "publisher": { "@id": "https://anthonyjctsg.com/#person" }
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://anthonyjctsg.com/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Who is Anthony C Johnson?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Anthony C Johnson is a data specialist in Sugar Land, Texas, with 7+ years in SQL, data analytics and reporting. He is the founder of CTSG (Calamity Technology Solutions Group), and he goes by AnthonyJCTSG on YouTube." }
+          },
+          {
+            "@type": "Question",
+            "name": "What is CTSG?",
+            "acceptedAnswer": { "@type": "Answer", "text": "CTSG, short for Calamity Technology Solutions Group, LLC, is Anthony C Johnson's company in Sugar Land, Texas. It connects a home-service company's field software and QuickBooks into one customer database the company owns, then finds and runs the follow-up campaigns that bring in repeat work, measured against a holdout group. Services and pricing are at ctsg-htx.com." }
+          },
+          {
+            "@type": "Question",
+            "name": "What is AnthonyJCTSG?",
+            "acceptedAnswer": { "@type": "Answer", "text": "AnthonyJCTSG is Anthony C Johnson's name on YouTube, where he posts practical builds with AI, agents and data analytics. It is also the name on his free browser games at anthonyjctsg.online." }
+          },
+          {
+            "@type": "Question",
+            "name": "What games has Anthony C Johnson made?",
+            "acceptedAnswer": { "@type": "Answer", "text": "He builds free browser games solo, start to finish, including 3D Spades, Snowball Squabble, Fairway Kings golf, Turkey Bowl 3D football, Wealth Runner 2 and Billionaire Barber 2. They are all free to play at anthonyjctsg.online with no download." }
+          },
+          {
+            "@type": "Question",
+            "name": "What is custombiztools.online?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Custom Biz Tools at custombiztools.online is Anthony C Johnson's set of small, single-purpose tools for small businesses: customer feedback surveys with AI sentiment analysis, a financial statement dashboard, focus music with a Pomodoro timer, and an AI model cost calculator." }
+          },
+          {
+            "@type": "Question",
+            "name": "How can I work with Anthony C Johnson?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Business inquiries go through ctsg-htx.com, where you can request a 30-minute call. You can also connect with him on LinkedIn or leave your email with the Contact button on anthonyjctsg.com." }
+          }
+        ]
+      }
       ]
     }
     </script>
@@ -520,7 +574,48 @@
         .video-meta h3 { font-size: 19px; letter-spacing: -.01em; margin-bottom: 4px; }
         .video-meta time { font-size: 14px; color: var(--ink-3); }
 
-        /* ---------- card 4: more ---------- */
+        /* ---------- card 4: about ----------
+           Plain answers to the questions people (and answer engines) ask
+           about who this is. Same Q&A as the FAQPage JSON-LD in the head. */
+        .about-grid {
+            display: grid;
+            grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+            gap: 48px;
+            align-items: start;
+        }
+
+        .about-grid h2 { font-size: clamp(26px, 3vw, 34px); margin-bottom: 14px; }
+        .about-grid .lede { color: var(--ink-2); font-size: 16.5px; margin-bottom: 14px; }
+        .about-grid .lede a, .qa a { color: var(--ink); }
+
+        .qa details { border-top: 1px solid var(--line); }
+        .qa details:last-child { border-bottom: 1px solid var(--line); }
+
+        .qa summary {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 14px 0;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--ink);
+            cursor: pointer;
+            list-style: none;
+        }
+
+        .qa summary::-webkit-details-marker { display: none; }
+        .qa summary::after { content: "+"; color: var(--accent-2); transition: transform .2s; }
+        .qa details[open] summary::after { transform: rotate(45deg); }
+
+        .qa details p {
+            margin: 0;
+            padding: 0 28px 16px 0;
+            font-size: 14.5px;
+            line-height: 1.55;
+            color: var(--ink-3);
+        }
+
+        /* ---------- card 5: more ---------- */
         .more-head { margin-bottom: 28px; }
         .more-head h2 { font-size: clamp(26px, 3.2vw, 36px); }
 
@@ -586,7 +681,8 @@
 
         @media (max-width: 980px) {
             .now-grid,
-            .video-grid { grid-template-columns: 1fr; gap: 32px; }
+            .video-grid,
+            .about-grid { grid-template-columns: 1fr; gap: 32px; }
             .hero-grid { grid-template-columns: 1fr; gap: 28px; }
             .links { grid-template-columns: 1fr 1fr; }
             .card-body { padding: 32px; }
@@ -649,7 +745,7 @@
         <div class="track" id="track" role="region" aria-roledescription="carousel" aria-label="Pages">
 
             <!-- 1: hero -->
-            <article class="card hero" id="home" role="group" aria-roledescription="slide" aria-label="1 of 4: Home">
+            <article class="card hero" id="home" role="group" aria-roledescription="slide" aria-label="1 of 5: Home">
                 <div class="card-body">
                     <div class="inner hero-grid">
                         <div class="portrait-card rise">
@@ -681,7 +777,7 @@
 
             <!-- 2: what the work is today. Services, process and pricing are on
                  ctsg-htx.com only; this is the short version and a way there. -->
-            <article class="card" id="now" role="group" aria-roledescription="slide" aria-label="2 of 4: CTSG">
+            <article class="card" id="now" role="group" aria-roledescription="slide" aria-label="2 of 5: CTSG">
                 <div class="card-body">
                     <div class="inner now-grid">
                         <div>
@@ -718,7 +814,7 @@
             <!-- 3: latest YouTube upload. latest-video.json is refreshed daily by
                  a scheduled GitHub Action; the markup here is the fallback. Keep
                  the video-* ids: the script at the bottom fills them in. -->
-            <article class="card" id="video" role="group" aria-roledescription="slide" aria-label="3 of 4: YouTube">
+            <article class="card" id="video" role="group" aria-roledescription="slide" aria-label="3 of 5: YouTube">
                 <div class="card-body">
                     <div class="inner video-grid">
                         <div class="video-card">
@@ -749,8 +845,30 @@
                 </div>
             </article>
 
-            <!-- 4: elsewhere, with the footer folded in. -->
-            <article class="card" id="more" role="group" aria-roledescription="slide" aria-label="4 of 4: More">
+            <!-- 4: about. Same Q&A as the FAQPage JSON-LD in the head. -->
+            <article class="card" id="about" role="group" aria-roledescription="slide" aria-label="4 of 5: About">
+                <div class="card-body">
+                    <div class="inner about-grid">
+                        <div>
+                            <div class="label">About</div>
+                            <h2>Data specialist, founder, builder.</h2>
+                            <p class="lede">I&rsquo;m Anthony C Johnson, a data specialist in Sugar Land, Texas, with 7+ years in SQL, data analytics, and reporting. I founded <a href="https://ctsg-htx.com/">CTSG</a> to help Houston home service companies book more work from the customers they already have.</p>
+                            <p class="lede">On the side I build free browser games at <a href="https://anthonyjctsg.online/">anthonyjctsg.online</a>, small business tools at <a href="https://custombiztools.online/">custombiztools.online</a>, and post the builds on YouTube as AnthonyJCTSG.</p>
+                        </div>
+                        <div class="qa">
+                            <details open><summary>Who is Anthony C Johnson?</summary><p>A data specialist in Sugar Land, Texas, with 7+ years in SQL, data analytics and reporting. He is the founder of CTSG (Calamity Technology Solutions Group), and he goes by AnthonyJCTSG on YouTube.</p></details>
+                            <details><summary>What is CTSG?</summary><p>CTSG, short for Calamity Technology Solutions Group, LLC, connects a home service company&rsquo;s field software and QuickBooks into one customer database the company owns, then finds and runs the follow-up campaigns that bring in repeat work, measured against a holdout group. Services and pricing are at <a href="https://ctsg-htx.com/">ctsg-htx.com</a>.</p></details>
+                            <details><summary>What is AnthonyJCTSG?</summary><p>My name on <a href="https://www.youtube.com/@AnthonyJCTSG" target="_blank" rel="noopener">YouTube</a>, where I post practical builds with AI, agents and data analytics. It&rsquo;s also the name on my free browser games.</p></details>
+                            <details><summary>What games have you made?</summary><p>I build free browser games solo, start to finish, including 3D Spades, Snowball Squabble, Fairway Kings golf, Turkey Bowl 3D football, Wealth Runner 2 and Billionaire Barber 2. They&rsquo;re all free at <a href="https://anthonyjctsg.online/">anthonyjctsg.online</a>, no download.</p></details>
+                            <details><summary>What is custombiztools.online?</summary><p>My set of small, single-purpose tools for small businesses: customer feedback surveys with AI sentiment analysis, a financial statement dashboard, focus music with a Pomodoro timer, and an AI model cost calculator. See <a href="https://custombiztools.online/">custombiztools.online</a>.</p></details>
+                            <details><summary>How can I work with you?</summary><p>Business inquiries go through <a href="https://ctsg-htx.com/#contact">ctsg-htx.com</a>, where you can request a 30-minute call. You can also connect on LinkedIn or leave your email with the Contact button up top.</p></details>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 5: elsewhere, with the footer folded in. -->
+            <article class="card" id="more" role="group" aria-roledescription="slide" aria-label="5 of 5: More">
                 <div class="card-body">
                     <div class="inner">
                         <div class="more-head">
@@ -790,7 +908,8 @@
                 <button type="button" data-go="0" aria-current="true">Home</button>
                 <button type="button" data-go="1">CTSG</button>
                 <button type="button" data-go="2">YouTube</button>
-                <button type="button" data-go="3">More</button>
+                <button type="button" data-go="3">About</button>
+                <button type="button" data-go="4">More</button>
             </div>
             <button type="button" class="arrow" id="next" aria-label="Next page">&rarr;</button>
         </nav>
