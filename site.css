@@ -108,12 +108,11 @@ img, video { max-width: 100%; }
     color: var(--ink);
 }
 
-/* The mark is solid black on transparent; inverted it reads white on ink. */
+/* The CTSG seal: full colour, round. */
 .brand img {
-    height: 36px;
-    width: auto;
+    height: 52px;
+    width: 52px;
     display: block;
-    filter: invert(1);
 }
 
 .brand span {
