@@ -344,7 +344,7 @@ html.fall .brand::after {
     height: 30px;
     flex-shrink: 0;
     transform: rotate(-8deg);
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M8 13C4 15 5 21 9 20C12 20 13 23 15 27C20 36 30 43 42 46L46 22C35 22 27 18 21 13C17 10 12 10 8 13Z' fill='%23c98a3e' stroke='%237a4a1c' stroke-width='1.5' stroke-linejoin='round'/%3E%3Cpath d='M20 15C19 20 19 25 22 30M28 19C27 25 27 32 30 39M36 21C35 28 35 36 37 44' stroke='%237a4a1c' stroke-width='1.4' fill='none' stroke-linecap='round'/%3E%3Cellipse cx='44' cy='34' rx='4' ry='12' fill='%234a2a10'/%3E%3Ccircle cx='53' cy='29' r='6' fill='%23c8322a'/%3E%3Cpath d='M53 23c0-2 1-3 2-4' stroke='%235a3a1a' stroke-width='1.4' fill='none' stroke-linecap='round'/%3E%3Cpath d='M55 20c3-3 7-2 8 0-3 2-6 2-8 0z' fill='%236f9a35'/%3E%3Cellipse cx='56' cy='50' rx='5' ry='6.5' fill='%23e6b13c'/%3E%3Ccircle cx='44' cy='54' r='3.2' fill='%236b2f7a'/%3E%3Ccircle cx='49' cy='56' r='3.2' fill='%237b3a8c'/%3E%3Ccircle cx='46' cy='59' r='3.2' fill='%236b2f7a'/%3E%3Ccircle cx='48' cy='43' r='7.5' fill='%23e6772a'/%3E%3Cpath d='M45 37c-2 4-2 8 0 12M51 37c2 4 2 8 0 12' stroke='%23b04c16' stroke-width='1.1' fill='none'/%3E%3C/svg%3E") center / contain no-repeat;
+    background: url("cornucopia.svg") center / contain no-repeat;
 }
 
 /* A small leaf in front of the hero and page labels. */
